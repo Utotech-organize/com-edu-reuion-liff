@@ -2,6 +2,25 @@ import { useEffect, useState } from "react";
 import liff from "@line/liff";
 import "../Static/App.css";
 import Homepage from "./home/home";
+import ReserveTablePage from "./table/reserve-table";
+
+import {
+  Link,
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  useNavigate,
+  useRouteError,
+} from "react-router-dom";
+import ReserveChairPage from "./chair/reserve-chair";
+
+const ErrorPage = () => {
+  const error = useRouteError();
+  return <div id="error-page"></div>;
+};
+const AppLayout = () => {
+  return <Outlet />;
+};
 
 export default function App() {
   const [message, setMessage] = useState("");
@@ -21,23 +40,36 @@ export default function App() {
       });
   });
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <AppLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "",
+
+          element: <Homepage />,
+        },
+        {
+          path: "reserveTable",
+
+          element: <ReserveTablePage />,
+        },
+        {
+          path: "reserveChair",
+
+          element: <ReserveChairPage />,
+        },
+      ],
+    },
+  ]);
+
   return (
     <div className="App">
-      <Homepage></Homepage>
-      {/* <h1>create-liff-app</h1>
-      {message && <p>{message}</p>}
-      {error && (
-        <p>
-          <code>{error}</code>
-        </p>
-      )}
-      <a
-        href="https://developers.line.biz/ja/docs/liff/"
-        target="_blank"
-        rel="noreferrer"
-      >
-        LIFF Documentation
-      </a> */}
+      <RouterProvider router={router} />
+      {/* <ReserveTablePage></ReserveTablePage> */}
+      {/* <Homepage></Homepage> */}
     </div>
   );
 }
