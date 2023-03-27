@@ -16,7 +16,7 @@ export default function Appbar() {
       >
         <Row
           justify="space-between"
-          style={{ paddingTop: "2%", marginLeft: "10px", marginRight: "10px" }}
+          style={{ paddingTop: "2%", marginLeft: "15px", marginRight: "15px" }}
         >
           <Typography className="white-header">ComEdu Reunion</Typography>
           <Row>
