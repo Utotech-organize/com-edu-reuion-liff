@@ -42,6 +42,14 @@
   color: white;
 }
 
+.white-bold {
+  font-family: "crRoundedRegular";
+  font-style: bold;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+}
+
 .black-header {
   font-family: "crRoundedRegular";
   font-style: normal;

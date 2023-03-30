@@ -162,15 +162,17 @@ export default function ReserveTablePage() {
               <Typography className="black-header">666 คน</Typography>
               <Typography className="black-text">จำนวนผู้ลงทะเบียน</Typography>
             </div>
-            <Card
-              style={{
-                width: "40%",
+            <Link to={"../register"}>
+              <Card
+                style={{
+                  width: "100%",
 
-                backgroundColor: "#F6B63B",
-              }}
-            >
-              <Typography className="black-text">ลงทะเบียนเลย</Typography>
-            </Card>
+                  backgroundColor: "#F6B63B",
+                }}
+              >
+                <Typography className="black-text">ลงทะเบียนเลย</Typography>
+              </Card>
+            </Link>
           </Row>
         </Card>
         <Link to="/">

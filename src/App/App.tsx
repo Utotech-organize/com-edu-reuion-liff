@@ -13,6 +13,10 @@ import {
   useRouteError,
 } from "react-router-dom";
 import ReserveChairPage from "./chair/reserve-chair";
+import RegisterPage from "./register/register";
+import CheckPhoneNumberPage from "./check-phone-number/check-phone-number";
+import DetailReservePage from "./detail-reserve/detail-reserve";
+import CompletePage from "./complete/complete";
 
 const ErrorPage = () => {
   const error = useRouteError();
@@ -61,6 +65,22 @@ export default function App() {
 
           element: <ReserveChairPage />,
         },
+        {
+          path: "register",
+          element: <RegisterPage></RegisterPage>,
+        },
+        {
+          path: "phoneNumber",
+          element: <CheckPhoneNumberPage></CheckPhoneNumberPage>,
+        },
+        {
+          path: "detailReserve",
+          element: <DetailReservePage></DetailReservePage>,
+        },
+        {
+          path: "completePay",
+          element: <CompletePage></CompletePage>,
+        },
       ],
     },
   ]);
@@ -68,8 +88,6 @@ export default function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
-      {/* <ReserveTablePage></ReserveTablePage> */}
-      {/* <Homepage></Homepage> */}
     </div>
   );
 }

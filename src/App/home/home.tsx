@@ -61,12 +61,13 @@ export default function Homepage() {
             <Typography className="black-text">ขอจองโต๊ะ</Typography>
           </Button>
         </Link>
-
-        <Button shape="round" style={{ width: "60%", height: "50px" }}>
-          <Typography className="black-text">
-            ตรวจสอบข้อมูล & ชำระเงิน
-          </Typography>
-        </Button>
+        <Link to="/phoneNumber">
+          <Button shape="round" style={{ width: "60%", height: "50px" }}>
+            <Typography className="black-text">
+              ตรวจสอบข้อมูล & ชำระเงิน
+            </Typography>
+          </Button>
+        </Link>
       </div>
     </div>
   );
