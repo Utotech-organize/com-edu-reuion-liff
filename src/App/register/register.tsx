@@ -88,7 +88,7 @@ export default function RegisterPage() {
           </div>
         </Row>
         <div>
-          <Link to="">
+          <Link to="/check-info">
             <Button
               shape="round"
               style={{

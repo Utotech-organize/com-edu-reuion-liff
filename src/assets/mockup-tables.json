@@ -1,0 +1,129 @@
+{
+  "tables": [
+    {
+      "id": 1,
+      "name": "A1",
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "name": "A2",
+      "status": "available"
+    },
+    {
+      "id": 3,
+      "name": "A3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 4,
+      "name": "A4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 5,
+      "name": "A5",
+      "status": "full"
+    },
+    {
+      "id": 6,
+      "name": "B1",
+      "status": "available"
+    },
+    {
+      "id": 7,
+      "name": "B2",
+      "status": "available"
+    },
+    {
+      "id": 8,
+      "name": "B3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 9,
+      "name": "B4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 10,
+      "name": "B5",
+      "status": "full"
+    },
+    {
+      "id": 11,
+      "name": "C1",
+      "status": "available"
+    },
+    {
+      "id": 12,
+      "name": "C2",
+      "status": "available"
+    },
+    {
+      "id": 13,
+      "name": "C3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 14,
+      "name": "C4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 15,
+      "name": "C5",
+      "status": "full"
+    },
+    {
+      "id": 16,
+      "name": "D1",
+      "status": "available"
+    },
+    {
+      "id": 17,
+      "name": "D2",
+      "status": "available"
+    },
+    {
+      "id": 18,
+      "name": "D3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 19,
+      "name": "D4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 20,
+      "name": "D5",
+      "status": "full"
+    },
+    {
+      "id": 21,
+      "name": "E1",
+      "status": "available"
+    },
+    {
+      "id": 22,
+      "name": "E2",
+      "status": "available"
+    },
+    {
+      "id": 23,
+      "name": "E3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 24,
+      "name": "E4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 25,
+      "name": "E5",
+      "status": "full"
+    }
+  ]
+}

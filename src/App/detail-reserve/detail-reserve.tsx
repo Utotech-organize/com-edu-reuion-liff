@@ -148,10 +148,16 @@ export default function DetailReservePage() {
       >
         ( 2 ที่นั่ง x 360 บาท )
       </Typography>
+      <Row justify="space-between" align="middle" style={{ marginTop: "27px" }}>
+        <Typography className="yellow-text">ข้อมูลการชำระเงิน</Typography>
+        <div
+          style={{ width: "60%", height: "8px", backgroundColor: "#F6B63B" }}
+        ></div>
+      </Row>
       <Card
         style={{
           backgroundColor: "#303E57",
-          marginTop: "62px",
+          marginTop: "13px",
           marginBottom: "27px",
         }}
         bordered={false}
@@ -173,24 +179,57 @@ export default function DetailReservePage() {
         </Row>
         <Row justify={"space-between"}>
           <Typography className="yellow-text">ชื่อบัญชี</Typography>
-          <Typography className="yellow-text">น.ส. ภัทรวาดี ชาตะ</Typography>
+          <Typography className="yellow-text">
+            น.ส. ภัทรวาดี ชาตะ และ
+          </Typography>
         </Row>
-        <Row justify={"space-between"}>
-          <Typography className="yellow-text">เลขที่บัญชี</Typography>
-          <Row justify={"center"}>
+        <Typography className="yellow-text" style={{ textAlign: "end" }}>
+          นาย วัชพล เหลาทอง
+        </Typography>
+        <Typography
+          className="yellow-text"
+          style={{ textAlign: "start", marginBottom: "10px" }}
+        >
+          เลขที่บัญชี
+        </Typography>
+        <div
+          style={{
+            backgroundColor: "white",
+            borderRadius: "8px",
+            height: "40px",
+          }}
+        >
+          <Row justify="space-between">
+            <div></div>
             <Typography
               style={{
                 fontStyle: "normal",
                 fontWeight: "400",
                 fontSize: "16px",
                 color: "#9C9D9D",
+
+                alignSelf: "center",
               }}
             >
               0001555xx9
             </Typography>
-            <FileOutlined style={{ fontSize: "25px", marginLeft: "10px" }} />
+            <div
+              style={{
+                backgroundColor: "#677185",
+                width: "40px",
+                borderRadius: "8px",
+                height: "40px",
+              }}
+            >
+              <FileOutlined
+                style={{
+                  fontSize: "25px",
+                  marginTop: "15%",
+                }}
+              />
+            </div>
           </Row>
-        </Row>
+        </div>
       </Card>
       <Row
         justify="space-between"
@@ -228,10 +267,23 @@ export default function DetailReservePage() {
             width: "60%",
             height: "50px",
             marginTop: "20px",
-            marginBottom: "30px",
+            marginBottom: "10px",
           }}
         >
           <Typography className="black-text">ยืนยัน</Typography>
+        </Button>
+      </Link>
+      <Link to="../reserveTable">
+        <Button
+          shape="round"
+          style={{
+            width: "60%",
+            height: "50px",
+
+            marginBottom: "30px",
+          }}
+        >
+          <Typography className="black-text">ย้อนกลับ</Typography>
         </Button>
       </Link>
     </div>
