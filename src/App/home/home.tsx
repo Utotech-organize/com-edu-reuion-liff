@@ -53,18 +53,18 @@ export default function Homepage() {
         <Typography className="white-text" style={{ marginBottom: "30px" }}>
           รอข้าอยู่ไยกด ขอจองโต๊ะ เลยนะฮัฟ
         </Typography>
-        <Link to="/reserveTable">
+        <Link to={"../register"}>
           <Button
-            shape="round"
-            style={{ width: "60%", height: "50px", marginBottom: "20px" }}
+            style={{
+              justifyContent: "center",
+              width: "50%",
+              height: "50px",
+              backgroundColor: "#F6B63B",
+              marginBottom: "90px",
+            }}
           >
-            <Typography className="black-text">ขอจองโต๊ะ</Typography>
-          </Button>
-        </Link>
-        <Link to="/phoneNumber">
-          <Button shape="round" style={{ width: "60%", height: "50px" }}>
-            <Typography className="black-text">
-              ตรวจสอบข้อมูล & ชำระเงิน
+            <Typography className="black-text" style={{ textAlign: "center" }}>
+              ลงทะเบียนเลย
             </Typography>
           </Button>
         </Link>

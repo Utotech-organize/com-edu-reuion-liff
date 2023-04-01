@@ -4,10 +4,13 @@ import { Button, Card, Image, Row, Typography } from "antd";
 
 import Giraffe from "../../Static/images/Giraffe.png";
 import BualuangLogo from "../../Static/images/bualuang.jpg";
+import QRCode from "../../Static/images/qr-code.jpg";
 import { FileOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import useCopyToClipboard from "../../components/copy-clipboard";
 
 export default function ReplyInfoPage() {
+  const [value, copy] = useCopyToClipboard();
   return (
     <div>
       <Appbar />
@@ -348,26 +351,27 @@ export default function ReplyInfoPage() {
                   alignSelf: "center",
                 }}
               >
-                0001555xx9
+                8707120260
               </Typography>
-              <div
+              <Button
                 style={{
                   backgroundColor: "#677185",
-                  width: "40px",
+                  width: "50px",
                   borderRadius: "8px",
                   height: "40px",
                 }}
+                onClick={() => copy("8707120260")}
               >
                 <FileOutlined
                   style={{
                     fontSize: "25px",
-                    marginTop: "15%",
                   }}
                 />
-              </div>
+              </Button>
             </Row>
           </div>
         </Card>
+        <Image preview={false} width={380} src={QRCode}></Image>
 
         <Link to="/">
           <Button
@@ -375,7 +379,7 @@ export default function ReplyInfoPage() {
             style={{
               width: "60%",
               height: "50px",
-
+              marginTop: "30px",
               marginBottom: "50px",
             }}
           >

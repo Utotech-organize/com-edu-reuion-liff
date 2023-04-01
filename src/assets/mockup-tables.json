@@ -125,5 +125,66 @@
       "name": "E5",
       "status": "full"
     }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "label": "one",
+      "name": "A"
+    },
+    {
+      "id": 2,
+      "label": "two",
+
+      "name": "B"
+    },
+    {
+      "id": 3,
+      "label": "three",
+
+      "name": "C"
+    },
+    {
+      "id": 4,
+      "label": "four",
+
+      "name": "D"
+    },
+    {
+      "id": 5,
+      "label": "five",
+
+      "name": "E"
+    },
+    {
+      "id": 6,
+      "label": "six",
+
+      "name": "F"
+    },
+    {
+      "id": 7,
+      "label": "seven",
+
+      "name": "G"
+    },
+    {
+      "id": 8,
+      "label": "eight",
+
+      "name": "H"
+    },
+    {
+      "id": 9,
+      "label": "nine",
+
+      "name": "I"
+    },
+    {
+      "id": 10,
+      "label": "ten",
+
+      "name": "J"
+    }
   ]
 }

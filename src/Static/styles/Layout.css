@@ -52,6 +52,14 @@
   color: white;
 }
 
+.white-sm-text {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+}
+
 .white-bold {
   font-family: "crRoundedRegular";
   font-style: bold;

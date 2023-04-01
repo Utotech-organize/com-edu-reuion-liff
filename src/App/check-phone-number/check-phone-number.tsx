@@ -1,4 +1,4 @@
-import { Button, Image, Input, Row, Typography } from "antd";
+import { Button, Form, Image, Input, Row, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import Appbar from "../../components/appbar";
@@ -6,6 +6,14 @@ import Appbar from "../../components/appbar";
 import Giraffe from "../../Static/images/Giraffe.png";
 
 export default function CheckPhoneNumberPage() {
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <div style={{ height: "100vh" }}>
       <Appbar />
@@ -14,32 +22,44 @@ export default function CheckPhoneNumberPage() {
           ตรวจสอบข้อมูล & ชำระเงิน
         </Typography>
         <div>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "72px",
-              marginBottom: "5px",
-              textAlign: "start",
-            }}
+          <Form
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            style={{ maxWidth: 600 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
           >
-            ค้นหาข้อมูลการจองโต๊ะด้วยเบอร์โทรศัพท์
-          </Typography>
-          <Input className="normal-text" placeholder="เบอร์โทรศัพท์" />;
-        </div>
-        <div>
-          <Link to="">
-            <Button
-              shape="round"
+            <Typography
+              className="white-text"
               style={{
-                width: "60%",
-                height: "50px",
-                marginTop: "20px",
-                marginBottom: "10px",
+                marginTop: "27px",
+                marginBottom: "5px",
+                textAlign: "start",
               }}
             >
-              <Typography className="black-text">ยืนยัน</Typography>
-            </Button>
-          </Link>
+              ค้นหาข้อมูลการจองโต๊ะด้วยเบอร์โทรศัพท์
+            </Typography>
+            <Form.Item
+              name="check-phone"
+              rules={[{ required: true, message: "กรุณากรอกเบอร์โทรศัพท์ !" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              <Button
+                shape="round"
+                htmlType="submit"
+                style={{ width: "60%", height: "50px", right: "33%" }}
+              >
+                <Typography className="black-text">ยืนยัน</Typography>
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+        <div>
           <Link to="/">
             <Button
               shape="round"

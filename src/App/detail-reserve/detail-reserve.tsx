@@ -3,10 +3,16 @@ import { Button, Card, Image, Row, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
+import useCopyToClipboard from "../../components/copy-clipboard";
+
 import BualuangLogo from "../../Static/images/bualuang.jpg";
 import Giraffe from "../../Static/images/Giraffe.png";
+import QRCode from "../../Static/images/qr-code.jpg";
 
 export default function DetailReservePage() {
+  const [value, copy] = useCopyToClipboard();
+  console.log(value);
+
   return (
     <div className="app-layout">
       <Typography
@@ -211,26 +217,27 @@ export default function DetailReservePage() {
                 alignSelf: "center",
               }}
             >
-              0001555xx9
+              8707120260
             </Typography>
-            <div
+            <Button
               style={{
                 backgroundColor: "#677185",
-                width: "40px",
+                width: "50px",
                 borderRadius: "8px",
                 height: "40px",
               }}
+              onClick={() => copy("8707120260")}
             >
               <FileOutlined
                 style={{
                   fontSize: "25px",
-                  marginTop: "15%",
                 }}
               />
-            </div>
+            </Button>
           </Row>
         </div>
       </Card>
+      <Image preview={false} width={380} src={QRCode}></Image>
       <Row
         justify="space-between"
         align="middle"
@@ -260,7 +267,7 @@ export default function DetailReservePage() {
           </Typography>
         </div>
       </Row>
-      <Link to="../completePay">
+      <Link to="../complete">
         <Button
           shape="round"
           style={{
@@ -273,7 +280,7 @@ export default function DetailReservePage() {
           <Typography className="black-text">ยืนยัน</Typography>
         </Button>
       </Link>
-      <Link to="../reserveTable">
+      <Link to="../reserve-table">
         <Button
           shape="round"
           style={{

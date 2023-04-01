@@ -22,11 +22,8 @@ import CompletePage from "./complete/complete";
 import CheckInfoPage from "./check-info/check-info";
 import ReplyInfoPage from "./reply-info/reply-info";
 import ReplyInfoEmptyPage from "./reply-info-empty/reply-info-empty";
+import ErrorPage from "./error/error";
 
-const ErrorPage = () => {
-  const error = useRouteError();
-  return <div id="error-page"></div>;
-};
 const AppLayout = () => {
   return <Outlet />;
 };
@@ -61,12 +58,12 @@ export default function App() {
           element: <Homepage />,
         },
         {
-          path: "reserveTable",
+          path: "reserve-table",
 
           element: <ReserveTablePage />,
         },
         {
-          path: "reserveChair/:id",
+          path: "reserve-chair/:id",
 
           element: <ReserveChairPage />,
         },
@@ -75,15 +72,15 @@ export default function App() {
           element: <RegisterPage></RegisterPage>,
         },
         {
-          path: "phoneNumber",
+          path: "phone-number",
           element: <CheckPhoneNumberPage></CheckPhoneNumberPage>,
         },
         {
-          path: "detailReserve",
+          path: "detail-reserve",
           element: <DetailReservePage></DetailReservePage>,
         },
         {
-          path: "completePay",
+          path: "complete",
           element: <CompletePage></CompletePage>,
         },
         {
@@ -98,6 +95,7 @@ export default function App() {
           path: "reply-info-empty",
           element: <ReplyInfoEmptyPage></ReplyInfoEmptyPage>,
         },
+        { path: "error", element: <ErrorPage></ErrorPage> },
       ],
     },
   ]);

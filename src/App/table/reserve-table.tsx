@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 
 import Mockup from "../../assets/mockup-tables.json";
 
-const available = "availble";
-const seatAvailble = "seatAvailble";
+const available = "available";
+const seatAvailble = "seatsAvailable";
 const full = "full";
 
 export default function ReserveTablePage(props: any) {
@@ -53,8 +53,7 @@ export default function ReserveTablePage(props: any) {
         <div className="grid-container">
           {Mockup.tables.map((d, index: any) => (
             <div key={d.id} className="grid-item">
-              {/* <Link to={"../reserveChair"}> */}
-              <Link to={`../reserveChair/${d.id}`}>
+              <Link to={`../reserve-chair/${d.id}`}>
                 <div
                   className="seat black-sm-text"
                   style={{
@@ -183,21 +182,22 @@ export default function ReserveTablePage(props: any) {
         </Row>
         <Card size="small" style={{ marginTop: "30px" }}>
           <Row justify="space-around" align="middle">
-            <div>
+            <div style={{ width: "30%" }}>
               <Typography className="black-header">666 คน</Typography>
               <Typography className="black-text">จำนวนผู้ลงทะเบียน</Typography>
             </div>
-            <Link to={"../register"}>
-              <Card
-                style={{
-                  width: "100%",
 
-                  backgroundColor: "#F6B63B",
-                }}
-              >
-                <Typography className="black-text">ลงทะเบียนเลย</Typography>
-              </Card>
-            </Link>
+            <Card
+              style={{
+                width: "70%",
+
+                backgroundColor: "#F6B63B",
+              }}
+            >
+              <Typography className="black-text">
+                เลือกโต๊ะที่ต้องการ ได้เลยนะฮัฟ
+              </Typography>
+            </Card>
           </Row>
         </Card>
         <Link to="/">

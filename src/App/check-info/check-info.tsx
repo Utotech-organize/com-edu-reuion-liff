@@ -127,7 +127,7 @@ export default function CheckInfoPage() {
           </div>
         </Row>
         <div>
-          <Link to="/detailReserve">
+          <Link to="/reserve-table">
             <Button
               shape="round"
               style={{
@@ -140,7 +140,7 @@ export default function CheckInfoPage() {
               <Typography className="black-text">ยืนยัน</Typography>
             </Button>
           </Link>
-          <Link to="/reserveTable">
+          <Link to="/register">
             <Button
               shape="round"
               style={{
