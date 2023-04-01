@@ -6,18 +6,25 @@ import Entrance from "../../Static/images/walking-man.png";
 import Giraffe from "../../Static/images/Giraffe.png";
 import { Link } from "react-router-dom";
 
-export default function ReserveTablePage() {
-  const table = ["โต๊ะ A1", "โต๊ะ A2", "โต๊ะ A3", "โต๊ะ A4", "โต๊ะ A5"];
-  table.map(cardTable);
+import Mockup from "../../assets/mockup-tables.json";
 
-  function cardTable(key: any) {
-    // return <Card style={{ width: "18%" }}>{table[idx].length}</Card>;
-    // return (
-    //   <Link to={"../reserveChair"}>
-    //     <Card style={{ width: "18%" }}>{table[0]}</Card>
-    //   </Link>
-    // );
-  }
+const available = "available";
+const seatAvailble = "seatsAvailable";
+const full = "full";
+
+export default function ReserveTablePage(props: any) {
+  const exportColorWithStatus = (status: any) => {
+    let color = "";
+    if (status === available) {
+      color = "#FFCA18";
+    } else if (status === seatAvailble) {
+      color = "#8598BD";
+    } else if (status === full) {
+      color = "rgba(255, 202, 24, 0.4)";
+    }
+
+    return color;
+  };
 
   return (
     <div>
@@ -43,11 +50,28 @@ export default function ReserveTablePage() {
         {
           // FIXME
         }
-        <Row justify="space-between">
-          <Link to={"../reserveChair"}>
-            <Card style={{ width: "80%" }}>โต๊ะ A1</Card>
-          </Link>
-        </Row>
+        <div className="grid-container">
+          {Mockup.tables.map((d, index: any) => (
+            <div key={d.id} className="grid-item">
+              <Link to={`../reserve-chair/${d.id}`}>
+                <div
+                  className="seat black-sm-text"
+                  style={{
+                    width: "100%",
+                    height: "70px",
+                    color: "#000000",
+                    background: exportColorWithStatus(d.status),
+                  }}
+                >
+                  โต๊ะ
+                  <br />
+                  {d.name}
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+
         <Card size="small" style={{ marginTop: "10px" }}>
           <Image
             preview={false}
@@ -158,21 +182,22 @@ export default function ReserveTablePage() {
         </Row>
         <Card size="small" style={{ marginTop: "30px" }}>
           <Row justify="space-around" align="middle">
-            <div>
+            <div style={{ width: "30%" }}>
               <Typography className="black-header">666 คน</Typography>
               <Typography className="black-text">จำนวนผู้ลงทะเบียน</Typography>
             </div>
-            <Link to={"../register"}>
-              <Card
-                style={{
-                  width: "100%",
 
-                  backgroundColor: "#F6B63B",
-                }}
-              >
-                <Typography className="black-text">ลงทะเบียนเลย</Typography>
-              </Card>
-            </Link>
+            <Card
+              style={{
+                width: "70%",
+
+                backgroundColor: "#F6B63B",
+              }}
+            >
+              <Typography className="black-text">
+                เลือกโต๊ะที่ต้องการ ได้เลยนะฮัฟ
+              </Typography>
+            </Card>
           </Row>
         </Card>
         <Link to="/">

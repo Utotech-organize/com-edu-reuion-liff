@@ -1,12 +1,69 @@
 import { Button, Card, Image, Row, Typography } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+
+import { Link, useParams } from "react-router-dom";
 import Stage from "../../Static/images/cinema.png";
 import Entrance from "../../Static/images/walking-man.png";
 import Giraffe from "../../Static/images/Giraffe.png";
 import Appbar from "../../components/appbar";
 
+import Mockup from "../../assets/mockup-tables.json";
+
 export default function ReserveChairPage() {
+  {
+    /* FIXME */
+  }
+  // const [selectedSeat, setSelectedSeat] = React.useState([]) as any[];
+  const [colorA, setColorA] = useState(true);
+  const [colorB, setColorB] = useState(true);
+  const [colorC, setColorC] = useState(true);
+  const [colorD, setColorD] = useState(true);
+  const [colorE, setColorE] = useState(true);
+  const [colorF, setColorF] = useState(true);
+  const [colorG, setColorG] = useState(true);
+  const [colorH, setColorH] = useState(true);
+  const [colorI, setColorI] = useState(true);
+  const [colorJ, setColorJ] = useState(true);
+  const handleClickA = () => {
+    setColorA(!colorA);
+  };
+
+  const handleClickB = () => {
+    setColorB(!colorB);
+  };
+
+  const handleClickC = () => {
+    setColorC(!colorC);
+  };
+
+  const handleClickD = () => {
+    setColorD(!colorD);
+  };
+
+  const handleClickE = () => {
+    setColorE(!colorE);
+  };
+
+  const handleClickF = () => {
+    setColorF(!colorF);
+  };
+
+  const handleClickG = () => {
+    setColorG(!colorG);
+  };
+
+  const handleClickH = () => {
+    setColorH(!colorH);
+  };
+
+  const handleClickI = () => {
+    setColorI(!colorI);
+  };
+
+  const handleClickJ = () => {
+    setColorJ(!colorJ);
+  };
+
   return (
     <div>
       <Appbar />
@@ -28,20 +85,111 @@ export default function ReserveChairPage() {
           <Image preview={false} src={Stage} style={{ width: "40px" }} />
           <Typography className="black-text">เวที</Typography>
         </Card>
+        {/* FIXME */}
+        {/* <div id="big-circle" className="circle big">
+          A3
+          {Mockup.seats.map((d: any, index: any) => (
+            <div
+              key={d.name}
+              className={`circle ${d.label}`}
+              style={{
+                background:
+                  selectedSeat.indexOf(d.id) > -1
+                    ? "rgb(156, 176, 215)"
+                    : index < 6
+                    ? "#FFA800"
+                    : "#00B1B1",
+              }}
+              onClick={() => setSelectedSeat((prev: any) => [...prev, d.id])}
+            >
+              {d.name}
+            </div>
+          ))}
+        </div> */}
         <div id="big-circle" className="circle big black-text">
           <Typography className="black-text" style={{ marginTop: "40%" }}>
             โต๊ะ A1
           </Typography>
-          <div className="circle one black-text">A</div>
-          <div className="circle two black-text">B</div>
-          <div className="circle three black-text">C</div>
-          <div className="circle four black-text">D</div>
-          <div className="circle five black-text">E</div>
-          <div className="circle six black-text">F</div>
-          <div className="circle seven black-text">G</div>
-          <div className="circle eight black-text">H</div>
-          <div className="circle nine black-text">I</div>
-          <div className="circle ten black-text">J</div>
+          <Button
+            className="circle one black-text"
+            type="text"
+            style={{ backgroundColor: colorA ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickA}
+          >
+            A
+          </Button>
+          <Button
+            className="circle two black-text"
+            type="text"
+            style={{ backgroundColor: colorB ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickB}
+          >
+            B
+          </Button>
+          <Button
+            className="circle three black-text"
+            type="text"
+            style={{ backgroundColor: colorC ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickC}
+          >
+            C
+          </Button>
+          <Button
+            className="circle four black-text"
+            type="text"
+            style={{ backgroundColor: colorD ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickD}
+          >
+            D
+          </Button>
+          <Button
+            className="circle five black-text"
+            type="text"
+            style={{ backgroundColor: colorE ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickE}
+          >
+            E
+          </Button>
+          <Button
+            className="circle six black-text"
+            type="text"
+            style={{ backgroundColor: colorF ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickF}
+          >
+            F
+          </Button>
+          <Button
+            className="circle seven black-text"
+            type="text"
+            style={{ backgroundColor: colorG ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickG}
+          >
+            G
+          </Button>
+          <Button
+            className="circle eight black-text"
+            type="text"
+            style={{ backgroundColor: colorH ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickH}
+          >
+            H
+          </Button>
+          <Button
+            className="circle nine black-text"
+            type="text"
+            style={{ backgroundColor: colorI ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickI}
+          >
+            I
+          </Button>
+          <Button
+            className="circle ten black-text"
+            type="text"
+            style={{ backgroundColor: colorJ ? "#FFA800" : "#9CB0D7" }}
+            onClick={handleClickJ}
+          >
+            J
+          </Button>
         </div>
         <Card size="small" style={{ marginTop: "350px" }}>
           <Image preview={false} src={Entrance} style={{ width: "40px" }} />
@@ -91,13 +239,15 @@ export default function ReserveChairPage() {
         <Row justify="start" align="middle" style={{ marginTop: "10px" }}>
           <Card
             style={{
-              width: "19%",
+              width: "20%",
+              height: "20%",
               marginRight: "10px",
-              backgroundColor: "#FFCA18",
+              backgroundColor: "#ffa800",
+              borderRadius: "50%",
             }}
           >
             <Typography className="black-text" style={{ fontSize: "14px" }}>
-              โต๊ะ Ax
+              A
             </Typography>
           </Card>
           <Typography
@@ -106,7 +256,7 @@ export default function ReserveChairPage() {
               fontSize: "14px",
             }}
           >
-            หมายถึง โต๊ะนี้ยังว่างอยู่
+            หมายถึง ที่นั่งนี้ยังว่างอยู่
           </Typography>
         </Row>
         <Row
@@ -116,13 +266,15 @@ export default function ReserveChairPage() {
         >
           <Card
             style={{
-              width: "19%",
+              width: "20%",
+              height: "20%",
               marginRight: "10px",
-              backgroundColor: "#8598BD",
+              backgroundColor: "#9CB0D7",
+              borderRadius: "50%",
             }}
           >
             <Typography className="black-text" style={{ fontSize: "14px" }}>
-              โต๊ะ Ax
+              A
             </Typography>
           </Card>
           <Typography
@@ -131,20 +283,21 @@ export default function ReserveChairPage() {
               fontSize: "14px",
             }}
           >
-            หมายถึง โต๊ะนี้โดนจองเก้าอี้นั่งไปบ้างแล้ว
+            หมายถึง ที่นั่งนี่คุณกำลังเลือก
           </Typography>
         </Row>
         <Row justify="start" align="middle">
           <Card
             style={{
-              width: "19%",
+              width: "20%",
+              height: "20%",
               marginRight: "10px",
-              backgroundColor: "#FFCA18",
-              opacity: "40%",
+              backgroundColor: "#00B1B1",
+              borderRadius: "50%",
             }}
           >
             <Typography className="black-text" style={{ fontSize: "14px" }}>
-              โต๊ะ Ax
+              A
             </Typography>
           </Card>
           <Typography
@@ -153,29 +306,45 @@ export default function ReserveChairPage() {
               fontSize: "14px",
             }}
           >
-            หมายถึง โต๊ะนี้เต็มแล้ว
+            หมายถึง ที่นั่งนี้ถูกจองแล้ว
           </Typography>
         </Row>
         <Card size="small" style={{ marginTop: "30px" }}>
-          <Row justify="space-around" align="middle">
-            <div>
+          <Row justify="space-between" align="middle">
+            <div style={{ width: "50%" }}>
               <Typography className="black-header">666 คน</Typography>
               <Typography className="black-text">จำนวนผู้ลงทะเบียน</Typography>
             </div>
-            <Link to={"../register"}>
-              <Card
-                style={{
-                  width: "100%",
 
+            <Link to={"/detail-reserve"}>
+              <div
+                style={{
+                  width: "80px",
+                  height: "60px",
                   backgroundColor: "#F6B63B",
+                  borderRadius: "20px",
                 }}
               >
-                <Typography className="black-text">ลงทะเบียนเลย</Typography>
-              </Card>
+                <Typography className="black-sm-text">
+                  จองตามที่เลือก
+                </Typography>
+              </div>
+            </Link>
+            <Link to={"/detail-reserve"}>
+              <div
+                style={{
+                  width: "80px",
+                  height: "60px",
+                  backgroundColor: "#4D5667",
+                  borderRadius: "20px",
+                }}
+              >
+                <Typography className="white-sm-text">จองทั้งโต๊ะ</Typography>
+              </div>
             </Link>
           </Row>
         </Card>
-        <Link to="/reserveTable">
+        <Link to="/reserve-table">
           <Button
             shape="round"
             style={{
