@@ -66,7 +66,7 @@ export default function App() {
           element: <ReserveTablePage />,
         },
         {
-          path: "reserveChair",
+          path: "reserveChair/:id",
 
           element: <ReserveChairPage />,
         },

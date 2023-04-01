@@ -1,4 +1,13 @@
-import { Button, Card, Image, Input, Row, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Checkbox,
+  Form,
+  Image,
+  Input,
+  Row,
+  Typography,
+} from "antd";
 
 import React from "react";
 import { Link } from "react-router-dom";
@@ -7,6 +16,14 @@ import Appbar from "../../components/appbar";
 import Giraffe from "../../Static/images/Giraffe.png";
 
 export default function RegisterPage() {
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <div style={{ height: "100vh" }}>
       <Appbar></Appbar>
@@ -20,7 +37,48 @@ export default function RegisterPage() {
         >
           กรอกข้อมูลส่วนตัว
         </Typography>
-        <div>
+
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: "Please input your username!" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Password"
+            name="wordpass"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{ offset: 8, span: 16 }}
+          >
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+        {/* <div>
           <Typography
             className="white-text"
             style={{
@@ -69,7 +127,7 @@ export default function RegisterPage() {
             อีเมล
           </Typography>
           <Input className="normal-text" placeholder="กรุณากรอกอีเมล" />;
-        </div>
+        </div> */}
         <Row style={{ textAlign: "start" }}>
           <Image preview={false} width={80} src={Giraffe} />
           <div style={{ marginLeft: "10px" }}>

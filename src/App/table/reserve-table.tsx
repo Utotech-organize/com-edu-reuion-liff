@@ -8,14 +8,18 @@ import { Link } from "react-router-dom";
 
 import Mockup from "../../assets/mockup-tables.json";
 
+const available = "availble";
+const seatAvailble = "seatAvailble";
+const full = "full";
+
 export default function ReserveTablePage(props: any) {
   const exportColorWithStatus = (status: any) => {
     let color = "";
-    if (status === "available") {
+    if (status === available) {
       color = "#FFCA18";
-    } else if (status === "seatsAvailable") {
+    } else if (status === seatAvailble) {
       color = "#8598BD";
-    } else if (status === "full") {
+    } else if (status === full) {
       color = "rgba(255, 202, 24, 0.4)";
     }
 
@@ -49,8 +53,8 @@ export default function ReserveTablePage(props: any) {
         <div className="grid-container">
           {Mockup.tables.map((d, index: any) => (
             <div key={d.id} className="grid-item">
-              <Link to={"../reserveChair"}>
-                {/* <Link to={`../reserveChair/${d.id}`}> */}
+              {/* <Link to={"../reserveChair"}> */}
+              <Link to={`../reserveChair/${d.id}`}>
                 <div
                   className="seat black-sm-text"
                   style={{
