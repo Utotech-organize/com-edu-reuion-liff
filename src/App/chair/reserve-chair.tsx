@@ -1,26 +1,84 @@
 import { Button, Card, Image, Row, Typography } from "antd";
 import React, { useState } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import Stage from "../../Static/images/cinema.png";
 import Entrance from "../../Static/images/walking-man.png";
 import Giraffe from "../../Static/images/Giraffe.png";
 import Appbar from "../../components/appbar";
 
-import Mockup from "../../assets/mockup-tables.json";
+import * as API from "../API";
+import Swal from "sweetalert2";
+
+export async function ChairWithDeskLoader({ request, params }: any) {
+  try {
+    const chairs = await API.getChairWithDeskID(params.id);
+
+    return { chairs: chairs.data.data };
+  } catch (e: any) {
+    localStorage.removeItem("token");
+
+    return { data: null };
+  }
+}
 
 export default function ReserveChairPage() {
   const [selectedSeat, setSelectedSeat] = React.useState<any>([]);
+  const { chairs } = useLoaderData() as any;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const infomation = location.state;
+
+  const onButtonClick = async () => {
+    if (selectedSeat.length !== 0) {
+      try {
+        const { data: customerData } = await API.getCustomerWithLiffID(
+          infomation.profile.userId
+        );
+
+        const updateData = {
+          id: customerData.data.id,
+          line_liff_id: customerData.data.line_liff_id,
+          line_display_name: customerData.data.line_display_name,
+          line_photo_url: customerData.data.line_photo_url,
+          tel: customerData.data.tel,
+          name: customerData.data.name,
+          information: customerData.data.information,
+          email: customerData.data.email,
+          chairs: selectedSeat,
+        };
+
+        const { data: customerUpdateData } = await API.updateCustomer(
+          updateData
+        );
+
+        navigate("/detail-reserve", { state: customerData });
+      } catch (e: any) {
+        return { error: e.response.data.message };
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+    }
+  };
 
   const handleSelectedSeat = (id: any) => {
     let prev = selectedSeat;
 
     if (prev.indexOf(id) === -1) {
       setSelectedSeat([...selectedSeat, id]);
-      console.log("case 1");
     } else {
       prev = prev.filter((c: any) => c != id);
-      console.log("case 2");
+
       setSelectedSeat(prev);
     }
   };
@@ -28,15 +86,15 @@ export default function ReserveChairPage() {
   console.log({ selectedSeat });
 
   const exportColorWithStatus = (status: any) => {
-    console.log(status);
-
     let color = "";
-    if (status === "availableSeat") {
+    if (status === "available") {
+      // FIXME change to enum
       color = "#FFA800";
-    } else if (status === "fullSeat") {
-      color = "#00B1B1";
+    } else if (status === "pending") {
+      color = "#9CB0D7";
+    } else if (status === "unavailable") {
+      color = "rgba(255, 202, 24, 0.4)";
     }
-    console.log(color);
 
     return color;
   };
@@ -56,31 +114,30 @@ export default function ReserveChairPage() {
             marginBottom: "16px",
           }}
         >
-          ยินดีต้อนรับ : Guest
+          ยินดีต้อนรับ : {infomation.profile.displayName}
         </Typography>
         <Card size="small" style={{ marginBottom: "10px" }}>
           <Image preview={false} src={Stage} style={{ width: "40px" }} />
           <Typography className="black-text">เวที</Typography>
         </Card>
-        {/* FIXME */}
         <div id="big-circle" className="circle big">
-          A3
-          {Mockup.seats.map((d: any, index: any) => (
+          {infomation.desk_data.label}
+          {chairs.map((d: any, index: any) => (
             <div
               key={d.name}
-              className={`circle ${d.label}`}
+              className={`circle ${d.chair_no}`}
               style={{
                 background:
                   selectedSeat.indexOf(d.id) > -1
-                    ? "rgb(156, 176, 215)"
+                    ? "#00B1B1"
                     : exportColorWithStatus(d.status),
-                cursor: d.status === "fullSeat" ? "default" : "pointer",
+                cursor: d.status === "available" ? "pointer" : "default",
               }}
               onClick={() =>
-                d.status === "fullSeat" ? {} : handleSelectedSeat(d.id)
+                d.status === "available" ? handleSelectedSeat(d.id) : {}
               }
             >
-              {d.name}
+              {d.label}
             </div>
           ))}
         </div>
@@ -128,48 +185,23 @@ export default function ReserveChairPage() {
         <Typography className="white-text" style={{ textAlign: "start" }}>
           รายละเอียดการจองโต๊ะ
         </Typography>
-        {/* FIXME */}
-        <Row justify="start" align="middle" style={{ marginTop: "10px" }}>
-          <Card
-            style={{
-              width: "20%",
-              height: "20%",
-              marginRight: "10px",
-              backgroundColor: "#ffa800",
-              borderRadius: "50%",
-            }}
-          >
-            <Typography className="black-text" style={{ fontSize: "14px" }}>
-              A
-            </Typography>
-          </Card>
-          <Typography
-            className="white-text"
-            style={{
-              fontSize: "14px",
-            }}
-          >
-            หมายถึง ที่นั่งนี้ยังว่างอยู่
-          </Typography>
-        </Row>
+
         <Row
           justify="start"
           align="middle"
           style={{ marginBottom: "10px", marginTop: "10px" }}
         >
           <Card
+            className="black-text"
             style={{
-              width: "20%",
-              height: "20%",
+              width: "50px",
+              height: "50px",
               marginRight: "10px",
-              backgroundColor: "#9CB0D7",
+              backgroundColor: "#00B1B1",
+
               borderRadius: "50%",
             }}
-          >
-            <Typography className="black-text" style={{ fontSize: "14px" }}>
-              A
-            </Typography>
-          </Card>
+          ></Card>
           <Typography
             className="white-text"
             style={{
@@ -179,20 +211,62 @@ export default function ReserveChairPage() {
             หมายถึง ที่นั่งนี่คุณกำลังเลือก
           </Typography>
         </Row>
+        <Row
+          justify="start"
+          align="middle"
+          style={{ marginTop: "10px", marginBottom: "10px" }}
+        >
+          <Card
+            style={{
+              width: "50px",
+              height: "50px",
+              marginRight: "10px",
+              backgroundColor: "#ffa800",
+              borderRadius: "50%",
+            }}
+          ></Card>
+          <Typography
+            className="white-text"
+            style={{
+              fontSize: "14px",
+            }}
+          >
+            หมายถึง ที่นั่งนี้ยังว่างอยู่
+          </Typography>
+        </Row>
+
+        <Row justify="start" align="middle" style={{ marginBottom: "10px" }}>
+          <Card
+            style={{
+              width: "50px",
+              height: "50px",
+              marginRight: "10px",
+              backgroundColor: "   #9CB0D7",
+              borderRadius: "50%",
+            }}
+          ></Card>
+          <Typography
+            className="white-text"
+            style={{
+              textAlign: "left",
+              fontSize: "14px",
+            }}
+          >
+            หมายถึง มีคนจองแล้วแต่ยังไม่ได้จ่ายเงิน
+            <br />
+            (มีโอกาสหลุดจอง)
+          </Typography>
+        </Row>
         <Row justify="start" align="middle">
           <Card
             style={{
-              width: "20%",
-              height: "20%",
+              width: "50px",
+              height: "50px",
               marginRight: "10px",
-              backgroundColor: "#00B1B1",
+              backgroundColor: "rgba(255, 202, 24, 0.4)",
               borderRadius: "50%",
             }}
-          >
-            <Typography className="black-text" style={{ fontSize: "14px" }}>
-              A
-            </Typography>
-          </Card>
+          ></Card>
           <Typography
             className="white-text"
             style={{
@@ -204,21 +278,21 @@ export default function ReserveChairPage() {
         </Row>
         <Card size="small" style={{ marginTop: "30px" }}>
           <Row justify="space-around" align="middle">
-            <Link to={"/detail-reserve"}>
-              <Button
-                style={{
-                  width: "150px",
-                  height: "60px",
-                  backgroundColor: "#F6B63B",
-                  borderRadius: "20px",
-                }}
-              >
-                <Typography className="black-sm-text">
-                  จองตามที่เลือก
-                </Typography>
-              </Button>
-            </Link>
-            <Link to={"/detail-reserve"}>
+            {/* <Link to={"/detail-reserve"}> */}
+            <Button
+              onClick={onButtonClick}
+              style={{
+                width: "150px",
+                height: "60px",
+                backgroundColor: "#F6B63B",
+                borderRadius: "20px",
+              }}
+            >
+              <Typography className="black-sm-text">จองตามที่เลือก</Typography>
+            </Button>
+            {/* </Link> */}
+            {/* <Link to={"/detail-reserve"}> */}
+            {infomation.status === "available" ? (
               <Button
                 style={{
                   width: "150px",
@@ -229,7 +303,10 @@ export default function ReserveChairPage() {
               >
                 <Typography className="white-sm-text">จองทั้งโต๊ะ</Typography>
               </Button>
-            </Link>
+            ) : (
+              <></>
+            )}
+            {/* </Link> */}
           </Row>
         </Card>
         <Link to="/reserve-table">

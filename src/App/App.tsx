@@ -14,7 +14,7 @@ import {
   useNavigate,
   useRouteError,
 } from "react-router-dom";
-import ReserveChairPage from "./chair/reserve-chair";
+import ReserveChairPage, { ChairWithDeskLoader } from "./chair/reserve-chair";
 import RegisterPage from "./register/register";
 import CheckPhoneNumberPage from "./check-phone-number/check-phone-number";
 import DetailReservePage from "./detail-reserve/detail-reserve";
@@ -64,7 +64,7 @@ export default function App() {
         },
         {
           path: "reserve-chair/:id",
-
+          loader: ChairWithDeskLoader,
           element: <ReserveChairPage />,
         },
         {

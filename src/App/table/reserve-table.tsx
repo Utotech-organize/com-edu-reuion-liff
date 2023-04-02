@@ -1,22 +1,19 @@
-import React from "react";
 import { Button, Card, Col, Image, Row, Typography } from "antd";
 import Appbar from "../../components/appbar";
 import Stage from "../../Static/images/cinema.png";
 import Entrance from "../../Static/images/walking-man.png";
 import Giraffe from "../../Static/images/Giraffe.png";
-import { Link, useLoaderData } from "react-router-dom";
-
-import Mockup from "../../assets/mockup-tables.json";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 
 import * as API from "../API";
+import { useEffect, useState } from "react";
+import liff from "@line/liff";
 
 const available = "available";
 const seatAvailble = "pending";
 const full = "unavailable";
 
 export async function DesksIndexLoader({ request, params }: any) {
-  //example
-
   try {
     const desks = await API.getDesks();
     // console.log(desks.data);
@@ -31,8 +28,31 @@ export async function DesksIndexLoader({ request, params }: any) {
 }
 
 export default function ReserveTablePage(props: any) {
+  const location = useLocation();
+  const infomation = location.state;
+  const [profile, setProfile] = useState() as any;
   const { desks } = useLoaderData() as any;
-  console.log(desks);
+
+  useEffect(() => {
+    liff
+      .init({
+        liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID, //FIXME create env
+        withLoginOnExternalBrowser: true,
+      })
+      .then(async () => {
+        console.log("LIFF init succeeded.");
+        console.log("get profile :" + (await liff.getProfile()));
+        console.log(await liff.getProfile());
+
+        const profileData = await liff.getProfile();
+
+        setProfile(profileData);
+      })
+      .catch((e: Error) => {
+        console.log("LIFF init failed.");
+        console.log(`${e}`);
+      });
+  }, []);
 
   const exportColorWithStatus = (status: any) => {
     let color = "";
@@ -62,7 +82,7 @@ export default function ReserveTablePage(props: any) {
             marginBottom: "16px",
           }}
         >
-          ยินดีต้อนรับ : Guest
+          ยินดีต้อนรับ : {profile.displayName}
         </Typography>
         <Card size="small" style={{ marginBottom: "10px" }}>
           <Image preview={false} src={Stage} style={{ width: "40px" }}></Image>
@@ -74,7 +94,13 @@ export default function ReserveTablePage(props: any) {
         <div className="grid-container">
           {desks.map((d: any, index: any) => (
             <div key={d.id} className="grid-item">
-              <Link to={`../reserve-chair/${d.id}`}>
+              <Link
+                to={`../reserve-chair/${d.id}`}
+                state={{
+                  desk_data: d,
+                  profile: profile,
+                }}
+              >
                 <div
                   className="seat black-sm-text"
                   style={{

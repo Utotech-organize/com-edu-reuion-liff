@@ -10,15 +10,33 @@ import {
 } from "antd";
 
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Appbar from "../../components/appbar";
 
 import Giraffe from "../../Static/images/Giraffe.png";
 
 export default function RegisterPage() {
+  const location = useLocation();
+
+  const profileData = location.state;
+
+  console.log(profileData);
+
   const navigate = useNavigate();
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+
+  const onFinish = (v: any) => {
+    console.log("Success:", v);
+
+    const values = {
+      line_liff_id: profileData.userID,
+      line_display_name: profileData.name,
+      line_photo_url: profileData.image,
+      tel: v.phone,
+      name: v.name,
+      information: v.workplace,
+      email: v.email,
+    };
+
     navigate("/check-info", { state: values });
   };
 
@@ -78,9 +96,15 @@ export default function RegisterPage() {
           </Typography>
           <Form.Item
             name="phone"
-            rules={[{ required: true, message: "กรุณากรอกเบอร์โทรศัพท์ !" }]}
+            rules={[
+              {
+                required: true,
+                message: "กรุณากรอกเพียงตัวเลข เบอร์โทรศัพท์ !",
+                pattern: new RegExp(/^[0-9]+$/),
+              },
+            ]}
           >
-            <Input />
+            <Input maxLength={10} />
           </Form.Item>
           <Typography
             className="white-text"
@@ -109,7 +133,9 @@ export default function RegisterPage() {
           </Typography>
           <Form.Item
             name="email"
-            rules={[{ required: true, message: "กรุณากรอก e-mail !" }]}
+            rules={[
+              { required: true, message: "กรุณากรอก e-mail !", type: "email" },
+            ]}
           >
             <Input />
           </Form.Item>
