@@ -7,11 +7,25 @@ import useCopyToClipboard from "../../components/copy-clipboard";
 
 import BualuangLogo from "../../Static/images/bualuang.jpg";
 import Giraffe from "../../Static/images/Giraffe.png";
-import QRCode from "../../Static/images/qr-code.jpg";
+import QRCode from "../../Static/images/qrcode.png";
+import Swal from "sweetalert2";
 
 export default function DetailReservePage() {
   const [value, copy] = useCopyToClipboard();
   console.log(value);
+
+  const swalCopy = () => {
+    copy("8707120260");
+    Swal.fire({
+      backdrop: false,
+      background: "#4D5667",
+      position: "center",
+      icon: "success",
+      title: "Copy success",
+      showConfirmButton: false,
+      timer: 800,
+    });
+  };
 
   return (
     <div className="app-layout">
@@ -220,13 +234,14 @@ export default function DetailReservePage() {
               8707120260
             </Typography>
             <Button
+              className="black-text"
               style={{
                 backgroundColor: "#677185",
                 width: "50px",
                 borderRadius: "8px",
                 height: "40px",
               }}
-              onClick={() => copy("8707120260")}
+              onClick={() => swalCopy()}
             >
               <FileOutlined
                 style={{

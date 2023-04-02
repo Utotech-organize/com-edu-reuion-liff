@@ -1,19 +1,34 @@
 import React from "react";
-import Appbar from "../../components/appbar";
+
 import { Button, Card, Image, Row, Typography } from "antd";
 
 import Giraffe from "../../Static/images/Giraffe.png";
 import BualuangLogo from "../../Static/images/bualuang.jpg";
-import QRCode from "../../Static/images/qr-code.jpg";
+import QRCode from "../../Static/images/qrcode.png";
 import { FileOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import useCopyToClipboard from "../../components/copy-clipboard";
+import Swal from "sweetalert2";
+import Appbar from "../../components/appbar";
 
 export default function ReplyInfoPage() {
+  const swalCopy = () => {
+    copy("8707120260");
+    Swal.fire({
+      backdrop: false,
+      background: "#4D5667",
+      position: "center",
+      icon: "success",
+      title: "Copy success",
+      showConfirmButton: false,
+      timer: 800,
+    });
+  };
+
   const [value, copy] = useCopyToClipboard();
   return (
     <div>
-      <Appbar />
+      <Appbar />{" "}
       <div className="app-layout">
         <Typography className="white-header" style={{ marginTop: "44px" }}>
           ผลลัพธ์ข้อมูล
@@ -360,7 +375,7 @@ export default function ReplyInfoPage() {
                   borderRadius: "8px",
                   height: "40px",
                 }}
-                onClick={() => copy("8707120260")}
+                onClick={() => swalCopy()}
               >
                 <FileOutlined
                   style={{

@@ -4,15 +4,36 @@ import Appbar from "../../components/appbar";
 import Stage from "../../Static/images/cinema.png";
 import Entrance from "../../Static/images/walking-man.png";
 import Giraffe from "../../Static/images/Giraffe.png";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 import Mockup from "../../assets/mockup-tables.json";
 
+import * as API from "../API";
+
 const available = "available";
-const seatAvailble = "seatsAvailable";
-const full = "full";
+const seatAvailble = "pending";
+const full = "unavailable";
+
+export async function DesksIndexLoader({ request, params }: any) {
+  //example
+
+  try {
+    const desks = await API.getDesks();
+    // console.log(desks.data);
+
+    return { desks: desks.data.data };
+  } catch (e: any) {
+    localStorage.removeItem("token");
+
+    // return redirect("/login");
+    return { data: null };
+  }
+}
 
 export default function ReserveTablePage(props: any) {
+  const { desks } = useLoaderData() as any;
+  console.log(desks);
+
   const exportColorWithStatus = (status: any) => {
     let color = "";
     if (status === available) {
@@ -51,7 +72,7 @@ export default function ReserveTablePage(props: any) {
           // FIXME
         }
         <div className="grid-container">
-          {Mockup.tables.map((d, index: any) => (
+          {desks.map((d: any, index: any) => (
             <div key={d.id} className="grid-item">
               <Link to={`../reserve-chair/${d.id}`}>
                 <div
@@ -65,7 +86,7 @@ export default function ReserveTablePage(props: any) {
                 >
                   โต๊ะ
                   <br />
-                  {d.name}
+                  {d.label}
                 </div>
               </Link>
             </div>
@@ -180,26 +201,7 @@ export default function ReserveTablePage(props: any) {
             หมายถึง โต๊ะนี้เต็มแล้ว
           </Typography>
         </Row>
-        <Card size="small" style={{ marginTop: "30px" }}>
-          <Row justify="space-around" align="middle">
-            <div style={{ width: "30%" }}>
-              <Typography className="black-header">666 คน</Typography>
-              <Typography className="black-text">จำนวนผู้ลงทะเบียน</Typography>
-            </div>
 
-            <Card
-              style={{
-                width: "70%",
-
-                backgroundColor: "#F6B63B",
-              }}
-            >
-              <Typography className="black-text">
-                เลือกโต๊ะที่ต้องการ ได้เลยนะฮัฟ
-              </Typography>
-            </Card>
-          </Row>
-        </Card>
         <Link to="/">
           <Button
             shape="round"

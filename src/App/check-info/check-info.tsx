@@ -1,11 +1,23 @@
 import React from "react";
 import Appbar from "../../components/appbar";
 import { Button, Card, Image, Row, Typography } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Giraffe from "../../Static/images/Giraffe.png";
+import Swal from "sweetalert2";
 
 export default function CheckInfoPage() {
+  const location = useLocation();
+
+  const swalCheck = () => {
+    Swal.fire("Any fool can use a computer");
+  };
+
+  const data = location.state;
+
+  {
+    console.log(location);
+  }
   return (
     <div style={{ height: "100vh" }}>
       <Appbar />
@@ -34,7 +46,7 @@ export default function CheckInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">ชานม ไข่มุก</Typography>
+            <Typography className="yellow-text">{data.name}</Typography>
           </Card>
         </div>
         <div>
@@ -56,7 +68,7 @@ export default function CheckInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">09xyyyzzzz</Typography>
+            <Typography className="yellow-text">{data.phone}</Typography>
           </Card>
         </div>
         <div>
@@ -77,10 +89,7 @@ export default function CheckInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">
-              มจพ. คณะครุศาสตร์อุตสาหกรรม ภาควิชาคอมพิวเตอร์ศึกษา
-              สาขาวิชาคอมพิวเตอร์ธุรกิจ นักศึกษา
-            </Typography>
+            <Typography className="yellow-text">{data.workplace}</Typography>
           </Card>
         </div>
         <div>
@@ -102,9 +111,7 @@ export default function CheckInfoPage() {
               marginBottom: "30px",
             }}
           >
-            <Typography className="yellow-text">
-              s6402041510000@email.kmutnb.ac.th
-            </Typography>
+            <Typography className="yellow-text">{data.email}</Typography>
           </Card>
         </div>
         <Row justify="start" style={{ textAlign: "start" }}>

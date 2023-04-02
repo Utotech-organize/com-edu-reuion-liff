@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import liff from "@line/liff";
 import "../Static/App.css";
 import Homepage from "./home/home";
-import ReserveTablePage from "./table/reserve-table";
+import ReserveTablePage, { DesksIndexLoader } from "./table/reserve-table";
 
 import Mockup from "../assets/mockup-tables.json";
 
@@ -59,7 +59,7 @@ export default function App() {
         },
         {
           path: "reserve-table",
-
+          loader: DesksIndexLoader,
           element: <ReserveTablePage />,
         },
         {

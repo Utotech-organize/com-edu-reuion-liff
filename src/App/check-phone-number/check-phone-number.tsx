@@ -48,7 +48,7 @@ export default function CheckPhoneNumberPage() {
             >
               <Input />
             </Form.Item>
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Form.Item wrapperCol={{ span: 16 }}>
               <Button
                 shape="round"
                 htmlType="submit"
