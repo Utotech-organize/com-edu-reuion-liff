@@ -1,10 +1,10 @@
 module.exports = {
   apps: [
     {
-      name: "comedureunion-liff-app",
+      name: "com-edu-reunion-liff",
       script: "yarn",
       automation: false,
-      args: "run dev --host 0.0.0.0",
+      args: "run dev",
       env: {
         NODE_ENV: "development",
       },

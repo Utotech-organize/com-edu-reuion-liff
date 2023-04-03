@@ -24,6 +24,8 @@ import ReplyInfoPage from "./reply-info/reply-info";
 import ReplyInfoEmptyPage from "./reply-info-empty/reply-info-empty";
 import ErrorPage from "./error/error";
 
+import * as API from "./API";
+
 const AppLayout = () => {
   return <Outlet />;
 };

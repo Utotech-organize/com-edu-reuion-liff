@@ -1,7 +1,7 @@
 import { FileOutlined } from "@ant-design/icons";
 import { Button, Card, Image, Row, Typography } from "antd";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import useCopyToClipboard from "../../components/copy-clipboard";
 
@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 export default function DetailReservePage() {
   const [value, copy] = useCopyToClipboard();
-  console.log(value);
+  const location = useLocation();
 
   const swalCopy = () => {
     copy("8707120260");

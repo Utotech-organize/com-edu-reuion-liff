@@ -71,19 +71,13 @@ export default function ReserveTablePage(props: any) {
     <div>
       <Appbar />
       <div className="app-layout">
-        <Typography className="white-header" style={{ marginTop: "44px" }}>
+        <Typography
+          className="white-header"
+          style={{ marginTop: "44px", marginBottom: "10px" }}
+        >
           ผังที่นั่งงาน ComEdu Reunion 2023
         </Typography>
-        <Typography
-          className="white-text"
-          style={{
-            textAlign: "start",
-            marginTop: "27px",
-            marginBottom: "16px",
-          }}
-        >
-          ยินดีต้อนรับ : {profile.displayName}
-        </Typography>
+
         <Card size="small" style={{ marginBottom: "10px" }}>
           <Image preview={false} src={Stage} style={{ width: "40px" }}></Image>
           <Typography className="black-text">เวที</Typography>

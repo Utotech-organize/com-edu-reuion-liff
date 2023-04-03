@@ -16,6 +16,10 @@ import Appbar from "../../components/appbar";
 import * as API from "../API";
 import Swal from "sweetalert2";
 
+const available = "available";
+const seatAvailble = "pending";
+const full = "unavailable";
+
 export async function ChairWithDeskLoader({ request, params }: any) {
   try {
     const chairs = await API.getChairWithDeskID(params.id);
@@ -37,31 +41,33 @@ export default function ReserveChairPage() {
 
   const onButtonClick = async () => {
     if (selectedSeat.length !== 0) {
-      try {
-        const { data: customerData } = await API.getCustomerWithLiffID(
-          infomation.profile.userId
-        );
+      // try {
+      //FIXME
+      const res = await API.getCustomerWithLiffID(
+        "U7cacfddcc2cc56f99724e5eb93eae391"
+      );
+      console.log(res);
 
-        const updateData = {
-          id: customerData.data.id,
-          line_liff_id: customerData.data.line_liff_id,
-          line_display_name: customerData.data.line_display_name,
-          line_photo_url: customerData.data.line_photo_url,
-          tel: customerData.data.tel,
-          name: customerData.data.name,
-          information: customerData.data.information,
-          email: customerData.data.email,
-          chairs: selectedSeat,
-        };
+      // const updateData = {
+      //   id: customerData.data.id,
+      //   line_liff_id: customerData.data.line_liff_id,
+      //   line_display_name: customerData.data.line_display_name,
+      //   line_photo_url: customerData.data.line_photo_url,
+      //   tel: customerData.data.tel,
+      //   name: customerData.data.name,
+      //   information: customerData.data.information,
+      //   email: customerData.data.email,
+      //   chairs: selectedSeat,
+      // };
 
-        const { data: customerUpdateData } = await API.updateCustomer(
-          updateData
-        );
+      // const { data: customerUpdateData } = await API.updateCustomer(
+      //   updateData
+      // );
 
-        navigate("/detail-reserve", { state: customerData });
-      } catch (e: any) {
-        return { error: e.response.data.message };
-      }
+      // navigate("/detail-reserve", { state: customerData });
+      // } catch (e: any) {
+      //   return { error: e.response.data.message };
+      // }
     } else {
       Swal.fire({
         icon: "error",
@@ -69,6 +75,39 @@ export default function ReserveChairPage() {
         text: "Something went wrong!",
       });
     }
+  };
+
+  const onReserveAllClick = async () => {
+    try {
+      //FIXME
+      const { data: customerData } = await API.getCustomerWithLiffID(
+        infomation.profile.userId
+      );
+      const result = chairs.map((item: any) => item.id);
+
+      const updateData = {
+        id: customerData.data.id,
+        line_liff_id: customerData.data.line_liff_id,
+        line_display_name: customerData.data.line_display_name,
+        line_photo_url: customerData.data.line_photo_url,
+        tel: customerData.data.tel,
+        name: customerData.data.name,
+        information: customerData.data.information,
+        email: customerData.data.email,
+        chairs: result,
+      };
+
+      const { data: customerUpdateData } = await API.updateCustomer(updateData);
+
+      navigate("/detail-reserve", { state: customerData });
+    } catch (e: any) {
+      return { error: e.response.data.message };
+    }
+  };
+
+  const handleAllChair = () => {
+    const result = chairs.map((item: any) => item.id);
+    console.log({ result });
   };
 
   const handleSelectedSeat = (id: any) => {
@@ -83,16 +122,13 @@ export default function ReserveChairPage() {
     }
   };
 
-  console.log({ selectedSeat });
-
   const exportColorWithStatus = (status: any) => {
     let color = "";
-    if (status === "available") {
-      // FIXME change to enum
+    if (status === available) {
       color = "#FFA800";
-    } else if (status === "pending") {
+    } else if (status === seatAvailble) {
       color = "#9CB0D7";
-    } else if (status === "unavailable") {
+    } else if (status === full) {
       color = "rgba(255, 202, 24, 0.4)";
     }
 
@@ -103,19 +139,13 @@ export default function ReserveChairPage() {
     <div>
       <Appbar />
       <div className="app-layout">
-        <Typography className="white-header" style={{ marginTop: "44px" }}>
+        <Typography
+          className="white-header"
+          style={{ marginTop: "44px", marginBottom: "10px" }}
+        >
           ผังที่นั่งงาน ComEdu Reunion 2023
         </Typography>
-        <Typography
-          className="white-text"
-          style={{
-            textAlign: "start",
-            marginTop: "27px",
-            marginBottom: "16px",
-          }}
-        >
-          ยินดีต้อนรับ : {infomation.profile.displayName}
-        </Typography>
+
         <Card size="small" style={{ marginBottom: "10px" }}>
           <Image preview={false} src={Stage} style={{ width: "40px" }} />
           <Typography className="black-text">เวที</Typography>
@@ -131,10 +161,10 @@ export default function ReserveChairPage() {
                   selectedSeat.indexOf(d.id) > -1
                     ? "#00B1B1"
                     : exportColorWithStatus(d.status),
-                cursor: d.status === "available" ? "pointer" : "default",
+                cursor: d.status === available ? "pointer" : "default",
               }}
               onClick={() =>
-                d.status === "available" ? handleSelectedSeat(d.id) : {}
+                d.status === available ? handleSelectedSeat(d.id) : {}
               }
             >
               {d.label}
@@ -278,7 +308,6 @@ export default function ReserveChairPage() {
         </Row>
         <Card size="small" style={{ marginTop: "30px" }}>
           <Row justify="space-around" align="middle">
-            {/* <Link to={"/detail-reserve"}> */}
             <Button
               onClick={onButtonClick}
               style={{
@@ -290,10 +319,10 @@ export default function ReserveChairPage() {
             >
               <Typography className="black-sm-text">จองตามที่เลือก</Typography>
             </Button>
-            {/* </Link> */}
-            {/* <Link to={"/detail-reserve"}> */}
-            {infomation.status === "available" ? (
+
+            {infomation.desk_data.status === "available" ? (
               <Button
+                onClick={onReserveAllClick}
                 style={{
                   width: "150px",
                   height: "60px",
@@ -306,7 +335,6 @@ export default function ReserveChairPage() {
             ) : (
               <></>
             )}
-            {/* </Link> */}
           </Row>
         </Card>
         <Link to="/reserve-table">

@@ -15,11 +15,13 @@ export default function CheckInfoPage() {
 
   const onClick = async () => {
     try {
-      const { data } = await API.createCustomers(infomation);
-      console.log({ data });
+      const res = await API.createCustomers(infomation);
+      console.log({ res });
 
-      navigate("/reserve-table", { state: data });
+      navigate("/reserve-table", { state: res });
     } catch (e: any) {
+      console.log(e);
+
       return { error: e.response.data.message };
     }
   };
