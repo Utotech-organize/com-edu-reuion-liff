@@ -82,9 +82,7 @@ export default function ReserveTablePage(props: any) {
           <Image preview={false} src={Stage} style={{ width: "40px" }}></Image>
           <Typography className="black-text">เวที</Typography>
         </Card>
-        {
-          // FIXME
-        }
+
         <div className="grid-container">
           {desks.map((d: any, index: any) => (
             <div key={d.id} className="grid-item">
@@ -122,7 +120,7 @@ export default function ReserveTablePage(props: any) {
           <Typography className="black-text">ทางเข้า</Typography>
         </Card>
         <Row
-          justify="space-between"
+          justify="start"
           align="middle"
           style={{
             marginTop: "30px",

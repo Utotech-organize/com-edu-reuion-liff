@@ -56,7 +56,7 @@ export default function Homepage() {
   };
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{}}>
       <Appbar />
       <div className="app-layout">
         <Typography className="white-header" style={{ marginTop: "44px" }}>
@@ -108,7 +108,7 @@ export default function Homepage() {
             width: "50%",
             height: "50px",
             backgroundColor: "#F6B63B",
-            marginBottom: "90px",
+            marginBottom: "150px",
           }}
         >
           <Typography className="black-text" style={{ textAlign: "center" }}>

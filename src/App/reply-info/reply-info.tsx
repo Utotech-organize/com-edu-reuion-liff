@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Button, Card, Image, Row, Typography } from "antd";
+import { Button, Card, Divider, Image, List, Row, Typography } from "antd";
 
 import liff from "@line/liff";
 
@@ -21,48 +21,71 @@ const summary = amountChairs * pricePerChair;
 const table = "A3";
 const chairs = "A,B";
 
+const data = [
+  {
+    table: "A1",
+    chair: "a",
+  },
+  {
+    table: "A1",
+    chair: "b",
+  },
+  {
+    table: "A1",
+    chair: "c",
+  },
+  {
+    table: "A1",
+    chair: "d",
+  },
+  {
+    table: "B1",
+    chair: "a",
+  },
+];
+
 export default function ReplyInfoPage() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState() as any;
 
-  useEffect(() => {
-    liff
-      .init({
-        liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID,
-        withLoginOnExternalBrowser: true,
-      })
-      .then(async () => {
-        console.log("LIFF init succeeded.");
-        console.log("get profile :" + (await liff.getProfile()));
-        console.log(await liff.getProfile());
+  // useEffect(() => {
+  //   liff
+  //     .init({
+  //       liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID,
+  //       withLoginOnExternalBrowser: true,
+  //     })
+  //     .then(async () => {
+  //       console.log("LIFF init succeeded.");
+  //       console.log("get profile :" + (await liff.getProfile()));
+  //       console.log(await liff.getProfile());
 
-        const profileData = await liff.getProfile();
+  //       const profileData = await liff.getProfile();
 
-        setProfile(profileData);
-      })
-      .catch((e: Error) => {
-        console.log("LIFF init failed.");
-        console.log(`${e}`);
-      });
-  }, []);
+  //       setProfile(profileData);
+  //     })
+  //     .catch((e: Error) => {
+  //       console.log("LIFF init failed.");
+  //       console.log(`${e}`);
+  //     });
+  // }, []);
 
-  interface LiffProfile {
-    displayName?: string;
-    userId?: string;
-    pictureUrl?: string;
-  }
+  // interface LiffProfile {
+  //   displayName?: string;
+  //   userId?: string;
+  //   pictureUrl?: string;
+  // }
 
-  function liffProfile(profile: LiffProfile): {
-    name: string;
-    userID: string;
-    image: string;
-  } {
-    return {
-      name: `${profile.displayName}`,
-      userID: `${profile.userId}`,
-      image: `${profile.pictureUrl}`,
-    };
-  }
+  // function liffProfile(profile: LiffProfile): {
+  //   name: string;
+  //   userID: string;
+  //   image: string;
+  // } {
+  //   return {
+  //     name: `${profile.displayName}`,
+  //     userID: `${profile.userId}`,
+  //     image: `${profile.pictureUrl}`,
+  //   };
+  // }
   const swalCopy = () => {
     copy("8707120260");
     Swal.fire({
@@ -75,6 +98,7 @@ export default function ReplyInfoPage() {
       timer: 800,
     });
   };
+  // console.log(profile.name);
 
   const [value, copy] = useCopyToClipboard();
   return (
@@ -105,7 +129,10 @@ export default function ReplyInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">{liffProfile.name}</Typography>
+            <Typography className="yellow-text">
+              {/* {profile.displayName} */}
+              phuwis
+            </Typography>
           </Card>
         </div>
         <div>
@@ -182,7 +209,7 @@ export default function ReplyInfoPage() {
           รายละเอียดการจองโต๊ะ
         </Typography>
         <Row
-          justify="space-between"
+          justify="start"
           align="middle"
           style={{
             marginTop: "30px",
@@ -241,7 +268,7 @@ export default function ReplyInfoPage() {
               textAlign: "start",
             }}
           >
-            A,B
+            {chairs}
           </Typography>
         </Row>
         <Row justify={"space-between"} style={{}}>
@@ -435,6 +462,74 @@ export default function ReplyInfoPage() {
         </Card>
         <Image preview={false} width={380} src={QRCode}></Image>
 
+        <List
+          size="small"
+          header={
+            <div>
+              <Typography
+                className="white-header text-shadow "
+                style={{ marginBottom: "10px", marginTop: "10px" }}
+              >
+                โต๊ะ - เก้าอี้ของคุณ
+              </Typography>
+              <Card
+                size="small"
+                style={{ width: "100%", backgroundColor: "#303E57" }}
+              >
+                <Row justify="space-between" align="middle">
+                  <Image preview={false} width={20} src={Giraffe}></Image>
+                  <Typography className="yellow-header">เก้าอี้</Typography>
+                  <Typography className="yellow-header">โต๊ะ</Typography>
+                </Row>
+              </Card>
+            </div>
+          }
+          footer
+          style={{ marginTop: "30px", backgroundColor: "#677185" }}
+          bordered
+          dataSource={data}
+          renderItem={(item) => (
+            <List.Item>
+              <Card size="small" style={{ width: "100%" }}>
+                <Row justify="space-between" align="middle">
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "10%",
+                      height: "35px",
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Image
+                      preview={false}
+                      width={20}
+                      src={Giraffe}
+                      style={{ padding: "1px" }}
+                    ></Image>
+                  </div>
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "70%",
+                      height: "35px",
+                    }}
+                  >
+                    <Typography className="black-text">{item.chair}</Typography>
+                  </div>
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "10%",
+                      height: "35px",
+                    }}
+                  >
+                    <Typography className="black-text">{item.table}</Typography>
+                  </div>
+                </Row>
+              </Card>
+            </List.Item>
+          )}
+        />
         <Link to="/">
           <Button
             shape="round"

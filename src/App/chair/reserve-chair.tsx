@@ -176,7 +176,7 @@ export default function ReserveChairPage() {
           <Typography className="black-text">ทางเข้า</Typography>
         </Card>
         <Row
-          justify="space-between"
+          justify="start"
           align="middle"
           style={{
             marginTop: "30px",

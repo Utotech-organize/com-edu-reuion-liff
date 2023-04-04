@@ -17,7 +17,9 @@ import {
 import ReserveChairPage, { ChairWithDeskLoader } from "./chair/reserve-chair";
 import RegisterPage from "./register/register";
 import CheckPhoneNumberPage from "./check-phone-number/check-phone-number";
-import DetailReservePage from "./detail-reserve/detail-reserve";
+import DetailReservePage, {
+  ChairWithDeskLoaderInDetail,
+} from "./detail-reserve/detail-reserve";
 import CompletePage from "./complete/complete";
 import CheckInfoPage from "./check-info/check-info";
 import ReplyInfoPage from "./reply-info/reply-info";
@@ -78,7 +80,8 @@ export default function App() {
           element: <CheckPhoneNumberPage></CheckPhoneNumberPage>,
         },
         {
-          path: "detail-reserve",
+          path: "detail-reserve/:id",
+          loader: ChairWithDeskLoaderInDetail,
           element: <DetailReservePage></DetailReservePage>,
         },
         {

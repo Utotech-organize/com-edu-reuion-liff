@@ -1,7 +1,7 @@
 import { FileOutlined } from "@ant-design/icons";
 import { Button, Card, Image, Row, Typography } from "antd";
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 
 import useCopyToClipboard from "../../components/copy-clipboard";
 
@@ -10,9 +10,32 @@ import Giraffe from "../../Static/images/Giraffe.png";
 import QRCode from "../../Static/images/qrcode.png";
 import Swal from "sweetalert2";
 
+import * as API from "../API";
+
+//ENUM IN THIS PAGE
+const amountChairs = 2;
+const pricePerChair = 360;
+const priceAllOfDesk = 3200;
+const summary = amountChairs * pricePerChair;
+const table = "A3";
+
+export async function ChairWithDeskLoaderInDetail({ request, params }: any) {
+  try {
+    const chair = await API.getChairWithDeskID(params.id);
+    console.log(chair);
+
+    return { chair: chair.data.data };
+  } catch (e: any) {
+    localStorage.removeItem("token");
+
+    return { data: null };
+  }
+}
+
 export default function DetailReservePage() {
   const [value, copy] = useCopyToClipboard();
   const location = useLocation();
+  const { chair } = useLoaderData() as any;
 
   const swalCopy = () => {
     copy("8707120260");
@@ -42,37 +65,39 @@ export default function DetailReservePage() {
           textAlign: "start",
         }}
       >
+        {/* FIXME */}
         ยินดีต้อนรับ : ชานม ไข่มุก
       </Typography>
+      <div id="big-circle-detail" className="circle big-detail">
+        {/* {chair.label} */}
+        A3
+        {chair.map((d: any, index: any) => (
+          <div
+            key={d.id}
+            className={`circle ${d.chair_no}`}
+            style={{
+              background: "#FFA800",
+              //   selectedSeat.indexOf(d.id) > -1
+              //     ? "#00B1B1"
+              //     : exportColorWithStatus(d.status),
+              // cursor: d.status === available ? "pointer" : "default",
+            }}
+          >
+            {d.label}
+          </div>
+        ))}
+      </div>
       <Typography
         className="white-bold"
         style={{
           marginTop: "30px",
           textAlign: "start",
+          marginBottom: "280px",
         }}
       >
-        โต๊ะ A3
+        โต๊ะ {table}
       </Typography>
-      <Row justify={"space-between"} style={{ width: "55%" }}>
-        <Typography
-          className="white-text"
-          style={{
-            marginTop: "30px",
-            textAlign: "start",
-          }}
-        >
-          ที่นั่ง
-        </Typography>
-        <Typography
-          className="white-text"
-          style={{
-            marginTop: "30px",
-            textAlign: "start",
-          }}
-        >
-          A,B
-        </Typography>
-      </Row>
+
       <Row justify={"space-between"} style={{}}>
         <Typography
           className="white-text"
@@ -90,7 +115,7 @@ export default function DetailReservePage() {
             textAlign: "start",
           }}
         >
-          2
+          {amountChairs}
         </Typography>
         <Typography
           className="white-text"
@@ -119,7 +144,7 @@ export default function DetailReservePage() {
             textAlign: "start",
           }}
         >
-          360
+          {pricePerChair}
         </Typography>
         <Typography
           className="white-text"
@@ -148,7 +173,7 @@ export default function DetailReservePage() {
             textAlign: "start",
           }}
         >
-          720
+          {summary}
         </Typography>
         <Typography
           className="white-bold"
@@ -166,7 +191,7 @@ export default function DetailReservePage() {
           textAlign: "start",
         }}
       >
-        ( 2 ที่นั่ง x 360 บาท )
+        ( {amountChairs} ที่นั่ง x {pricePerChair} บาท )
       </Typography>
       <Row justify="space-between" align="middle" style={{ marginTop: "27px" }}>
         <Typography className="yellow-text">ข้อมูลการชำระเงิน</Typography>
