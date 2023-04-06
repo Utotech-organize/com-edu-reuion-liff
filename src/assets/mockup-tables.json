@@ -130,61 +130,71 @@
     {
       "id": 1,
       "label": "one",
-      "name": "A"
+      "name": "A",
+      "status": "availableSeat"
     },
     {
       "id": 2,
       "label": "two",
 
-      "name": "B"
+      "name": "B",
+      "status": "availableSeat"
     },
     {
       "id": 3,
       "label": "three",
 
-      "name": "C"
+      "name": "C",
+      "status": "availableSeat"
     },
     {
       "id": 4,
       "label": "four",
 
-      "name": "D"
+      "name": "D",
+      "status": "availableSeat"
     },
     {
       "id": 5,
       "label": "five",
 
-      "name": "E"
+      "name": "E",
+      "status": "availableSeat"
     },
     {
       "id": 6,
       "label": "six",
 
-      "name": "F"
+      "name": "F",
+      "status": "availableSeat"
     },
     {
       "id": 7,
       "label": "seven",
 
-      "name": "G"
+      "name": "G",
+      "status": "fullSeat"
     },
     {
       "id": 8,
       "label": "eight",
 
-      "name": "H"
+      "name": "H",
+      "status": "fullSeat"
     },
     {
       "id": 9,
       "label": "nine",
 
-      "name": "I"
+      "name": "I",
+      "status": "fullSeat"
     },
     {
       "id": 10,
       "label": "ten",
 
-      "name": "J"
+      "name": "J",
+      "status": "fullSeat"
     }
   ]
 }

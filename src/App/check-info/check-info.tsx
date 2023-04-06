@@ -1,11 +1,35 @@
 import React from "react";
 import Appbar from "../../components/appbar";
 import { Button, Card, Image, Row, Typography } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import * as API from "../API";
 
 import Giraffe from "../../Static/images/Giraffe.png";
+import Swal from "sweetalert2";
 
 export default function CheckInfoPage() {
+  const location = useLocation();
+  const infomation = location.state;
+  const navigate = useNavigate();
+
+  const onClick = async () => {
+    try {
+      const res = await API.createCustomers(infomation);
+      console.log({ res });
+
+      navigate("/reserve-table", { state: res });
+    } catch (e: any) {
+      console.log(e);
+
+      return { error: e.response.data.message };
+    }
+  };
+
+  const swalCheck = () => {
+    Swal.fire("Any fool can use a computer");
+  };
+
   return (
     <div style={{ height: "100vh" }}>
       <Appbar />
@@ -34,7 +58,7 @@ export default function CheckInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">ชานม ไข่มุก</Typography>
+            <Typography className="yellow-text">{infomation.name}</Typography>
           </Card>
         </div>
         <div>
@@ -56,7 +80,7 @@ export default function CheckInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">09xyyyzzzz</Typography>
+            <Typography className="yellow-text">{infomation.tel}</Typography>
           </Card>
         </div>
         <div>
@@ -78,8 +102,7 @@ export default function CheckInfoPage() {
             }}
           >
             <Typography className="yellow-text">
-              มจพ. คณะครุศาสตร์อุตสาหกรรม ภาควิชาคอมพิวเตอร์ศึกษา
-              สาขาวิชาคอมพิวเตอร์ธุรกิจ นักศึกษา
+              {infomation.information}
             </Typography>
           </Card>
         </div>
@@ -102,9 +125,7 @@ export default function CheckInfoPage() {
               marginBottom: "30px",
             }}
           >
-            <Typography className="yellow-text">
-              s6402041510000@email.kmutnb.ac.th
-            </Typography>
+            <Typography className="yellow-text">{infomation.email}</Typography>
           </Card>
         </div>
         <Row justify="start" style={{ textAlign: "start" }}>
@@ -127,19 +148,18 @@ export default function CheckInfoPage() {
           </div>
         </Row>
         <div>
-          <Link to="/reserve-table">
-            <Button
-              shape="round"
-              style={{
-                width: "60%",
-                height: "50px",
-                marginTop: "20px",
-                marginBottom: "10px",
-              }}
-            >
-              <Typography className="black-text">ยืนยัน</Typography>
-            </Button>
-          </Link>
+          <Button
+            onClick={onClick}
+            shape="round"
+            style={{
+              width: "60%",
+              height: "50px",
+              marginTop: "20px",
+              marginBottom: "10px",
+            }}
+          >
+            <Typography className="black-text">ยืนยัน</Typography>
+          </Button>
           <Link to="/register">
             <Button
               shape="round"

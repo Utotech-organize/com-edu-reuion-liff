@@ -1,18 +1,59 @@
-import React from "react";
 import { Button, Card, Col, Image, Row, Typography } from "antd";
 import Appbar from "../../components/appbar";
 import Stage from "../../Static/images/cinema.png";
 import Entrance from "../../Static/images/walking-man.png";
 import Giraffe from "../../Static/images/Giraffe.png";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 
-import Mockup from "../../assets/mockup-tables.json";
+import * as API from "../API";
+import { useEffect, useState } from "react";
+import liff from "@line/liff";
 
 const available = "available";
-const seatAvailble = "seatsAvailable";
-const full = "full";
+const seatAvailble = "pending";
+const full = "unavailable";
+
+export async function DesksIndexLoader({ request, params }: any) {
+  try {
+    const desks = await API.getDesks();
+    // console.log(desks.data);
+
+    return { desks: desks.data.data };
+  } catch (e: any) {
+    localStorage.removeItem("token");
+
+    // return redirect("/login");
+    return { data: null };
+  }
+}
 
 export default function ReserveTablePage(props: any) {
+  const location = useLocation();
+  const infomation = location.state;
+  const [profile, setProfile] = useState() as any;
+  const { desks } = useLoaderData() as any;
+
+  useEffect(() => {
+    liff
+      .init({
+        liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID, //FIXME create env
+        withLoginOnExternalBrowser: true,
+      })
+      .then(async () => {
+        console.log("LIFF init succeeded.");
+        console.log("get profile :" + (await liff.getProfile()));
+        console.log(await liff.getProfile());
+
+        const profileData = await liff.getProfile();
+
+        setProfile(profileData);
+      })
+      .catch((e: Error) => {
+        console.log("LIFF init failed.");
+        console.log(`${e}`);
+      });
+  }, []);
+
   const exportColorWithStatus = (status: any) => {
     let color = "";
     if (status === available) {
@@ -30,30 +71,28 @@ export default function ReserveTablePage(props: any) {
     <div>
       <Appbar />
       <div className="app-layout">
-        <Typography className="white-header" style={{ marginTop: "44px" }}>
+        <Typography
+          className="white-header"
+          style={{ marginTop: "44px", marginBottom: "10px" }}
+        >
           ผังที่นั่งงาน ComEdu Reunion 2023
         </Typography>
-        <Typography
-          className="white-text"
-          style={{
-            textAlign: "start",
-            marginTop: "27px",
-            marginBottom: "16px",
-          }}
-        >
-          ยินดีต้อนรับ : Guest
-        </Typography>
+
         <Card size="small" style={{ marginBottom: "10px" }}>
           <Image preview={false} src={Stage} style={{ width: "40px" }}></Image>
           <Typography className="black-text">เวที</Typography>
         </Card>
-        {
-          // FIXME
-        }
+
         <div className="grid-container">
-          {Mockup.tables.map((d, index: any) => (
+          {desks.map((d: any, index: any) => (
             <div key={d.id} className="grid-item">
-              <Link to={`../reserve-chair/${d.id}`}>
+              <Link
+                to={`../reserve-chair/${d.id}`}
+                state={{
+                  desk_data: d,
+                  profile: profile,
+                }}
+              >
                 <div
                   className="seat black-sm-text"
                   style={{
@@ -65,7 +104,7 @@ export default function ReserveTablePage(props: any) {
                 >
                   โต๊ะ
                   <br />
-                  {d.name}
+                  {d.label}
                 </div>
               </Link>
             </div>
@@ -81,7 +120,7 @@ export default function ReserveTablePage(props: any) {
           <Typography className="black-text">ทางเข้า</Typography>
         </Card>
         <Row
-          justify="space-between"
+          justify="start"
           align="middle"
           style={{
             marginTop: "30px",
@@ -180,26 +219,7 @@ export default function ReserveTablePage(props: any) {
             หมายถึง โต๊ะนี้เต็มแล้ว
           </Typography>
         </Row>
-        <Card size="small" style={{ marginTop: "30px" }}>
-          <Row justify="space-around" align="middle">
-            <div style={{ width: "30%" }}>
-              <Typography className="black-header">666 คน</Typography>
-              <Typography className="black-text">จำนวนผู้ลงทะเบียน</Typography>
-            </div>
 
-            <Card
-              style={{
-                width: "70%",
-
-                backgroundColor: "#F6B63B",
-              }}
-            >
-              <Typography className="black-text">
-                เลือกโต๊ะที่ต้องการ ได้เลยนะฮัฟ
-              </Typography>
-            </Card>
-          </Row>
-        </Card>
         <Link to="/">
           <Button
             shape="round"

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import liff from "@line/liff";
 import "../Static/App.css";
 import Homepage from "./home/home";
-import ReserveTablePage from "./table/reserve-table";
+import ReserveTablePage, { DesksIndexLoader } from "./table/reserve-table";
 
 import Mockup from "../assets/mockup-tables.json";
 
@@ -14,15 +14,19 @@ import {
   useNavigate,
   useRouteError,
 } from "react-router-dom";
-import ReserveChairPage from "./chair/reserve-chair";
+import ReserveChairPage, { ChairWithDeskLoader } from "./chair/reserve-chair";
 import RegisterPage from "./register/register";
 import CheckPhoneNumberPage from "./check-phone-number/check-phone-number";
-import DetailReservePage from "./detail-reserve/detail-reserve";
+import DetailReservePage, {
+  ChairWithDeskLoaderInDetail,
+} from "./detail-reserve/detail-reserve";
 import CompletePage from "./complete/complete";
 import CheckInfoPage from "./check-info/check-info";
 import ReplyInfoPage from "./reply-info/reply-info";
 import ReplyInfoEmptyPage from "./reply-info-empty/reply-info-empty";
 import ErrorPage from "./error/error";
+
+import * as API from "./API";
 
 const AppLayout = () => {
   return <Outlet />;
@@ -59,12 +63,12 @@ export default function App() {
         },
         {
           path: "reserve-table",
-
+          loader: DesksIndexLoader,
           element: <ReserveTablePage />,
         },
         {
           path: "reserve-chair/:id",
-
+          loader: ChairWithDeskLoader,
           element: <ReserveChairPage />,
         },
         {
@@ -76,7 +80,8 @@ export default function App() {
           element: <CheckPhoneNumberPage></CheckPhoneNumberPage>,
         },
         {
-          path: "detail-reserve",
+          path: "detail-reserve/:id",
+          loader: ChairWithDeskLoaderInDetail,
           element: <DetailReservePage></DetailReservePage>,
         },
         {

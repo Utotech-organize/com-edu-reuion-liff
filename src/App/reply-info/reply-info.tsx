@@ -1,32 +1,114 @@
-import React from "react";
-import Appbar from "../../components/appbar";
-import { Button, Card, Image, Row, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+
+import { Button, Card, Divider, Image, List, Row, Typography } from "antd";
+
+import liff from "@line/liff";
 
 import Giraffe from "../../Static/images/Giraffe.png";
 import BualuangLogo from "../../Static/images/bualuang.jpg";
-import QRCode from "../../Static/images/qr-code.jpg";
+import QRCode from "../../Static/images/qrcode.png";
 import { FileOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useCopyToClipboard from "../../components/copy-clipboard";
+import Swal from "sweetalert2";
+import Appbar from "../../components/appbar";
+
+//ENUM IN THIS PAGE
+const amountChairs = 2;
+const pricePerChair = 360;
+const priceAllOfDesk = 3200;
+const summary = amountChairs * pricePerChair;
+const table = "A3";
+const chairs = "A,B";
+
+const data = [
+  {
+    table: "A1",
+    chair: "a",
+  },
+  {
+    table: "A1",
+    chair: "b",
+  },
+  {
+    table: "A1",
+    chair: "c",
+  },
+  {
+    table: "A1",
+    chair: "d",
+  },
+  {
+    table: "B1",
+    chair: "a",
+  },
+];
 
 export default function ReplyInfoPage() {
+  const navigate = useNavigate();
+  const [profile, setProfile] = useState() as any;
+
+  // useEffect(() => {
+  //   liff
+  //     .init({
+  //       liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID,
+  //       withLoginOnExternalBrowser: true,
+  //     })
+  //     .then(async () => {
+  //       console.log("LIFF init succeeded.");
+  //       console.log("get profile :" + (await liff.getProfile()));
+  //       console.log(await liff.getProfile());
+
+  //       const profileData = await liff.getProfile();
+
+  //       setProfile(profileData);
+  //     })
+  //     .catch((e: Error) => {
+  //       console.log("LIFF init failed.");
+  //       console.log(`${e}`);
+  //     });
+  // }, []);
+
+  // interface LiffProfile {
+  //   displayName?: string;
+  //   userId?: string;
+  //   pictureUrl?: string;
+  // }
+
+  // function liffProfile(profile: LiffProfile): {
+  //   name: string;
+  //   userID: string;
+  //   image: string;
+  // } {
+  //   return {
+  //     name: `${profile.displayName}`,
+  //     userID: `${profile.userId}`,
+  //     image: `${profile.pictureUrl}`,
+  //   };
+  // }
+  const swalCopy = () => {
+    copy("8707120260");
+    Swal.fire({
+      backdrop: false,
+      background: "#4D5667",
+      position: "center",
+      icon: "success",
+      title: "Copy success",
+      showConfirmButton: false,
+      timer: 800,
+    });
+  };
+  // console.log(profile.name);
+
   const [value, copy] = useCopyToClipboard();
   return (
     <div>
       <Appbar />
       <div className="app-layout">
         <Typography className="white-header" style={{ marginTop: "44px" }}>
-          ผลลัพธ์ข้อมูล
+          ข้อมูลผู้จอง
         </Typography>
-        <Typography
-          className="white-text"
-          style={{ marginTop: "27px", textAlign: "start" }}
-        >
-          ผลการค้นหา
-        </Typography>
-        <Typography className="white-text" style={{ textAlign: "start" }}>
-          เบอร์โทรศัพท์ 09xyyyzzzz
-        </Typography>
+
         <div>
           <Typography
             className="white-text"
@@ -47,7 +129,10 @@ export default function ReplyInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">ชานม ไข่มุก</Typography>
+            <Typography className="yellow-text">
+              {/* {profile.displayName} */}
+              phuwis
+            </Typography>
           </Card>
         </div>
         <div>
@@ -124,7 +209,7 @@ export default function ReplyInfoPage() {
           รายละเอียดการจองโต๊ะ
         </Typography>
         <Row
-          justify="space-between"
+          justify="start"
           align="middle"
           style={{
             marginTop: "30px",
@@ -164,7 +249,7 @@ export default function ReplyInfoPage() {
             textAlign: "start",
           }}
         >
-          โต๊ะ A3
+          โต๊ะ {table}
         </Typography>
         <Row justify={"space-between"} style={{ width: "55%" }}>
           <Typography
@@ -183,7 +268,7 @@ export default function ReplyInfoPage() {
               textAlign: "start",
             }}
           >
-            A,B
+            {chairs}
           </Typography>
         </Row>
         <Row justify={"space-between"} style={{}}>
@@ -203,7 +288,7 @@ export default function ReplyInfoPage() {
               textAlign: "start",
             }}
           >
-            2
+            {amountChairs}
           </Typography>
           <Typography
             className="white-text"
@@ -232,7 +317,7 @@ export default function ReplyInfoPage() {
               textAlign: "start",
             }}
           >
-            360
+            {pricePerChair}
           </Typography>
           <Typography
             className="white-text"
@@ -261,7 +346,7 @@ export default function ReplyInfoPage() {
               textAlign: "start",
             }}
           >
-            720
+            {summary}
           </Typography>
           <Typography
             className="white-bold"
@@ -279,7 +364,7 @@ export default function ReplyInfoPage() {
             textAlign: "start",
           }}
         >
-          ( 2 ที่นั่ง x 360 บาท )
+          ( {amountChairs} ที่นั่ง x {pricePerChair} บาท )
         </Typography>
         <Row
           justify="space-between"
@@ -288,7 +373,11 @@ export default function ReplyInfoPage() {
         >
           <Typography className="yellow-text">ข้อมูลการชำระเงิน</Typography>
           <div
-            style={{ width: "60%", height: "8px", backgroundColor: "#F6B63B" }}
+            style={{
+              width: "60%",
+              height: "8px",
+              backgroundColor: "#F6B63B",
+            }}
           ></div>
         </Row>
         <Card
@@ -360,7 +449,7 @@ export default function ReplyInfoPage() {
                   borderRadius: "8px",
                   height: "40px",
                 }}
-                onClick={() => copy("8707120260")}
+                onClick={() => swalCopy()}
               >
                 <FileOutlined
                   style={{
@@ -373,6 +462,74 @@ export default function ReplyInfoPage() {
         </Card>
         <Image preview={false} width={380} src={QRCode}></Image>
 
+        <List
+          size="small"
+          header={
+            <div>
+              <Typography
+                className="white-header text-shadow "
+                style={{ marginBottom: "10px", marginTop: "10px" }}
+              >
+                โต๊ะ - เก้าอี้ของคุณ
+              </Typography>
+              <Card
+                size="small"
+                style={{ width: "100%", backgroundColor: "#303E57" }}
+              >
+                <Row justify="space-between" align="middle">
+                  <Image preview={false} width={20} src={Giraffe}></Image>
+                  <Typography className="yellow-header">เก้าอี้</Typography>
+                  <Typography className="yellow-header">โต๊ะ</Typography>
+                </Row>
+              </Card>
+            </div>
+          }
+          footer
+          style={{ marginTop: "30px", backgroundColor: "#677185" }}
+          bordered
+          dataSource={data}
+          renderItem={(item) => (
+            <List.Item>
+              <Card size="small" style={{ width: "100%" }}>
+                <Row justify="space-between" align="middle">
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "10%",
+                      height: "35px",
+                      alignSelf: "center",
+                    }}
+                  >
+                    <Image
+                      preview={false}
+                      width={20}
+                      src={Giraffe}
+                      style={{ padding: "1px" }}
+                    ></Image>
+                  </div>
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "70%",
+                      height: "35px",
+                    }}
+                  >
+                    <Typography className="black-text">{item.chair}</Typography>
+                  </div>
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "10%",
+                      height: "35px",
+                    }}
+                  >
+                    <Typography className="black-text">{item.table}</Typography>
+                  </div>
+                </Row>
+              </Card>
+            </List.Item>
+          )}
+        />
         <Link to="/">
           <Button
             shape="round"

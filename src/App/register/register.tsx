@@ -10,14 +10,34 @@ import {
 } from "antd";
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Appbar from "../../components/appbar";
 
 import Giraffe from "../../Static/images/Giraffe.png";
 
 export default function RegisterPage() {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const location = useLocation();
+
+  const profileData = location.state;
+
+  console.log(profileData);
+
+  const navigate = useNavigate();
+
+  const onFinish = (v: any) => {
+    console.log("Success:", v);
+
+    const values = {
+      line_liff_id: profileData.userID,
+      line_display_name: profileData.name,
+      line_photo_url: profileData.image,
+      tel: v.phone,
+      name: v.name,
+      information: v.workplace,
+      email: v.email,
+    };
+
+    navigate("/check-info", { state: values });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -26,7 +46,7 @@ export default function RegisterPage() {
 
   return (
     <div style={{ height: "100vh" }}>
-      <Appbar></Appbar>
+      <Appbar />
       <div className="app-layout">
         <Typography className="white-header" style={{ marginTop: "44px" }}>
           ข้อมูลผู้จองโต๊ะ
@@ -42,7 +62,7 @@ export default function RegisterPage() {
           name="basic"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
+          style={{ width: "100%" }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
@@ -75,10 +95,16 @@ export default function RegisterPage() {
             เบอร์โทรศัพท์
           </Typography>
           <Form.Item
-            name="phone-number"
-            rules={[{ required: true, message: "กรุณากรอกเบอร์โทรศัพท์ !" }]}
+            name="phone"
+            rules={[
+              {
+                required: true,
+                message: "กรุณากรอกเพียงตัวเลข เบอร์โทรศัพท์ !",
+                pattern: new RegExp(/^[0-9]+$/),
+              },
+            ]}
           >
-            <Input />
+            <Input maxLength={10} />
           </Form.Item>
           <Typography
             className="white-text"
@@ -106,8 +132,10 @@ export default function RegisterPage() {
             อีเมล
           </Typography>
           <Form.Item
-            name="e-mail"
-            rules={[{ required: true, message: "กรุณากรอก e-mail !" }]}
+            name="email"
+            rules={[
+              { required: true, message: "กรุณากรอก e-mail !", type: "email" },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -129,26 +157,22 @@ export default function RegisterPage() {
             </div>
           </Row>
           <div>
-            {/* FIXME */}
-            {/* <Link to="/check-info"> */}
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Form.Item wrapperCol={{ span: 16 }}>
               <Button
                 shape="round"
                 htmlType="submit"
-                style={{ width: "60%", height: "50px", right: "33%" }}
+                style={{ width: "60%", height: "50px" }}
               >
                 <Typography className="black-text">ยืนยัน</Typography>
               </Button>
             </Form.Item>
-            {/* </Link> */}
+
             <Link to="/reserve-table">
               <Button
                 shape="round"
                 style={{
                   width: "60%",
                   height: "50px",
-
-                  marginBottom: "50px",
                 }}
               >
                 <Typography className="black-text">ย้อนกลับ</Typography>
@@ -156,56 +180,6 @@ export default function RegisterPage() {
             </Link>
           </div>
         </Form>
-        {/* <div>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "27px",
-              marginBottom: "5px",
-              textAlign: "start",
-            }}
-          >
-            ชื่อ-นามสกุล
-          </Typography>
-          <Input className="normal-text" placeholder="กรุณากรอกชื่อ-นามสกุล" />;
-        </div>
-        <div>
-          <Typography
-            className="white-text"
-            style={{
-              marginBottom: "5px",
-              textAlign: "start",
-            }}
-          >
-            เบอร์โทรศัพท์
-          </Typography>
-          <Input className="normal-text" placeholder="กรุณากรอกเบอร์โทรศัพท์" />
-          ;
-        </div>
-        <div>
-          <Typography
-            className="white-text"
-            style={{
-              marginBottom: "5px",
-              textAlign: "start",
-            }}
-          >
-            สถานที่ทำงาน
-          </Typography>
-          <Input className="normal-text" placeholder="กรุณากรอกสถานที่ทำงาน" />;
-        </div>
-        <div>
-          <Typography
-            className="white-text"
-            style={{
-              marginBottom: "5px",
-              textAlign: "start",
-            }}
-          >
-            อีเมล
-          </Typography>
-          <Input className="normal-text" placeholder="กรุณากรอกอีเมล" />;
-        </div> */}
       </div>
     </div>
   );
