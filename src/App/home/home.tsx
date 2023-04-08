@@ -7,30 +7,45 @@ import "../../Static/styles/Layout.css";
 import Appbar from "../../components/appbar";
 import { Link, useNavigate } from "react-router-dom";
 import liff from "@line/liff";
+import { getMe } from "../../config/liff";
 
 export default function Homepage() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState() as any;
 
+  // useEffect(() => {
+  //   liff
+  //     .init({
+  //       liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID,
+  //       withLoginOnExternalBrowser: true,
+  //     })
+  //     .then(async () => {
+  //       console.log("LIFF init succeeded.");
+  //       console.log("get profile :" + (await liff.getProfile()));
+  //       console.log(await liff.getProfile());
+
+  //       const profileData = await liff.getProfile();
+
+  //       setProfile(profileData);
+  //     })
+  //     .catch((e: Error) => {
+  //       console.log("LIFF init failed.");
+  //       console.log(`${e}`);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    liff
-      .init({
-        liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID,
-        withLoginOnExternalBrowser: true,
-      })
-      .then(async () => {
-        console.log("LIFF init succeeded.");
-        console.log("get profile :" + (await liff.getProfile()));
-        console.log(await liff.getProfile());
+    const fetchData = async () => {
+      const data = (await getMe()) as any;
+      if (data.user) {
+        navigate("/reserve-table");
+      }
+    };
 
-        const profileData = await liff.getProfile();
-
-        setProfile(profileData);
-      })
-      .catch((e: Error) => {
-        console.log("LIFF init failed.");
-        console.log(`${e}`);
-      });
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
   }, []);
 
   interface LiffProfile {
@@ -52,7 +67,7 @@ export default function Homepage() {
   }
 
   const onClick = () => {
-    navigate("/register", { state: liffProfile(profile) });
+    navigate("/register");
   };
 
   return (

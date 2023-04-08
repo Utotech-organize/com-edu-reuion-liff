@@ -1,6 +1,6 @@
 import { FileOutlined } from "@ant-design/icons";
 import { Button, Card, Image, Row, Typography } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 
 import useCopyToClipboard from "../../components/copy-clipboard";
@@ -11,6 +11,7 @@ import QRCode from "../../Static/images/qrcode.png";
 import Swal from "sweetalert2";
 
 import * as API from "../API";
+import { getMe } from "../../config/liff";
 
 //ENUM IN THIS PAGE
 const amountChairs = 2;
@@ -22,7 +23,6 @@ const table = "A3";
 export async function ChairWithDeskLoaderInDetail({ request, params }: any) {
   try {
     const chair = await API.getChairWithDeskID(params.id);
-    console.log(chair);
 
     return { chair: chair.data.data };
   } catch (e: any) {
@@ -36,6 +36,14 @@ export default function DetailReservePage() {
   const [value, copy] = useCopyToClipboard();
   const location = useLocation();
   const { chair } = useLoaderData() as any;
+
+  useEffect(() => {
+    const res = getMe();
+    console.log({ res });
+  }, []);
+  console.log("-----------");
+
+  console.log(location);
 
   const swalCopy = () => {
     copy("8707120260");

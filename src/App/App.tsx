@@ -16,40 +16,26 @@ import {
 } from "react-router-dom";
 import ReserveChairPage, { ChairWithDeskLoader } from "./chair/reserve-chair";
 import RegisterPage from "./register/register";
-import CheckPhoneNumberPage from "./check-phone-number/check-phone-number";
 import DetailReservePage, {
   ChairWithDeskLoaderInDetail,
 } from "./detail-reserve/detail-reserve";
-import CompletePage from "./complete/complete";
+
 import CheckInfoPage from "./check-info/check-info";
 import ReplyInfoPage from "./reply-info/reply-info";
-import ReplyInfoEmptyPage from "./reply-info-empty/reply-info-empty";
 import ErrorPage from "./error/error";
 
 import * as API from "./API";
+import { initLIFF } from "../config/liff";
 
 const AppLayout = () => {
+  useEffect(() => {
+    initLIFF();
+  }, []);
+
   return <Outlet />;
 };
 
 export default function App() {
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    liff
-      .init({
-        liffId: import.meta.env.VITE_LIFF_ID,
-      })
-      .then(() => {
-        setMessage("LIFF init succeeded.");
-      })
-      .catch((e: Error) => {
-        setMessage("LIFF init failed.");
-        setError(`${e}`);
-      });
-  });
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -58,8 +44,15 @@ export default function App() {
       children: [
         {
           path: "",
-
           element: <Homepage />,
+        },
+        {
+          path: "register",
+          element: <RegisterPage />,
+        },
+        {
+          path: "check-info",
+          element: <CheckInfoPage />,
         },
         {
           path: "reserve-table",
@@ -71,36 +64,19 @@ export default function App() {
           loader: ChairWithDeskLoader,
           element: <ReserveChairPage />,
         },
-        {
-          path: "register",
-          element: <RegisterPage></RegisterPage>,
-        },
-        {
-          path: "phone-number",
-          element: <CheckPhoneNumberPage></CheckPhoneNumberPage>,
-        },
+
         {
           path: "detail-reserve/:id",
           loader: ChairWithDeskLoaderInDetail,
           element: <DetailReservePage></DetailReservePage>,
         },
-        {
-          path: "complete",
-          element: <CompletePage></CompletePage>,
-        },
-        {
-          path: "check-info",
-          element: <CheckInfoPage></CheckInfoPage>,
-        },
+
         {
           path: "reply-info",
           element: <ReplyInfoPage></ReplyInfoPage>,
         },
-        {
-          path: "reply-info-empty",
-          element: <ReplyInfoEmptyPage></ReplyInfoEmptyPage>,
-        },
-        { path: "error", element: <ErrorPage></ErrorPage> },
+
+        { path: "error", element: <ErrorPage /> },
       ],
     },
   ]);

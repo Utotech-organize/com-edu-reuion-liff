@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Appbar from "../../components/appbar";
 import { Button, Card, Image, Row, Typography } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import * as API from "../API";
 
 import Giraffe from "../../Static/images/Giraffe.png";
 import Swal from "sweetalert2";
+import { initLIFF, getMe } from "../../config/liff";
 
 export default function CheckInfoPage() {
   const location = useLocation();
@@ -29,6 +30,11 @@ export default function CheckInfoPage() {
   const swalCheck = () => {
     Swal.fire("Any fool can use a computer");
   };
+
+  useEffect(() => {
+    const res = getMe;
+    console.log({ res });
+  }, []);
 
   return (
     <div style={{ height: "100vh" }}>
