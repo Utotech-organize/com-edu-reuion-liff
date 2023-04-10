@@ -29,8 +29,8 @@ export async function DesksIndexLoader({ request, params }: any) {
 }
 
 export default function ReserveTablePage(props: any) {
-  const location = useLocation();
-  const infomation = location.state;
+  // const location = useLocation();
+  // const infomation = location.state;
   const [profile, setProfile] = useState() as any;
   const { desks } = useLoaderData() as any;
 

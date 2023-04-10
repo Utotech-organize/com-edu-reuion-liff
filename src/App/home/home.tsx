@@ -11,7 +11,6 @@ import { getMe } from "../../config/liff";
 
 export default function Homepage() {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState() as any;
 
   // useEffect(() => {
   //   liff

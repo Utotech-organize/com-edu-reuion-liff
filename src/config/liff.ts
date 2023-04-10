@@ -24,7 +24,6 @@ export const getMe = async () => {
     const profileData = JSON.parse(lineProfile);
 
     const user = await getCustomerWithLiffID(profileData.userId);
-    console.log({ user });
 
     return { user: user.data };
   } catch (error: any) {

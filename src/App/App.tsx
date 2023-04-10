@@ -20,12 +20,16 @@ import DetailReservePage, {
   ChairWithDeskLoaderInDetail,
 } from "./detail-reserve/detail-reserve";
 
-import CheckInfoPage from "./check-info/check-info";
-import ReplyInfoPage from "./reply-info/reply-info";
+import ReplyInfoPage, { AllBookingLoader } from "./reply-info/reply-info";
 import ErrorPage from "./error/error";
 
 import * as API from "./API";
 import { initLIFF } from "../config/liff";
+import LoadingPage from "../components/loading";
+import OrderPage from "./order/order";
+import SingleReplyInfoPage, {
+  SingleReplyLoader,
+} from "./single-reply-info/single-reply-info";
 
 const AppLayout = () => {
   useEffect(() => {
@@ -50,10 +54,7 @@ export default function App() {
           path: "register",
           element: <RegisterPage />,
         },
-        {
-          path: "check-info",
-          element: <CheckInfoPage />,
-        },
+
         {
           path: "reserve-table",
           loader: DesksIndexLoader,
@@ -68,14 +69,21 @@ export default function App() {
         {
           path: "detail-reserve/:id",
           loader: ChairWithDeskLoaderInDetail,
-          element: <DetailReservePage></DetailReservePage>,
+          element: <DetailReservePage />,
         },
 
         {
-          path: "reply-info",
-          element: <ReplyInfoPage></ReplyInfoPage>,
+          path: "reply-info/:id",
+          loader: AllBookingLoader,
+          element: <ReplyInfoPage />,
         },
-
+        {
+          path: "single-reply-info/:id",
+          loader: SingleReplyLoader,
+          element: <SingleReplyInfoPage />,
+        },
+        { path: "order", element: <OrderPage /> },
+        { path: "loading", element: <LoadingPage /> },
         { path: "error", element: <ErrorPage /> },
       ],
     },

@@ -22,7 +22,7 @@
 }
 
 /* TEXT */
-.text-shadow {
+.text-shadow:hover {
   text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
     -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000,
     1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000,
@@ -238,4 +238,9 @@
   font-weight: 400;
   font-size: 16px;
   color: white !important;
+}
+.example {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
 }

@@ -24,9 +24,10 @@ const full = "unavailable";
 
 export async function ChairWithDeskLoader({ request, params }: any) {
   try {
-    const chairs = await API.getChairWithDeskID(params.id);
+    const allChairs = await API.getChairWithDeskID(params.id);
     const data = (await getMe()) as any;
-    return { chairs: chairs.data.data, me: data.user.data };
+
+    return { allChairs: allChairs.data.data, me: data.user.data };
   } catch (e: any) {
     localStorage.removeItem("token");
 
@@ -36,37 +37,37 @@ export async function ChairWithDeskLoader({ request, params }: any) {
 
 export default function ReserveChairPage() {
   const [selectedSeat, setSelectedSeat] = React.useState<any>([]);
-  const { chairs, me } = useLoaderData() as any;
+  const { allChairs, me } = useLoaderData() as any;
   console.log(me);
-
   const navigate = useNavigate();
   const location = useLocation();
   const infomation = location.state;
 
-  console.log(location);
+  console.log(allChairs);
 
   const canSelectAll =
-    chairs.filter((d: any) => d.status === "available").length === 10;
+    allChairs.filter((d: any) => d.status === "available").length === 10;
 
   console.log({ canSelectAll });
 
   const onButtonClick = async (mode: string) => {
     if (mode === "all") {
-      setSelectedSeat(chairs.map((d: any) => d.id));
+      setSelectedSeat(allChairs.map((d: any) => d.id));
     }
 
     try {
       const bookingPayload = {
-        customer: me.id,
+        customer_id: me.id,
         desk_id: infomation.desk_data.id,
-        chairs_id: mode == "all" ? chairs.map((d: any) => d.id) : selectedSeat,
+        chairs_id:
+          mode == "all" ? allChairs.map((d: any) => d.id) : selectedSeat,
+        image_url: "",
       };
       console.log({ bookingPayload });
 
       const res = await createBooking(bookingPayload);
-      console.log({ res });
 
-      console.log({ infomation });
+      navigate(`/detail-reserve/${res.data.data.id}`);
     } catch (e: any) {
       return { error: e.response.data.message };
     }
@@ -114,7 +115,7 @@ export default function ReserveChairPage() {
         </Card>
         <div id="big-circle" className="circle big">
           {infomation.desk_data.label}
-          {chairs.map((d: any, index: any) => (
+          {allChairs.map((d: any, index: any) => (
             <div
               key={d.name}
               className={`circle ${d.chair_no}`}

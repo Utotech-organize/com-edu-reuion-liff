@@ -32,6 +32,7 @@ export default function RegisterPage() {
       line_liff_id: profileData.userId,
       line_display_name: profileData.displayName,
       line_photo_url: profileData.pictureUrl,
+      channel: "line",
       ...v,
     };
     console.log({ values });
@@ -129,6 +130,18 @@ export default function RegisterPage() {
             ]}
           >
             <Input maxLength={10} />
+          </Form.Item>
+          <Typography
+            className="white-text"
+            style={{
+              marginBottom: "5px",
+              textAlign: "start",
+            }}
+          >
+            รุ่น
+          </Typography>
+          <Form.Item name="generation" rules={[{ required: false }]}>
+            <Input placeholder="TCT,CED ตามด้วยเลข" />
           </Form.Item>
           <Typography
             className="white-text"
