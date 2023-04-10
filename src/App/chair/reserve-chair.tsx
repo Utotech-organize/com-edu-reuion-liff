@@ -1,5 +1,5 @@
 import { Button, Card, Image, Row, Typography } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Link,
@@ -15,6 +15,8 @@ import Appbar from "../../components/appbar";
 
 import * as API from "../API";
 import Swal from "sweetalert2";
+import { getMe } from "../../config/liff";
+import { createBooking } from "../API/booking";
 
 const available = "available";
 const seatAvailble = "pending";
@@ -22,9 +24,10 @@ const full = "unavailable";
 
 export async function ChairWithDeskLoader({ request, params }: any) {
   try {
-    const chairs = await API.getChairWithDeskID(params.id);
+    const allChairs = await API.getChairWithDeskID(params.id);
+    const data = (await getMe()) as any;
 
-    return { chairs: chairs.data.data };
+    return { allChairs: allChairs.data.data, me: data.user.data };
   } catch (e: any) {
     localStorage.removeItem("token");
 
@@ -34,80 +37,40 @@ export async function ChairWithDeskLoader({ request, params }: any) {
 
 export default function ReserveChairPage() {
   const [selectedSeat, setSelectedSeat] = React.useState<any>([]);
-  const { chairs } = useLoaderData() as any;
+  const { allChairs, me } = useLoaderData() as any;
+  console.log(me);
   const navigate = useNavigate();
   const location = useLocation();
   const infomation = location.state;
 
-  const onButtonClick = async () => {
-    if (selectedSeat.length !== 0) {
-      // try {
-      //FIXME
-      const res = await API.getCustomerWithLiffID(
-        "U7cacfddcc2cc56f99724e5eb93eae391"
-      );
-      console.log(res);
+  console.log(allChairs);
 
-      // const updateData = {
-      //   id: customerData.data.id,
-      //   line_liff_id: customerData.data.line_liff_id,
-      //   line_display_name: customerData.data.line_display_name,
-      //   line_photo_url: customerData.data.line_photo_url,
-      //   tel: customerData.data.tel,
-      //   name: customerData.data.name,
-      //   information: customerData.data.information,
-      //   email: customerData.data.email,
-      //   chairs: selectedSeat,
-      // };
+  const canSelectAll =
+    allChairs.filter((d: any) => d.status === "available").length === 10;
 
-      // const { data: customerUpdateData } = await API.updateCustomer(
-      //   updateData
-      // );
+  console.log({ canSelectAll });
 
-      // navigate("/detail-reserve", { state: customerData });
-      // } catch (e: any) {
-      //   return { error: e.response.data.message };
-      // }
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
+  const onButtonClick = async (mode: string) => {
+    if (mode === "all") {
+      setSelectedSeat(allChairs.map((d: any) => d.id));
     }
-  };
 
-  const onReserveAllClick = async () => {
     try {
-      //FIXME
-      const { data: customerData } = await API.getCustomerWithLiffID(
-        infomation.profile.userId
-      );
-      const result = chairs.map((item: any) => item.id);
-
-      const updateData = {
-        id: customerData.data.id,
-        line_liff_id: customerData.data.line_liff_id,
-        line_display_name: customerData.data.line_display_name,
-        line_photo_url: customerData.data.line_photo_url,
-        tel: customerData.data.tel,
-        name: customerData.data.name,
-        information: customerData.data.information,
-        email: customerData.data.email,
-        chairs: result,
+      const bookingPayload = {
+        customer_id: me.id,
+        desk_id: infomation.desk_data.id,
+        chairs_id:
+          mode == "all" ? allChairs.map((d: any) => d.id) : selectedSeat,
+        image_url: "",
       };
+      console.log({ bookingPayload });
 
-      const { data: customerUpdateData } = await API.updateCustomer(updateData);
+      const res = await createBooking(bookingPayload);
 
-      navigate("/detail-reserve", { state: customerData });
+      navigate(`/detail-reserve/${res.data.data.id}`);
     } catch (e: any) {
       return { error: e.response.data.message };
     }
-  };
-
-  const handleAllChair = () => {
-    const result = chairs.map((item: any) => item.id);
-    console.log({ result });
   };
 
   const handleSelectedSeat = (id: any) => {
@@ -152,7 +115,7 @@ export default function ReserveChairPage() {
         </Card>
         <div id="big-circle" className="circle big">
           {infomation.desk_data.label}
-          {chairs.map((d: any, index: any) => (
+          {allChairs.map((d: any, index: any) => (
             <div
               key={d.name}
               className={`circle ${d.chair_no}`}
@@ -309,26 +272,28 @@ export default function ReserveChairPage() {
         <Card size="small" style={{ marginTop: "30px" }}>
           <Row justify="space-around" align="middle">
             <Button
-              onClick={onButtonClick}
+              onClick={() => onButtonClick("selected")}
               style={{
                 width: "150px",
                 height: "60px",
                 backgroundColor: "#F6B63B",
                 borderRadius: "20px",
               }}
+              disabled={!selectedSeat.length}
             >
               <Typography className="black-sm-text">จองตามที่เลือก</Typography>
             </Button>
 
             {infomation.desk_data.status === "available" ? (
               <Button
-                onClick={onReserveAllClick}
+                onClick={() => onButtonClick("all")}
                 style={{
                   width: "150px",
                   height: "60px",
                   backgroundColor: "#4D5667",
                   borderRadius: "20px",
                 }}
+                disabled={!canSelectAll}
               >
                 <Typography className="white-sm-text">จองทั้งโต๊ะ</Typography>
               </Button>

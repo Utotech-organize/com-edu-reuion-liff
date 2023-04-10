@@ -16,40 +16,30 @@ import {
 } from "react-router-dom";
 import ReserveChairPage, { ChairWithDeskLoader } from "./chair/reserve-chair";
 import RegisterPage from "./register/register";
-import CheckPhoneNumberPage from "./check-phone-number/check-phone-number";
 import DetailReservePage, {
   ChairWithDeskLoaderInDetail,
 } from "./detail-reserve/detail-reserve";
-import CompletePage from "./complete/complete";
-import CheckInfoPage from "./check-info/check-info";
-import ReplyInfoPage from "./reply-info/reply-info";
-import ReplyInfoEmptyPage from "./reply-info-empty/reply-info-empty";
+
+import ReplyInfoPage, { AllBookingLoader } from "./reply-info/reply-info";
 import ErrorPage from "./error/error";
 
 import * as API from "./API";
+import { initLIFF } from "../config/liff";
+import LoadingPage from "../components/loading";
+import OrderPage from "./order/order";
+import SingleReplyInfoPage, {
+  SingleReplyLoader,
+} from "./single-reply-info/single-reply-info";
 
 const AppLayout = () => {
+  useEffect(() => {
+    initLIFF();
+  }, []);
+
   return <Outlet />;
 };
 
 export default function App() {
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    liff
-      .init({
-        liffId: import.meta.env.VITE_LIFF_ID,
-      })
-      .then(() => {
-        setMessage("LIFF init succeeded.");
-      })
-      .catch((e: Error) => {
-        setMessage("LIFF init failed.");
-        setError(`${e}`);
-      });
-  });
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -58,9 +48,13 @@ export default function App() {
       children: [
         {
           path: "",
-
           element: <Homepage />,
         },
+        {
+          path: "register",
+          element: <RegisterPage />,
+        },
+
         {
           path: "reserve-table",
           loader: DesksIndexLoader,
@@ -71,36 +65,26 @@ export default function App() {
           loader: ChairWithDeskLoader,
           element: <ReserveChairPage />,
         },
-        {
-          path: "register",
-          element: <RegisterPage></RegisterPage>,
-        },
-        {
-          path: "phone-number",
-          element: <CheckPhoneNumberPage></CheckPhoneNumberPage>,
-        },
+
         {
           path: "detail-reserve/:id",
           loader: ChairWithDeskLoaderInDetail,
-          element: <DetailReservePage></DetailReservePage>,
+          element: <DetailReservePage />,
+        },
+
+        {
+          path: "reply-info/:id",
+          loader: AllBookingLoader,
+          element: <ReplyInfoPage />,
         },
         {
-          path: "complete",
-          element: <CompletePage></CompletePage>,
+          path: "single-reply-info/:id",
+          loader: SingleReplyLoader,
+          element: <SingleReplyInfoPage />,
         },
-        {
-          path: "check-info",
-          element: <CheckInfoPage></CheckInfoPage>,
-        },
-        {
-          path: "reply-info",
-          element: <ReplyInfoPage></ReplyInfoPage>,
-        },
-        {
-          path: "reply-info-empty",
-          element: <ReplyInfoEmptyPage></ReplyInfoEmptyPage>,
-        },
-        { path: "error", element: <ErrorPage></ErrorPage> },
+        { path: "order", element: <OrderPage /> },
+        { path: "loading", element: <LoadingPage /> },
+        { path: "error", element: <ErrorPage /> },
       ],
     },
   ]);

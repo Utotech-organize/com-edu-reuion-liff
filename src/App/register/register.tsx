@@ -15,29 +15,38 @@ import Appbar from "../../components/appbar";
 
 import Giraffe from "../../Static/images/Giraffe.png";
 
+import * as API from "../API";
+
 export default function RegisterPage() {
   const location = useLocation();
 
-  const profileData = location.state;
-
-  console.log(profileData);
-
   const navigate = useNavigate();
 
-  const onFinish = (v: any) => {
+  const onFinish = async (v: any) => {
     console.log("Success:", v);
+    const lineProfile = localStorage.getItem("line_profile") as any;
+    console.log({ lineProfile });
 
+    const profileData = JSON.parse(lineProfile);
     const values = {
-      line_liff_id: profileData.userID,
-      line_display_name: profileData.name,
-      line_photo_url: profileData.image,
-      tel: v.phone,
-      name: v.name,
-      information: v.workplace,
-      email: v.email,
+      line_liff_id: profileData.userId,
+      line_display_name: profileData.displayName,
+      line_photo_url: profileData.pictureUrl,
+      channel: "line",
+      ...v,
     };
+    console.log({ values });
 
-    navigate("/check-info", { state: values });
+    try {
+      const res = await API.createCustomers(values);
+      console.log({ res });
+
+      navigate("/reserve-table");
+    } catch (e: any) {
+      console.log(e);
+
+      return { error: e.response.data.message };
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -45,7 +54,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{}}>
       <Appbar />
       <div className="app-layout">
         <Typography className="white-header" style={{ marginTop: "44px" }}>
@@ -76,11 +85,27 @@ export default function RegisterPage() {
               textAlign: "start",
             }}
           >
-            ชื่อ-นามสกุล
+            ชื่อ
           </Typography>
           <Form.Item
-            name="name"
-            rules={[{ required: true, message: "กรุณากรอกชื่อ-นามสกุล !" }]}
+            name="first_name"
+            rules={[{ required: true, message: "กรุณากรอกชื่อ !" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Typography
+            className="white-text"
+            style={{
+              marginTop: "27px",
+              marginBottom: "5px",
+              textAlign: "start",
+            }}
+          >
+            นามสกุล
+          </Typography>
+          <Form.Item
+            name="last_name"
+            rules={[{ required: true, message: "กรุณากรอกนามสกุล !" }]}
           >
             <Input />
           </Form.Item>
@@ -95,7 +120,7 @@ export default function RegisterPage() {
             เบอร์โทรศัพท์
           </Typography>
           <Form.Item
-            name="phone"
+            name="tel"
             rules={[
               {
                 required: true,
@@ -113,10 +138,22 @@ export default function RegisterPage() {
               textAlign: "start",
             }}
           >
+            รุ่น
+          </Typography>
+          <Form.Item name="generation" rules={[{ required: false }]}>
+            <Input placeholder="TCT,CED ตามด้วยเลข" />
+          </Form.Item>
+          <Typography
+            className="white-text"
+            style={{
+              marginBottom: "5px",
+              textAlign: "start",
+            }}
+          >
             สถานที่ทำงาน
           </Typography>
           <Form.Item
-            name="workplace"
+            name="information"
             rules={[{ required: true, message: "กรุณากรอกสถานที่ทำงาน !" }]}
           >
             <Input />
@@ -173,6 +210,7 @@ export default function RegisterPage() {
                 style={{
                   width: "60%",
                   height: "50px",
+                  marginBottom: "50px",
                 }}
               >
                 <Typography className="black-text">ย้อนกลับ</Typography>

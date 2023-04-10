@@ -8,10 +8,13 @@ import Giraffe from "../../Static/images/Giraffe.png";
 import BualuangLogo from "../../Static/images/bualuang.jpg";
 import QRCode from "../../Static/images/qrcode.png";
 import { FileOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import useCopyToClipboard from "../../components/copy-clipboard";
 import Swal from "sweetalert2";
 import Appbar from "../../components/appbar";
+import { getMe } from "../../config/liff";
+import * as API from "../API";
+import { getBooking } from "../API";
 
 //ENUM IN THIS PAGE
 const amountChairs = 2;
@@ -21,71 +24,64 @@ const summary = amountChairs * pricePerChair;
 const table = "A3";
 const chairs = "A,B";
 
-const data = [
+export async function AllBookingLoader({ request, params }: any) {
+  try {
+    const allBooking = await API.getAllBooking(params.id);
+    const data = await getMe();
+
+    return {
+      allBooking: allBooking.data.data,
+      data: data?.user.data,
+    };
+  } catch (e: any) {
+    return { data: null };
+  }
+}
+
+const mockData = [
   {
     table: "A1",
-    chair: "a",
+    createAt: "2023-04-09T20:59:28.498Z",
+    status: "pending",
   },
-  {
-    table: "A1",
-    chair: "b",
-  },
-  {
-    table: "A1",
-    chair: "c",
-  },
-  {
-    table: "A1",
-    chair: "d",
-  },
+
   {
     table: "B1",
-    chair: "a",
+    createAt: "2023-04-09T15:58:47.163Z",
+    status: "pending",
   },
 ];
 
 export default function ReplyInfoPage() {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState() as any;
+  const { allBooking, data } = useLoaderData() as any;
+  // const [data, setData] = useState() as any;
+
+  console.log("-----all------");
+  console.log({ allBooking });
+  // console.log("-----booking------");
+  // console.log({ booking });
+  console.log("-----data------");
+  console.log({ data });
+
+  // const bookings = allBooking.map((item: any) => );
+
+  // console.log("-------booking-------");
+
+  // console.log(bookings);
 
   // useEffect(() => {
-  //   liff
-  //     .init({
-  //       liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID,
-  //       withLoginOnExternalBrowser: true,
-  //     })
-  //     .then(async () => {
-  //       console.log("LIFF init succeeded.");
-  //       console.log("get profile :" + (await liff.getProfile()));
-  //       console.log(await liff.getProfile());
-
-  //       const profileData = await liff.getProfile();
-
-  //       setProfile(profileData);
-  //     })
-  //     .catch((e: Error) => {
-  //       console.log("LIFF init failed.");
-  //       console.log(`${e}`);
-  //     });
-  // }, []);
-
-  // interface LiffProfile {
-  //   displayName?: string;
-  //   userId?: string;
-  //   pictureUrl?: string;
-  // }
-
-  // function liffProfile(profile: LiffProfile): {
-  //   name: string;
-  //   userID: string;
-  //   image: string;
-  // } {
-  //   return {
-  //     name: `${profile.displayName}`,
-  //     userID: `${profile.userId}`,
-  //     image: `${profile.pictureUrl}`,
+  //   const fetchData = async () => {
+  //     console.log(data);
+  //     setData(data);
   //   };
-  // }
+
+  //   fetchData();
+  // }, []);
+  const onClickWithId = (id: any) => {
+    navigate(`/single-reply-info/${id}`);
+  };
+
   const swalCopy = () => {
     copy("8707120260");
     Swal.fire({
@@ -98,7 +94,6 @@ export default function ReplyInfoPage() {
       timer: 800,
     });
   };
-  // console.log(profile.name);
 
   const [value, copy] = useCopyToClipboard();
   return (
@@ -118,7 +113,7 @@ export default function ReplyInfoPage() {
               textAlign: "start",
             }}
           >
-            ชื่อ-นามสกุล
+            ชื่อ
           </Typography>
           <Card
             size="small"
@@ -131,7 +126,32 @@ export default function ReplyInfoPage() {
           >
             <Typography className="yellow-text">
               {/* {profile.displayName} */}
-              phuwis
+              {data.first_name}
+            </Typography>
+          </Card>
+        </div>
+        <div>
+          <Typography
+            className="white-text"
+            style={{
+              marginBottom: "5px",
+              textAlign: "start",
+            }}
+          >
+            นามสกุล
+          </Typography>
+          <Card
+            size="small"
+            className="normal-text"
+            style={{
+              backgroundColor: "#677185",
+              textAlign: "start",
+              marginBottom: "10px",
+            }}
+          >
+            <Typography className="yellow-text">
+              {/* {profile.displayName} */}
+              {data.last_name}
             </Typography>
           </Card>
         </div>
@@ -154,7 +174,7 @@ export default function ReplyInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">09xyyyzzzz</Typography>
+            <Typography className="yellow-text">{data.tel}</Typography>
           </Card>
         </div>
         <div>
@@ -175,10 +195,7 @@ export default function ReplyInfoPage() {
               marginBottom: "10px",
             }}
           >
-            <Typography className="yellow-text">
-              มจพ. คณะครุศาสตร์อุตสาหกรรม ภาควิชาคอมพิวเตอร์ศึกษา
-              สาขาวิชาคอมพิวเตอร์ธุรกิจ นักศึกษา
-            </Typography>
+            <Typography className="yellow-text">{data.information}</Typography>
           </Card>
         </div>
         <div>
@@ -200,9 +217,7 @@ export default function ReplyInfoPage() {
               marginBottom: "30px",
             }}
           >
-            <Typography className="yellow-text">
-              s6402041510000@email.kmutnb.ac.th
-            </Typography>
+            <Typography className="yellow-text">{data.email}</Typography>
           </Card>
         </div>
         <Typography className="white-header" style={{ marginTop: "44px" }}>
@@ -242,225 +257,6 @@ export default function ReplyInfoPage() {
             </Typography>
           </div>
         </Row>
-        <Typography
-          className="white-bold"
-          style={{
-            marginTop: "30px",
-            textAlign: "start",
-          }}
-        >
-          โต๊ะ {table}
-        </Typography>
-        <Row justify={"space-between"} style={{ width: "55%" }}>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            ที่นั่ง
-          </Typography>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            {chairs}
-          </Typography>
-        </Row>
-        <Row justify={"space-between"} style={{}}>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            จำนวน
-          </Typography>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            {amountChairs}
-          </Typography>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            ที่นั่ง
-          </Typography>
-        </Row>
-        <Row justify={"space-between"} style={{}}>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            ราคา/ที่นั่ง
-          </Typography>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            {pricePerChair}
-          </Typography>
-          <Typography
-            className="white-text"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            บาท
-          </Typography>
-        </Row>
-        <Row justify={"space-between"} style={{}}>
-          <Typography
-            className="white-bold"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            รวมทั้งสิ้น
-          </Typography>
-          <Typography
-            className="white-bold"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            {summary}
-          </Typography>
-          <Typography
-            className="white-bold"
-            style={{
-              marginTop: "30px",
-              textAlign: "start",
-            }}
-          >
-            บาท
-          </Typography>
-        </Row>
-        <Typography
-          className="white-text"
-          style={{
-            textAlign: "start",
-          }}
-        >
-          ( {amountChairs} ที่นั่ง x {pricePerChair} บาท )
-        </Typography>
-        <Row
-          justify="space-between"
-          align="middle"
-          style={{ marginTop: "27px" }}
-        >
-          <Typography className="yellow-text">ข้อมูลการชำระเงิน</Typography>
-          <div
-            style={{
-              width: "60%",
-              height: "8px",
-              backgroundColor: "#F6B63B",
-            }}
-          ></div>
-        </Row>
-        <Card
-          style={{
-            backgroundColor: "#303E57",
-            marginTop: "13px",
-            marginBottom: "27px",
-          }}
-          bordered={false}
-        >
-          <Row justify={"space-between"}>
-            <Typography className="yellow-text">ชื่อธนาคาร</Typography>
-            <Row>
-              <Image
-                preview={false}
-                width={30}
-                style={{ borderRadius: "50%" }}
-                src={BualuangLogo}
-              />
-
-              <Typography
-                className="yellow-text"
-                style={{ marginLeft: "10px" }}
-              >
-                ธนาคารกรุงเทพฯ
-              </Typography>
-            </Row>
-          </Row>
-          <Row justify={"space-between"}>
-            <Typography className="yellow-text">ชื่อบัญชี</Typography>
-            <Typography className="yellow-text">
-              น.ส. ภัทรวาดี ชาตะ และ
-            </Typography>
-          </Row>
-          <Typography className="yellow-text" style={{ textAlign: "end" }}>
-            นาย วัชพล เหลาทอง
-          </Typography>
-          <Typography
-            className="yellow-text"
-            style={{ textAlign: "start", marginBottom: "10px" }}
-          >
-            เลขที่บัญชี
-          </Typography>
-          <div
-            style={{
-              backgroundColor: "white",
-              borderRadius: "8px",
-              height: "40px",
-            }}
-          >
-            <Row justify="space-between">
-              <div></div>
-              <Typography
-                style={{
-                  fontStyle: "normal",
-                  fontWeight: "400",
-                  fontSize: "16px",
-                  color: "#9C9D9D",
-
-                  alignSelf: "center",
-                }}
-              >
-                8707120260
-              </Typography>
-              <Button
-                style={{
-                  backgroundColor: "#677185",
-                  width: "50px",
-                  borderRadius: "8px",
-                  height: "40px",
-                }}
-                onClick={() => swalCopy()}
-              >
-                <FileOutlined
-                  style={{
-                    fontSize: "25px",
-                  }}
-                />
-              </Button>
-            </Row>
-          </div>
-        </Card>
-        <Image preview={false} width={380} src={QRCode}></Image>
 
         <List
           size="small"
@@ -470,15 +266,15 @@ export default function ReplyInfoPage() {
                 className="white-header text-shadow "
                 style={{ marginBottom: "10px", marginTop: "10px" }}
               >
-                โต๊ะ - เก้าอี้ของคุณ
+                การจองของคุณ
               </Typography>
               <Card
                 size="small"
                 style={{ width: "100%", backgroundColor: "#303E57" }}
               >
                 <Row justify="space-between" align="middle">
-                  <Image preview={false} width={20} src={Giraffe}></Image>
-                  <Typography className="yellow-header">เก้าอี้</Typography>
+                  <Typography className="yellow-header">สถานะ</Typography>
+                  <Typography className="yellow-header">วันที่จอง</Typography>
                   <Typography className="yellow-header">โต๊ะ</Typography>
                 </Row>
               </Card>
@@ -487,46 +283,47 @@ export default function ReplyInfoPage() {
           footer
           style={{ marginTop: "30px", backgroundColor: "#677185" }}
           bordered
-          dataSource={data}
-          renderItem={(item) => (
+          dataSource={allBooking}
+          renderItem={(data: any) => (
             <List.Item>
-              <Card size="small" style={{ width: "100%" }}>
+              <Button
+                size="large"
+                style={{ width: "100%" }}
+                onClick={() => onClickWithId(data.id)}
+              >
                 <Row justify="space-between" align="middle">
                   <div
                     style={{
                       borderStyle: "groove",
-                      width: "10%",
-                      height: "35px",
-                      alignSelf: "center",
+                      width: "18%",
                     }}
                   >
-                    <Image
-                      preview={false}
-                      width={20}
-                      src={Giraffe}
-                      style={{ padding: "1px" }}
-                    ></Image>
+                    <Typography className="black-text">
+                      {data.status}
+                    </Typography>
                   </div>
                   <div
                     style={{
                       borderStyle: "groove",
-                      width: "70%",
-                      height: "35px",
+                      width: "65%",
                     }}
                   >
-                    <Typography className="black-text">{item.chair}</Typography>
+                    <Typography className="black-text">
+                      {data.created_at}
+                    </Typography>
                   </div>
                   <div
                     style={{
                       borderStyle: "groove",
                       width: "10%",
-                      height: "35px",
                     }}
                   >
-                    <Typography className="black-text">{item.table}</Typography>
+                    <Typography className="black-text">
+                      {data.desk.label}
+                    </Typography>
                   </div>
                 </Row>
-              </Card>
+              </Button>
             </List.Item>
           )}
         />

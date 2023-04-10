@@ -17,7 +17,7 @@ const available = "available";
 const seatAvailble = "pending";
 const full = "unavailable";
 
-export async function ChairWithDeskLoaderInDetail({ request, params }: any) {
+export async function SingleReplyLoader({ request, params }: any) {
   try {
     const booking = await API.getBooking(params.id);
     const chairs = await API.getChairWithDeskID(booking.data.data.desk.id);
@@ -41,7 +41,7 @@ const exportColorWithStatus = (status: any) => {
   return color;
 };
 
-export default function DetailReservePage() {
+export default function SingleReplyInfoPage() {
   const [value, copy] = useCopyToClipboard();
   const { chairs, booking } = useLoaderData() as any;
   const [data, setData] = useState() as any;
@@ -156,7 +156,6 @@ export default function DetailReservePage() {
       >
         โต๊ะ {table}
       </Typography>
-
       <Row justify={"space-between"} style={{}}>
         <Typography
           className="white-text"
@@ -252,91 +251,28 @@ export default function DetailReservePage() {
       >
         ( {amountChairs} ที่นั่ง x {pricePerChair} บาท )
       </Typography>
-      <Row justify="space-between" align="middle" style={{ marginTop: "27px" }}>
-        <Typography className="yellow-text">ข้อมูลการชำระเงิน</Typography>
-        <div
-          style={{ width: "60%", height: "8px", backgroundColor: "#F6B63B" }}
-        ></div>
-      </Row>
-      <Card
-        style={{
-          backgroundColor: "#303E57",
-          marginTop: "13px",
-          marginBottom: "27px",
-        }}
-        bordered={false}
+      <Typography
+        className="white-header"
+        style={{ marginTop: "50px", marginBottom: "30px" }}
       >
-        <Row justify={"space-between"}>
-          <Typography className="yellow-text">ชื่อธนาคาร</Typography>
-          <Row>
-            <Image
-              preview={false}
-              width={30}
-              style={{ borderRadius: "50%" }}
-              src={BualuangLogo}
-            />
+        QR Code สำหรับเข้าร่วมงาน
+      </Typography>
+      <Typography
+        className="white-sm-text"
+        style={{
+          textAlign: "start",
+        }}
+      >
+        ( ผู้ที่ชำระเงินเรียบร้อย QR CODE จะเปลี่ยน เอาไว้ใช้สำหรับเข้างาน )
+      </Typography>
+      <Image
+        preview={false}
+        width={380}
+        src={
+          booking.payment_status === "unpaid" ? QRCode : booking.qrcode_image
+        }
+      ></Image>
 
-            <Typography className="yellow-text" style={{ marginLeft: "10px" }}>
-              ธนาคารกรุงเทพฯ
-            </Typography>
-          </Row>
-        </Row>
-        <Row justify={"space-between"}>
-          <Typography className="yellow-text">ชื่อบัญชี</Typography>
-          <Typography className="yellow-text">
-            น.ส. ภัทรวาดี ชาตะ และ
-          </Typography>
-        </Row>
-        <Typography className="yellow-text" style={{ textAlign: "end" }}>
-          นาย วัชพล เหลาทอง
-        </Typography>
-        <Typography
-          className="yellow-text"
-          style={{ textAlign: "start", marginBottom: "10px" }}
-        >
-          เลขที่บัญชี
-        </Typography>
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "8px",
-            height: "40px",
-          }}
-        >
-          <Row justify="space-between">
-            <div></div>
-            <Typography
-              style={{
-                fontStyle: "normal",
-                fontWeight: "400",
-                fontSize: "16px",
-                color: "#9C9D9D",
-
-                alignSelf: "center",
-              }}
-            >
-              8707120260
-            </Typography>
-            <Button
-              className="black-text"
-              style={{
-                backgroundColor: "#677185",
-                width: "50px",
-                borderRadius: "8px",
-                height: "40px",
-              }}
-              onClick={() => swalCopy()}
-            >
-              <FileOutlined
-                style={{
-                  fontSize: "25px",
-                }}
-              />
-            </Button>
-          </Row>
-        </div>
-      </Card>
-      <Image preview={false} width={380} src={QRCode}></Image>
       <Row
         justify="space-between"
         align="middle"
@@ -366,7 +302,6 @@ export default function DetailReservePage() {
           </Typography>
         </div>
       </Row>
-
       <Button
         shape="round"
         style={{

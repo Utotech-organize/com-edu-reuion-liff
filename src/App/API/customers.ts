@@ -8,10 +8,14 @@ export async function createCustomers(data: any) {
   });
 }
 
-export async function getCustomerWithLiffID(data: any) {
+export async function getCustomerWithLiffID(userID: any) {
+  const headers = {
+    ["token"]: userID,
+  };
   return client({
     method: "GET",
-    url: `/customers/0?line_liff_id=${data}`,
+    url: `/customers/liff`,
+    headers,
   });
 }
 
