@@ -55,29 +55,7 @@ const mockData = [
 export default function ReplyInfoPage() {
   const navigate = useNavigate();
   const { allBooking, data } = useLoaderData() as any;
-  // const [data, setData] = useState() as any;
 
-  console.log("-----all------");
-  console.log({ allBooking });
-  // console.log("-----booking------");
-  // console.log({ booking });
-  console.log("-----data------");
-  console.log({ data });
-
-  // const bookings = allBooking.map((item: any) => );
-
-  // console.log("-------booking-------");
-
-  // console.log(bookings);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     console.log(data);
-  //     setData(data);
-  //   };
-
-  //   fetchData();
-  // }, []);
   const onClickWithId = (id: any) => {
     navigate(`/single-reply-info/${id}`);
   };

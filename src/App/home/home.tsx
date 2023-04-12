@@ -12,27 +12,6 @@ import { getMe } from "../../config/liff";
 export default function Homepage() {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   liff
-  //     .init({
-  //       liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID,
-  //       withLoginOnExternalBrowser: true,
-  //     })
-  //     .then(async () => {
-  //       console.log("LIFF init succeeded.");
-  //       console.log("get profile :" + (await liff.getProfile()));
-  //       console.log(await liff.getProfile());
-
-  //       const profileData = await liff.getProfile();
-
-  //       setProfile(profileData);
-  //     })
-  //     .catch((e: Error) => {
-  //       console.log("LIFF init failed.");
-  //       console.log(`${e}`);
-  //     });
-  // }, []);
-
   useEffect(() => {
     const fetchData = async () => {
       const data = (await getMe()) as any;

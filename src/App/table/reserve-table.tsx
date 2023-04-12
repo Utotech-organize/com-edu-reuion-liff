@@ -17,13 +17,11 @@ const full = "unavailable";
 export async function DesksIndexLoader({ request, params }: any) {
   try {
     const desks = await API.getDesks();
-    // console.log(desks.data);
 
     return { desks: desks.data.data };
   } catch (e: any) {
     localStorage.removeItem("token");
 
-    // return redirect("/login");
     return { data: null };
   }
 }
@@ -36,29 +34,7 @@ export default function ReserveTablePage(props: any) {
 
   useEffect(() => {
     const res = getMe();
-    console.log({ res });
   }, []);
-
-  // useEffect(() => {
-  //   liff
-  //     .init({
-  //       liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID, //FIXME create env
-  //       withLoginOnExternalBrowser: true,
-  //     })
-  //     .then(async () => {
-  //       console.log("LIFF init succeeded.");
-  //       console.log("get profile :" + (await liff.getProfile()));
-  //       console.log(await liff.getProfile());
-
-  //       const profileData = await liff.getProfile();
-
-  //       setProfile(profileData);
-  //     })
-  //     .catch((e: Error) => {
-  //       console.log("LIFF init failed.");
-  //       console.log(`${e}`);
-  //     });
-  // }, []);
 
   const exportColorWithStatus = (status: any) => {
     let color = "";

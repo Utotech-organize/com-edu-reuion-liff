@@ -46,12 +46,6 @@ export default function DetailReservePage() {
   const { chairs, booking } = useLoaderData() as any;
   const [data, setData] = useState() as any;
 
-  console.log("---------booking-------");
-
-  console.log(booking);
-
-  console.log({ chairs });
-
   //ENUM IN THIS PAGE
   const amountChairs = booking.desk.chairs.length;
   const pricePerChair = booking.desk.chair_price;
@@ -62,39 +56,18 @@ export default function DetailReservePage() {
   useEffect(() => {
     const fetchData = async () => {
       const data = (await getMe()) as any;
-      console.log(data);
+
       setData(data);
     };
 
     fetchData();
   }, []);
-  console.log("---------data-------------");
 
-  console.log({ data });
-
-  // const b = booking.desk.chairs_id
-  //   .filter((element: any) => element.customer_id)
-  //   .indexOf();
-
-  // console.log(b);
   const a = booking.desk.chairs.map((item: any) => item.id);
 
-  console.log(a);
-
-  // const a = booking.desk.chairs_id
-  //   .map((e: any) => e.customer_id)
-  //   .indexOf(data.user.data.id);
-
-  // console.log(a);
   const onCloseLiff = () => {
     liff.closeWindow;
   };
-
-  // const checkCustomerId = () => {
-  //   if (data.user.data.id === booking.customer.id) {
-  //     return "#00B1B1";
-  //   }
-  // };
 
   const swalCopy = () => {
     copy("8707120260");
@@ -108,8 +81,6 @@ export default function DetailReservePage() {
       timer: 800,
     });
   };
-
-  console.log(data);
 
   return (
     <div className="app-layout">
