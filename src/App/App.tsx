@@ -30,6 +30,7 @@ import OrderPage from "./order/order";
 import SingleReplyInfoPage, {
   SingleReplyLoader,
 } from "./single-reply-info/single-reply-info";
+import GetTicketPage from "./check-ticket/check-ticket";
 
 const AppLayout = () => {
   useEffect(() => {
@@ -65,6 +66,7 @@ export default function App() {
           loader: ChairWithDeskLoader,
           element: <ReserveChairPage />,
         },
+        { path: "ticket", element: <GetTicketPage /> },
 
         {
           path: "detail-reserve/:id",
