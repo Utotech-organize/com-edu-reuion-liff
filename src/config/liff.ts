@@ -1,7 +1,6 @@
 import { ApiFilled } from "@ant-design/icons";
 import liff from "@line/liff";
 import { getCustomerWithLiffID } from "../App/API";
-import { redirect } from "react-router-dom";
 
 export const initLIFF = async () => {
   try {

@@ -29,8 +29,6 @@ export async function DesksIndexLoader({ request, params }: any) {
 }
 
 export default function ReserveTablePage(props: any) {
-  // const location = useLocation();
-  // const infomation = location.state;
   const [profile, setProfile] = useState() as any;
   const { desks } = useLoaderData() as any;
 
@@ -38,27 +36,6 @@ export default function ReserveTablePage(props: any) {
     const res = getMe();
     console.log({ res });
   }, []);
-
-  // useEffect(() => {
-  //   liff
-  //     .init({
-  //       liffId: "1660816746-JAReyGx2", //import.meta.env.VITE_LIFF_ID, //FIXME create env
-  //       withLoginOnExternalBrowser: true,
-  //     })
-  //     .then(async () => {
-  //       console.log("LIFF init succeeded.");
-  //       console.log("get profile :" + (await liff.getProfile()));
-  //       console.log(await liff.getProfile());
-
-  //       const profileData = await liff.getProfile();
-
-  //       setProfile(profileData);
-  //     })
-  //     .catch((e: Error) => {
-  //       console.log("LIFF init failed.");
-  //       console.log(`${e}`);
-  //     });
-  // }, []);
 
   const exportColorWithStatus = (status: any) => {
     let color = "";
