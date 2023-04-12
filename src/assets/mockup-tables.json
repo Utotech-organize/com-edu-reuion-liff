@@ -1,0 +1,200 @@
+{
+  "tables": [
+    {
+      "id": 1,
+      "name": "A1",
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "name": "A2",
+      "status": "available"
+    },
+    {
+      "id": 3,
+      "name": "A3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 4,
+      "name": "A4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 5,
+      "name": "A5",
+      "status": "full"
+    },
+    {
+      "id": 6,
+      "name": "B1",
+      "status": "available"
+    },
+    {
+      "id": 7,
+      "name": "B2",
+      "status": "available"
+    },
+    {
+      "id": 8,
+      "name": "B3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 9,
+      "name": "B4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 10,
+      "name": "B5",
+      "status": "full"
+    },
+    {
+      "id": 11,
+      "name": "C1",
+      "status": "available"
+    },
+    {
+      "id": 12,
+      "name": "C2",
+      "status": "available"
+    },
+    {
+      "id": 13,
+      "name": "C3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 14,
+      "name": "C4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 15,
+      "name": "C5",
+      "status": "full"
+    },
+    {
+      "id": 16,
+      "name": "D1",
+      "status": "available"
+    },
+    {
+      "id": 17,
+      "name": "D2",
+      "status": "available"
+    },
+    {
+      "id": 18,
+      "name": "D3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 19,
+      "name": "D4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 20,
+      "name": "D5",
+      "status": "full"
+    },
+    {
+      "id": 21,
+      "name": "E1",
+      "status": "available"
+    },
+    {
+      "id": 22,
+      "name": "E2",
+      "status": "available"
+    },
+    {
+      "id": 23,
+      "name": "E3",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 24,
+      "name": "E4",
+      "status": "seatsAvailable"
+    },
+    {
+      "id": 25,
+      "name": "E5",
+      "status": "full"
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "label": "one",
+      "name": "A",
+      "status": "availableSeat"
+    },
+    {
+      "id": 2,
+      "label": "two",
+
+      "name": "B",
+      "status": "availableSeat"
+    },
+    {
+      "id": 3,
+      "label": "three",
+
+      "name": "C",
+      "status": "availableSeat"
+    },
+    {
+      "id": 4,
+      "label": "four",
+
+      "name": "D",
+      "status": "availableSeat"
+    },
+    {
+      "id": 5,
+      "label": "five",
+
+      "name": "E",
+      "status": "availableSeat"
+    },
+    {
+      "id": 6,
+      "label": "six",
+
+      "name": "F",
+      "status": "availableSeat"
+    },
+    {
+      "id": 7,
+      "label": "seven",
+
+      "name": "G",
+      "status": "fullSeat"
+    },
+    {
+      "id": 8,
+      "label": "eight",
+
+      "name": "H",
+      "status": "fullSeat"
+    },
+    {
+      "id": 9,
+      "label": "nine",
+
+      "name": "I",
+      "status": "fullSeat"
+    },
+    {
+      "id": 10,
+      "label": "ten",
+
+      "name": "J",
+      "status": "fullSeat"
+    }
+  ]
+}

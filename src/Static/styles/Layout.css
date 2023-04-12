@@ -1,0 +1,246 @@
+/*Layout */
+
+.app-layout {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* FONT */
+
+@font-face {
+  font-family: "crRoundedBold";
+  src: local("FCSubjectRoundedBold"),
+    url("../fonts/FCSubjectRoundedBold[Non-commercial-use].ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "crRoundedRegular";
+  src: local("FCSubjectRoundedRegular"),
+    url("../fonts/FCSubjectRoundedRegular[Non-commercial-use].ttf")
+      format("truetype");
+}
+
+/* TEXT */
+.text-shadow:hover {
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000,
+    -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000,
+    1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000,
+    -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000,
+    2px 0px 0 #000, 1px 2px 0 #000, -1px 2px 0 #000, 1px -2px 0 #000,
+    -1px -2px 0 #000, 2px 1px 0 #000, -2px 1px 0 #000, 2px -1px 0 #000,
+    -2px -1px 0 #000;
+}
+
+.normal-text {
+  font-family: "crRoundedRegular";
+}
+
+.white-header {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: white;
+}
+
+.white-text {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: white;
+}
+
+.white-sm-text {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+}
+
+.white-bold {
+  font-family: "crRoundedRegular";
+  font-style: bold;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+}
+
+.black-header {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: black;
+}
+
+.black-text {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: black;
+}
+
+.black-sm-text {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: black;
+}
+
+.yellow-header {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  color: #f6b63b;
+}
+
+.yellow-text {
+  font-family: "crRoundedRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #f6b63b;
+}
+
+.circle.big {
+  width: 200px;
+  height: 200px;
+  top: 35%;
+  left: 25%;
+  background-color: #d9d9d9;
+  /* margin: 20%; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 25%;
+  height: 25%;
+
+  display: inline-block;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle.big-detail {
+  width: 200px;
+  height: 200px;
+  top: 28%;
+  left: 25%;
+  background-color: #d9d9d9;
+  /* margin: 20%; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-detail {
+  border-radius: 50%;
+  width: 25%;
+  height: 25%;
+
+  display: inline-block;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.one {
+  top: -30%;
+  left: 38%;
+}
+
+.two {
+  right: -10px;
+  top: -30px;
+}
+
+.three {
+  left: 210px;
+  top: 40px;
+}
+
+.four {
+  left: 210px;
+  bottom: 40px;
+}
+
+.five {
+  bottom: -30px;
+  right: -10px;
+}
+
+.six {
+  left: 70px;
+  bottom: -60px;
+}
+
+.seven {
+  left: -10px;
+  bottom: -30px;
+}
+
+.eight {
+  right: 210px;
+  bottom: 40px;
+}
+
+.nine {
+  right: 210px;
+  top: 40px;
+}
+
+.ten {
+  left: -10px;
+  top: -30px;
+}
+
+.seat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 70px;
+  min-width: 50px;
+  border-radius: 8px;
+  cursor: pointer;
+  max-width: 100px;
+}
+
+.grid-container {
+  margin: 5px;
+  display: grid;
+  overflow: auto;
+  grid-template-columns: auto auto auto auto auto;
+}
+
+.grid-item {
+  padding: 4px;
+  text-align: center;
+}
+
+.swal2-popup {
+  font-family: "crRoundedRegular" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: white !important;
+}
+.example {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
