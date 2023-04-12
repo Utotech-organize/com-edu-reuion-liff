@@ -14,7 +14,6 @@ import Giraffe from "../../Static/images/Giraffe.png";
 import Appbar from "../../components/appbar";
 
 import * as API from "../API";
-import Swal from "sweetalert2";
 import { getMe } from "../../config/liff";
 import { createBooking } from "../API/booking";
 

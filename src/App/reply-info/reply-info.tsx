@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
-
-import { Button, Card, Divider, Image, List, Row, Typography } from "antd";
-
-import liff from "@line/liff";
+import { Button, Card, Image, List, Row, Typography } from "antd";
 
 import Giraffe from "../../Static/images/Giraffe.png";
-import BualuangLogo from "../../Static/images/bualuang.jpg";
-import QRCode from "../../Static/images/qrcode.png";
-import { FileOutlined } from "@ant-design/icons";
+
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import useCopyToClipboard from "../../components/copy-clipboard";
 import Swal from "sweetalert2";
 import Appbar from "../../components/appbar";
 import { getMe } from "../../config/liff";
 import * as API from "../API";
-import { getBooking } from "../API";
 
 //ENUM IN THIS PAGE
 const amountChairs = 2;

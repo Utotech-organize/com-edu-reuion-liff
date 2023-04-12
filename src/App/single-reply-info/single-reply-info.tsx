@@ -1,11 +1,9 @@
-import { FileOutlined } from "@ant-design/icons";
-import { Button, Card, Image, Row, Typography } from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, useLoaderData, useLocation } from "react-router-dom";
+import { Button, Image, Row, Typography } from "antd";
+import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import liff from "@line/liff";
 import useCopyToClipboard from "../../components/copy-clipboard";
 
-import BualuangLogo from "../../Static/images/bualuang.jpg";
 import Giraffe from "../../Static/images/Giraffe.png";
 import QRCode from "../../Static/images/qrcode.png";
 import Swal from "sweetalert2";

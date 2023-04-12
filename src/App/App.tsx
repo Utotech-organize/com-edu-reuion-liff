@@ -1,19 +1,9 @@
-import { useEffect, useState } from "react";
-import liff from "@line/liff";
+import { useEffect } from "react";
 import "../Static/App.css";
 import Homepage from "./home/home";
 import ReserveTablePage, { DesksIndexLoader } from "./table/reserve-table";
 
-import Mockup from "../assets/mockup-tables.json";
-
-import {
-  Link,
-  createBrowserRouter,
-  RouterProvider,
-  Outlet,
-  useNavigate,
-  useRouteError,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import ReserveChairPage, { ChairWithDeskLoader } from "./chair/reserve-chair";
 import RegisterPage from "./register/register";
 import DetailReservePage, {
@@ -23,7 +13,6 @@ import DetailReservePage, {
 import ReplyInfoPage, { AllBookingLoader } from "./reply-info/reply-info";
 import ErrorPage from "./error/error";
 
-import * as API from "./API";
 import { initLIFF } from "../config/liff";
 import LoadingPage from "../components/loading";
 import OrderPage from "./order/order";

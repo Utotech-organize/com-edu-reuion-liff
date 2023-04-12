@@ -7,7 +7,6 @@ import { Link, useLoaderData, useLocation } from "react-router-dom";
 
 import * as API from "../API";
 import { useEffect, useState } from "react";
-import liff from "@line/liff";
 import { getMe } from "../../config/liff";
 
 const available = "available";
