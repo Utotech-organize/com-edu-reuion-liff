@@ -1,5 +1,5 @@
 import { Button, Form, Image, Input, Row, Typography } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Appbar from "../../components/appbar";
 import Giraffe from "../../Static/images/Giraffe.png";
 
@@ -9,11 +9,9 @@ import { getMe } from "../../config/liff";
 //FIXME PHOOM
 export async function GetTicketLoader({ request, params }: any) {
   try {
-    const allBooking = await API.getAllBooking(params.id);
     const data = await getMe();
 
     return {
-      allBooking: allBooking.data.data,
       data: data?.user.data,
     };
   } catch (e: any) {
@@ -25,7 +23,11 @@ export default function GetTicketPage() {
   const navigate = useNavigate();
 
   //FIXME PHOOM
-  const onFinish = () => {};
+  const onFinish = (v: any) => {
+    console.log(v);
+    navigate(`/reply-info/${v.slug}`);
+    console.log("in on finish");
+  };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -36,7 +38,6 @@ export default function GetTicketPage() {
         height: "100vh",
         display: "flex",
         flexDirection: "column",
-
         alignItems: "center",
       }}
     >
@@ -64,7 +65,7 @@ export default function GetTicketPage() {
           autoComplete="off"
         >
           <Form.Item
-            name="passcode"
+            name="slug"
             rules={[{ required: false }]}
             style={{
               textAlign: "center",
@@ -109,7 +110,7 @@ export default function GetTicketPage() {
                 fontSize: "14px",
               }}
             >
-              บัตรโต๊ะจีและที่นั่งที่จอง เพื่อลงทะเบียนและดูข้อมูล
+              บัตรโต๊ะจีนและที่นั่งที่จอง เพื่อลงทะเบียนและดูข้อมูล
             </Typography>
             <Typography
               className="white-text"

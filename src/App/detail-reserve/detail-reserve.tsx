@@ -1,7 +1,12 @@
 import { FileOutlined } from "@ant-design/icons";
 import { Button, Card, Image, Row, Typography } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, useLoaderData, useLocation } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import liff from "@line/liff";
 import useCopyToClipboard from "../../components/copy-clipboard";
 
@@ -42,6 +47,8 @@ const exportColorWithStatus = (status: any) => {
 };
 
 export default function DetailReservePage() {
+  const navigate = useNavigate();
+
   const [value, copy] = useCopyToClipboard();
   const { chairs, booking } = useLoaderData() as any;
   const [data, setData] = useState() as any;
@@ -67,6 +74,10 @@ export default function DetailReservePage() {
 
   const onCloseLiff = () => {
     liff.closeWindow;
+  };
+
+  const onPreviousNavigate = () => {
+    navigate(-1);
   };
 
   const swalCopy = () => {
@@ -349,6 +360,18 @@ export default function DetailReservePage() {
         onClick={onCloseLiff}
       >
         <Typography className="black-text">เสร็จสิ้น</Typography>
+      </Button>
+      <Button
+        shape="round"
+        style={{
+          width: "60%",
+          height: "50px",
+
+          marginBottom: "30px",
+        }}
+        onClick={onPreviousNavigate}
+      >
+        <Typography className="black-text">ย้อนกลับ</Typography>
       </Button>
     </div>
   );

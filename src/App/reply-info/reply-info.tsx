@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import Appbar from "../../components/appbar";
 import { getMe } from "../../config/liff";
 import * as API from "../API";
+import convertTimeStampToDate from "../../components/date-time";
+import { exportColorWithStatus } from "../../components/common";
 
 //ENUM IN THIS PAGE
 const amountChairs = 2;
@@ -31,20 +33,6 @@ export async function AllBookingLoader({ request, params }: any) {
   }
 }
 
-const mockData = [
-  {
-    table: "A1",
-    createAt: "2023-04-09T20:59:28.498Z",
-    status: "pending",
-  },
-
-  {
-    table: "B1",
-    createAt: "2023-04-09T15:58:47.163Z",
-    status: "pending",
-  },
-];
-
 export default function ReplyInfoPage() {
   const navigate = useNavigate();
   const { allBooking, data } = useLoaderData() as any;
@@ -53,20 +41,6 @@ export default function ReplyInfoPage() {
     navigate(`/single-reply-info/${id}`);
   };
 
-  const swalCopy = () => {
-    copy("8707120260");
-    Swal.fire({
-      backdrop: false,
-      background: "#4D5667",
-      position: "center",
-      icon: "success",
-      title: "Copy success",
-      showConfirmButton: false,
-      timer: 800,
-    });
-  };
-
-  const [value, copy] = useCopyToClipboard();
   return (
     <div>
       <Appbar />
@@ -266,12 +240,14 @@ export default function ReplyInfoPage() {
                   <div
                     style={{
                       borderStyle: "groove",
-                      width: "18%",
+                      width: "20px",
+                      height: "20px",
+                      backgroundColor: exportColorWithStatus(data.status),
                     }}
                   >
-                    <Typography className="black-text">
+                    {/* <Typography className="black-text">
                       {data.status}
-                    </Typography>
+                    </Typography> */}
                   </div>
                   <div
                     style={{
@@ -280,7 +256,7 @@ export default function ReplyInfoPage() {
                     }}
                   >
                     <Typography className="black-text">
-                      {data.created_at}
+                      {convertTimeStampToDate(data.created_at)}
                     </Typography>
                   </div>
                   <div
