@@ -37,17 +37,13 @@ export async function ChairWithDeskLoader({ request, params }: any) {
 export default function ReserveChairPage() {
   const [selectedSeat, setSelectedSeat] = React.useState<any>([]);
   const { allChairs, me } = useLoaderData() as any;
-  console.log(me);
+
   const navigate = useNavigate();
   const location = useLocation();
   const infomation = location.state;
 
-  console.log(allChairs);
-
   const canSelectAll =
     allChairs.filter((d: any) => d.status === "available").length === 10;
-
-  console.log({ canSelectAll });
 
   const onButtonClick = async (mode: string) => {
     if (mode === "all") {
@@ -62,7 +58,6 @@ export default function ReserveChairPage() {
           mode == "all" ? allChairs.map((d: any) => d.id) : selectedSeat,
         image_url: "",
       };
-      console.log({ bookingPayload });
 
       const res = await createBooking(bookingPayload);
 

@@ -19,6 +19,7 @@ import OrderPage from "./order/order";
 import SingleReplyInfoPage, {
   SingleReplyLoader,
 } from "./single-reply-info/single-reply-info";
+import GetTicketPage, { GetTicketLoader } from "./get-ticket/get-ticket";
 
 const AppLayout = () => {
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function App() {
           path: "",
           element: <Homepage />,
         },
+
         {
           path: "register",
           element: <RegisterPage />,
@@ -70,6 +72,11 @@ export default function App() {
           path: "single-reply-info/:id",
           loader: SingleReplyLoader,
           element: <SingleReplyInfoPage />,
+        },
+        {
+          path: "get-ticket",
+          loader: GetTicketLoader,
+          element: <GetTicketPage />,
         },
         { path: "order", element: <OrderPage /> },
         { path: "loading", element: <LoadingPage /> },

@@ -23,9 +23,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
 
   const onFinish = async (v: any) => {
-    console.log("Success:", v);
     const lineProfile = localStorage.getItem("line_profile") as any;
-    console.log({ lineProfile });
 
     const profileData = JSON.parse(lineProfile);
     const values = {
@@ -35,13 +33,11 @@ export default function RegisterPage() {
       channel: "line",
       ...v,
     };
-    console.log({ values });
 
     try {
       const res = await API.createCustomers(values);
-      console.log({ res });
 
-      navigate("/reserve-table");
+      navigate("/get-ticket");
     } catch (e: any) {
       console.log(e);
 
@@ -91,7 +87,7 @@ export default function RegisterPage() {
             name="first_name"
             rules={[{ required: true, message: "กรุณากรอกชื่อ !" }]}
           >
-            <Input />
+            <Input placeholder="ยีราฟคุง" />
           </Form.Item>
           <Typography
             className="white-text"
@@ -107,7 +103,7 @@ export default function RegisterPage() {
             name="last_name"
             rules={[{ required: true, message: "กรุณากรอกนามสกุล !" }]}
           >
-            <Input />
+            <Input placeholder="ภาคคอม" />
           </Form.Item>
 
           <Typography
@@ -129,7 +125,10 @@ export default function RegisterPage() {
               },
             ]}
           >
-            <Input maxLength={10} />
+            <Input
+              maxLength={10}
+              placeholder="ใส่เพียงตัวเลขเท่านั้น เช่น 081234xxxx "
+            />
           </Form.Item>
           <Typography
             className="white-text"
@@ -140,8 +139,11 @@ export default function RegisterPage() {
           >
             รุ่น
           </Typography>
-          <Form.Item name="generation" rules={[{ required: false }]}>
-            <Input placeholder="TCT,CED ตามด้วยเลข" />
+          <Form.Item
+            name="generation"
+            rules={[{ required: true, message: "กรุณากรอกรุ่นของท่าน !" }]}
+          >
+            <Input placeholder="รุ่นตามด้วยเลข เช่น TCT32, CED10" />
           </Form.Item>
           <Typography
             className="white-text"
@@ -156,7 +158,7 @@ export default function RegisterPage() {
             name="information"
             rules={[{ required: true, message: "กรุณากรอกสถานที่ทำงาน !" }]}
           >
-            <Input />
+            <Input placeholder="ภาควิชาคอมพิวเตอร์ศึกษา, กำลังศึกษา" />
           </Form.Item>
 
           <Typography
@@ -174,7 +176,7 @@ export default function RegisterPage() {
               { required: true, message: "กรุณากรอก e-mail !", type: "email" },
             ]}
           >
-            <Input />
+            <Input placeholder="comedu@comedu.co" />
           </Form.Item>
           <Row style={{ textAlign: "start", marginTop: "50px" }}>
             <Image preview={false} width={80} src={Giraffe} />

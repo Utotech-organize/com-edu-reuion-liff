@@ -20,10 +20,6 @@ export async function getCustomerWithLiffID(userID: any) {
 }
 
 export async function updateCustomer(data: any) {
-  console.log("==========================");
-
-  console.log(data);
-
   return client({
     method: "PUT",
     url: `/customers/edit/${data.id}`,
