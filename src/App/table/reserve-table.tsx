@@ -16,13 +16,11 @@ const full = "unavailable";
 export async function DesksIndexLoader({ request, params }: any) {
   try {
     const desks = await API.getDesks();
-    // console.log(desks.data);
 
     return { desks: desks.data.data };
   } catch (e: any) {
     localStorage.removeItem("token");
 
-    // return redirect("/login");
     return { data: null };
   }
 }
@@ -33,7 +31,6 @@ export default function ReserveTablePage(props: any) {
 
   useEffect(() => {
     const res = getMe();
-    console.log({ res });
   }, []);
 
   const exportColorWithStatus = (status: any) => {
