@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/0.0.2...1.1.0) (2023-04-14)
+
+
+### Features
+
+* **(get-ticket-page):** add ui get-ticket-page , validate all form in register and remove log ([3848574](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/3848574a2c21b389c76948fe15b23a969ecbf0ac))
+* **detail:** added date time globals component example and refactor minor feature ([dfcd4e4](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/dfcd4e44d469bd5a7e73c7519e6a583530d9885a))
+
+
+### Bug Fixes
+
+* **(new-page):** add get ticket page ([0215a6c](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/0215a6ca0beeddbdebdd866985e4d0c2027f8e18))
+
 ### 0.0.2 (2023-04-12)
 
 
