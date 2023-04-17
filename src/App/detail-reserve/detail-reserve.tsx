@@ -74,7 +74,7 @@ export default function DetailReservePage() {
   const a = booking.desk.chairs.map((item: any) => item.id);
 
   const onCloseLiff = () => {
-    liff.closeWindow;
+    liff.closeWindow();
   };
 
   const onPreviousNavigate = () => {
