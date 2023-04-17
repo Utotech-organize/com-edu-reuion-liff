@@ -15,7 +15,7 @@ export default function Homepage() {
     const fetchData = async () => {
       const data = (await getMe()) as any;
       if (data.user) {
-        navigate("/get-ticket");
+        navigate("/reply-info");
       }
     };
 
@@ -52,7 +52,7 @@ export default function Homepage() {
       <Appbar />
       <div className="app-layout">
         <Typography className="white-header" style={{ marginTop: "44px" }}>
-          Welcome ComEdu Reunion
+          Welcome To ComEdu Reunion
         </Typography>
         <Image
           preview={false}
@@ -73,7 +73,7 @@ export default function Homepage() {
               marginRight: "10px",
             }}
           />
-          <Typography className="yellow-text">Giffe Kun</Typography>
+          <Typography className="yellow-text">Giraffe Kung</Typography>
           <Card
             style={{
               width: "35%",
@@ -90,7 +90,7 @@ export default function Homepage() {
           เพื่อน ๆ สนใจเข้าร่วมงานกับเราไหม
         </Typography>
         <Typography className="white-text" style={{ marginBottom: "30px" }}>
-          รอข้าอยู่ไยกด ขอจองโต๊ะ เลยนะฮัฟ
+          รอช้าอยู่ไยกด ไปจองโต๊ะกันเลย ฮัฟ
         </Typography>
 
         <Button

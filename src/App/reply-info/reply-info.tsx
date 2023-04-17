@@ -60,7 +60,7 @@ export default function ReplyInfoPage() {
           <Image preview={false} width={80} src={Giraffe} />
           <div style={{ width: "70%" }}>
             <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-              Giffe Kun
+              Giraffe Kung
             </Typography>
             <Typography
               className="yellow-text"

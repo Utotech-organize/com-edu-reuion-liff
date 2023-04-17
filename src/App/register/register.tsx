@@ -151,7 +151,7 @@ export default function RegisterPage() {
               name="generation"
               rules={[{ required: true, message: "กรุณากรอกรุ่นของท่าน !" }]}
             >
-              <Input placeholder="รุ่นตามด้วยเลข เช่น TCT32, CED10" />
+              <Input placeholder="รุ่นตามด้วยเลข เช่น TCT#32, CED#10 ใส่ # ด้วยนะค้าบ" />
             </Form.Item>
             <Typography
               className="white-text"
@@ -197,7 +197,7 @@ export default function RegisterPage() {
                   className="yellow-text"
                   style={{ fontSize: "14px" }}
                 >
-                  Giffe Kun
+                  Giraffe Kung
                 </Typography>
                 <Typography
                   className="white-text"
