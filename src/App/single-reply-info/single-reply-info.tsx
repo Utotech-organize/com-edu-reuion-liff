@@ -76,6 +76,7 @@ export default function SingleReplyInfoPage() {
     copy("8707120260");
     Swal.fire({
       backdrop: false,
+      width: "300px",
       background: "#4D5667",
       position: "center",
       icon: "success",

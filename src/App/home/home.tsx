@@ -15,7 +15,7 @@ export default function Homepage() {
     const fetchData = async () => {
       const data = (await getMe()) as any;
       if (data.user) {
-        navigate("/reserve-table");
+        navigate("/get-ticket");
       }
     };
 
