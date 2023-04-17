@@ -1,9 +1,13 @@
 import { useEffect } from "react";
-import "../Static/App.css";
 import Homepage from "./home/home";
 import ReserveTablePage, { DesksIndexLoader } from "./table/reserve-table";
 
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  useNavigation,
+} from "react-router-dom";
 import ReserveChairPage, { ChairWithDeskLoader } from "./chair/reserve-chair";
 import RegisterPage from "./register/register";
 import DetailReservePage, {
@@ -20,13 +24,19 @@ import SingleReplyInfoPage, {
   SingleReplyLoader,
 } from "./single-reply-info/single-reply-info";
 import GetTicketPage, { GetTicketLoader } from "./get-ticket/get-ticket";
+import { Spin } from "antd";
 
 const AppLayout = () => {
+  const { state } = useNavigation();
   useEffect(() => {
     initLIFF();
   }, []);
 
-  return <Outlet />;
+  return (
+    <Spin spinning={state == "loading" || state == "submitting"}>
+      <Outlet />
+    </Spin>
+  );
 };
 
 export default function App() {

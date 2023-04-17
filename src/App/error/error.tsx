@@ -10,7 +10,7 @@ export default function ErrorPage() {
   return (
     <div style={{ height: "100vh" }}>
       <Appbar />
-      <div className="app-layout">
+      <div>
         <Row
           justify="center"
           align="middle"

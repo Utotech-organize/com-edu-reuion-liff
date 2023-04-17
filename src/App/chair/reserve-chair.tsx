@@ -1,4 +1,4 @@
-import { Button, Card, Image, Row, Typography } from "antd";
+import { Button, Card, Image, Row, Spin, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -6,6 +6,7 @@ import {
   useLoaderData,
   useLocation,
   useNavigate,
+  useNavigation,
   useParams,
 } from "react-router-dom";
 import Stage from "../../Static/images/cinema.png";
@@ -37,6 +38,8 @@ export async function ChairWithDeskLoader({ request, params }: any) {
 export default function ReserveChairPage() {
   const [selectedSeat, setSelectedSeat] = React.useState<any>([]);
   const { allChairs, me } = useLoaderData() as any;
+  const [loading, setIsLoading] = useState(false);
+  const { state } = useNavigation();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -46,6 +49,7 @@ export default function ReserveChairPage() {
     allChairs.filter((d: any) => d.status === "available").length === 10;
 
   const onButtonClick = async (mode: string) => {
+    setIsLoading(true);
     if (mode === "all") {
       setSelectedSeat(allChairs.map((d: any) => d.id));
     }
@@ -63,7 +67,10 @@ export default function ReserveChairPage() {
 
       navigate(`/detail-reserve/${res.data.data.id}`);
     } catch (e: any) {
-      return { error: e.response.data.message };
+      setIsLoading(false);
+      return {
+        error: e.response.data.message,
+      };
     }
   };
 
@@ -78,6 +85,7 @@ export default function ReserveChairPage() {
       setSelectedSeat(prev);
     }
   };
+  console.log({ state });
 
   const exportColorWithStatus = (status: any) => {
     let color = "";
@@ -93,223 +101,238 @@ export default function ReserveChairPage() {
   };
 
   return (
-    <div>
-      <Appbar />
-      <div className="app-layout">
-        <Typography
-          className="white-header"
-          style={{ marginTop: "44px", marginBottom: "10px" }}
-        >
-          ผังที่นั่งงาน ComEdu Reunion 2023
-        </Typography>
+    <Spin spinning={state == "loading" || state == "submitting"}>
+      <div>
+        <Appbar />
+        <div className="app-layout">
+          <Typography
+            className="white-header"
+            style={{ marginTop: "44px", marginBottom: "10px" }}
+          >
+            ผังที่นั่งงาน ComEdu Reunion 2023
+          </Typography>
 
-        <Card size="small" style={{ marginBottom: "10px" }}>
-          <Image preview={false} src={Stage} style={{ width: "40px" }} />
-          <Typography className="black-text">เวที</Typography>
-        </Card>
-        <div id="big-circle" className="circle big">
-          {infomation.desk_data.label}
-          {allChairs.map((d: any, index: any) => (
-            <div
-              key={d.name}
-              className={`circle ${d.chair_no}`}
-              style={{
-                background:
-                  selectedSeat.indexOf(d.id) > -1
-                    ? "#00B1B1"
-                    : exportColorWithStatus(d.status),
-                cursor: d.status === available ? "pointer" : "default",
-              }}
-              onClick={() =>
-                d.status === available ? handleSelectedSeat(d.id) : {}
-              }
-            >
-              {d.label}
-            </div>
-          ))}
-        </div>
-        <Card size="small" style={{ marginTop: "380px" }}>
-          <Image preview={false} src={Entrance} style={{ width: "40px" }} />
-          <Typography className="black-text">ทางเข้า</Typography>
-        </Card>
-        <Row
-          justify="start"
-          align="middle"
-          style={{
-            marginTop: "30px",
-            marginBottom: "10px",
-            textAlign: "start",
-          }}
-        >
-          <Image preview={false} width={80} src={Giraffe} />
-          <div>
-            <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-              Giffe Kun
-            </Typography>
-            <Typography
-              className="white-text"
-              style={{
-                fontSize: "14px",
-                marginTop: "10px",
-              }}
-            >
-              กดเลือกเก้าอี้ที่ต้องการเพื่อทำการจองนะฮัฟ
-            </Typography>
-            <Typography
-              className="white-text"
-              style={{
-                fontSize: "14px",
-                marginBottom: "10px",
-              }}
-            >
-              เก้าอี้ละ 360 ฿ ถ้าเหมา 3,200 ฿ น๊ะ
-            </Typography>
-            <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-              A, B หรือตัวอักษรอื่นๆ คือหมายเลข เก้าอี้นะฮัฟ
-            </Typography>
+          <Card size="small" style={{ marginBottom: "10px" }}>
+            <Image preview={false} src={Stage} style={{ width: "40px" }} />
+            <Typography className="black-text">เวที</Typography>
+          </Card>
+          <div id="big-circle" className="circle big">
+            {infomation.desk_data.label}
+            {allChairs.map((d: any, index: any) => (
+              <div
+                key={d.name}
+                className={`circle ${d.chair_no}`}
+                style={{
+                  background:
+                    selectedSeat.indexOf(d.id) > -1
+                      ? "#00B1B1"
+                      : exportColorWithStatus(d.status),
+                  cursor: d.status === available ? "pointer" : "default",
+                }}
+                onClick={() =>
+                  d.status === available ? handleSelectedSeat(d.id) : {}
+                }
+              >
+                {d.label}
+              </div>
+            ))}
           </div>
-        </Row>
-        <Typography className="white-text" style={{ textAlign: "start" }}>
-          รายละเอียดการจองโต๊ะ
-        </Typography>
+          <Card size="small" style={{ marginTop: "380px" }}>
+            <Image preview={false} src={Entrance} style={{ width: "40px" }} />
+            <Typography className="black-text">ทางเข้า</Typography>
+          </Card>
+          <Row
+            justify="start"
+            align="middle"
+            style={{
+              marginTop: "30px",
+              marginBottom: "10px",
+              textAlign: "start",
+            }}
+          >
+            <Image preview={false} width={80} src={Giraffe} />
+            <div>
+              <Typography className="yellow-text" style={{ fontSize: "14px" }}>
+                Giffe Kun
+              </Typography>
+              <Typography
+                className="white-text"
+                style={{
+                  fontSize: "14px",
+                  marginTop: "10px",
+                }}
+              >
+                กดเลือกเก้าอี้ที่ต้องการเพื่อทำการจองนะฮัฟ
+              </Typography>
+              <Typography
+                className="white-text"
+                style={{
+                  fontSize: "14px",
+                  marginBottom: "10px",
+                }}
+              >
+                เก้าอี้ละ 350 ฿ ถ้าเหมา 3,200 ฿ น๊ะ
+              </Typography>
+              <Typography className="yellow-text" style={{ fontSize: "14px" }}>
+                A, B หรือตัวอักษรอื่นๆ คือหมายเลข เก้าอี้นะฮัฟ
+              </Typography>
+            </div>
+          </Row>
+          <Typography className="white-text" style={{ textAlign: "start" }}>
+            รายละเอียดการจองโต๊ะ
+          </Typography>
 
-        <Row
-          justify="start"
-          align="middle"
-          style={{ marginBottom: "10px", marginTop: "10px" }}
-        >
-          <Card
-            className="black-text"
-            style={{
-              width: "50px",
-              height: "50px",
-              marginRight: "10px",
-              backgroundColor: "#00B1B1",
-
-              borderRadius: "50%",
-            }}
-          ></Card>
-          <Typography
-            className="white-text"
-            style={{
-              fontSize: "14px",
-            }}
+          <Row
+            justify="start"
+            align="middle"
+            style={{ marginBottom: "10px", marginTop: "10px" }}
           >
-            หมายถึง ที่นั่งนี่คุณกำลังเลือก
-          </Typography>
-        </Row>
-        <Row
-          justify="start"
-          align="middle"
-          style={{ marginTop: "10px", marginBottom: "10px" }}
-        >
-          <Card
-            style={{
-              width: "50px",
-              height: "50px",
-              marginRight: "10px",
-              backgroundColor: "#ffa800",
-              borderRadius: "50%",
-            }}
-          ></Card>
-          <Typography
-            className="white-text"
-            style={{
-              fontSize: "14px",
-            }}
-          >
-            หมายถึง ที่นั่งนี้ยังว่างอยู่
-          </Typography>
-        </Row>
-
-        <Row justify="start" align="middle" style={{ marginBottom: "10px" }}>
-          <Card
-            style={{
-              width: "50px",
-              height: "50px",
-              marginRight: "10px",
-              backgroundColor: "   #9CB0D7",
-              borderRadius: "50%",
-            }}
-          ></Card>
-          <Typography
-            className="white-text"
-            style={{
-              textAlign: "left",
-              fontSize: "14px",
-            }}
-          >
-            หมายถึง มีคนจองแล้วแต่ยังไม่ได้จ่ายเงิน
-            <br />
-            (มีโอกาสหลุดจอง)
-          </Typography>
-        </Row>
-        <Row justify="start" align="middle">
-          <Card
-            style={{
-              width: "50px",
-              height: "50px",
-              marginRight: "10px",
-              backgroundColor: "rgba(255, 202, 24, 0.4)",
-              borderRadius: "50%",
-            }}
-          ></Card>
-          <Typography
-            className="white-text"
-            style={{
-              fontSize: "14px",
-            }}
-          >
-            หมายถึง ที่นั่งนี้ถูกจองแล้ว
-          </Typography>
-        </Row>
-        <Card size="small" style={{ marginTop: "30px" }}>
-          <Row justify="space-around" align="middle">
-            <Button
-              onClick={() => onButtonClick("selected")}
+            <Card
+              className="black-text"
               style={{
-                width: "150px",
-                height: "60px",
-                backgroundColor: "#F6B63B",
-                borderRadius: "20px",
-              }}
-              disabled={!selectedSeat.length}
-            >
-              <Typography className="black-sm-text">จองตามที่เลือก</Typography>
-            </Button>
+                width: "50px",
+                height: "50px",
+                marginRight: "10px",
+                backgroundColor: "#00B1B1",
 
-            {infomation.desk_data.status === "available" ? (
+                borderRadius: "50%",
+              }}
+            ></Card>
+            <Typography
+              className="white-text"
+              style={{
+                fontSize: "14px",
+              }}
+            >
+              หมายถึง ที่นั่งนี่คุณกำลังเลือก
+            </Typography>
+          </Row>
+          <Row
+            justify="start"
+            align="middle"
+            style={{ marginTop: "10px", marginBottom: "10px" }}
+          >
+            <Card
+              style={{
+                width: "50px",
+                height: "50px",
+                marginRight: "10px",
+                backgroundColor: "#ffa800",
+                borderRadius: "50%",
+              }}
+            ></Card>
+            <Typography
+              className="white-text"
+              style={{
+                fontSize: "14px",
+              }}
+            >
+              หมายถึง ที่นั่งนี้ยังว่างอยู่
+            </Typography>
+          </Row>
+
+          <Row justify="start" align="middle" style={{ marginBottom: "10px" }}>
+            <Card
+              style={{
+                width: "50px",
+                height: "50px",
+                marginRight: "10px",
+                backgroundColor: "   #9CB0D7",
+                borderRadius: "50%",
+              }}
+            ></Card>
+            <Typography
+              className="white-text"
+              style={{
+                textAlign: "left",
+                fontSize: "14px",
+              }}
+            >
+              หมายถึง มีคนจองแล้วแต่ยังไม่ได้จ่ายเงิน
+              <br />
+              (มีโอกาสหลุดจอง)
+            </Typography>
+          </Row>
+          <Row justify="start" align="middle">
+            <Card
+              style={{
+                width: "50px",
+                height: "50px",
+                marginRight: "10px",
+                backgroundColor: "rgba(255, 202, 24, 0.4)",
+                borderRadius: "50%",
+              }}
+            ></Card>
+            <Typography
+              className="white-text"
+              style={{
+                fontSize: "14px",
+              }}
+            >
+              หมายถึง ที่นั่งนี้ถูกจองแล้ว
+            </Typography>
+          </Row>
+          <Card size="small" style={{ marginTop: "30px" }}>
+            <Row justify="space-around" align="middle">
               <Button
-                onClick={() => onButtonClick("all")}
+                onClick={() => onButtonClick("selected")}
                 style={{
                   width: "150px",
                   height: "60px",
-                  backgroundColor: "#4D5667",
+                  backgroundColor: "#F6B63B",
                   borderRadius: "20px",
                 }}
-                disabled={!canSelectAll}
+                disabled={
+                  !selectedSeat.length ||
+                  state == "loading" ||
+                  state == "submitting" ||
+                  loading
+                }
               >
-                <Typography className="white-sm-text">จองทั้งโต๊ะ</Typography>
+                <Typography className="black-sm-text">
+                  จองตามที่เลือก
+                </Typography>
               </Button>
-            ) : (
-              <></>
-            )}
-          </Row>
-        </Card>
-        <Link to="/reserve-table">
-          <Button
-            shape="round"
-            style={{
-              width: "30%",
-              height: "50px",
-              marginTop: "20px",
-              marginBottom: "50px",
-            }}
-          >
-            <Typography className="black-text">ย้อนกลับ</Typography>
-          </Button>
-        </Link>
+
+              {infomation.desk_data.status === "available" ? (
+                <Button
+                  onClick={() => onButtonClick("all")}
+                  style={{
+                    width: "150px",
+                    height: "60px",
+                    backgroundColor: "#4D5667",
+                    borderRadius: "20px",
+                  }}
+                  disabled={
+                    !canSelectAll ||
+                    state == "loading" ||
+                    state == "submitting" ||
+                    loading
+                  }
+                >
+                  <Typography className="white-sm-text">จองทั้งโต๊ะ</Typography>
+                </Button>
+              ) : (
+                <></>
+              )}
+            </Row>
+          </Card>
+          <Link to="/reserve-table">
+            <Button
+              shape="round"
+              style={{
+                width: "30%",
+                height: "50px",
+                marginTop: "20px",
+                marginBottom: "50px",
+              }}
+              disabled={state == "loading" || state == "submitting" || loading}
+            >
+              <Typography className="black-text">ย้อนกลับ</Typography>
+            </Button>
+          </Link>
+        </div>
       </div>
-    </div>
+    </Spin>
   );
 }

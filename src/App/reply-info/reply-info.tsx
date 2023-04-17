@@ -13,7 +13,7 @@ import { exportColorWithStatus } from "../../components/common";
 
 //ENUM IN THIS PAGE
 const amountChairs = 2;
-const pricePerChair = 360;
+const pricePerChair = 350;
 const priceAllOfDesk = 3200;
 const summary = amountChairs * pricePerChair;
 const table = "A3";
@@ -45,6 +45,117 @@ export default function ReplyInfoPage() {
     <div>
       <Appbar />
       <div className="app-layout">
+        <Typography className="white-header" style={{ marginTop: "44px" }}>
+          รายละเอียดการจองโต๊ะ
+        </Typography>
+        <Row
+          justify="start"
+          align="middle"
+          style={{
+            marginTop: "30px",
+            marginBottom: "10px",
+            textAlign: "start",
+          }}
+        >
+          <Image preview={false} width={80} src={Giraffe} />
+          <div style={{ width: "70%" }}>
+            <Typography className="yellow-text" style={{ fontSize: "14px" }}>
+              Giffe Kun
+            </Typography>
+            <Typography
+              className="yellow-text"
+              style={{ fontSize: "14px", marginTop: "10px" }}
+            >
+              (สถานะการชำระเงิน : ยังไม่ได้ชำระ)
+            </Typography>
+            <Typography
+              className="white-text"
+              style={{
+                fontSize: "14px",
+              }}
+            >
+              “ถ้าชำระเงินสำเร็จแล้ว รบกวนส่งรูปภาพ สลิปด้วยนะฮัฟ
+            </Typography>
+
+            <Typography className="yellow-text" style={{ fontSize: "14px" }}>
+              สามารถส่งได้ที่หน้า Line OA ได้เลยฮัฟผม”
+            </Typography>
+          </div>
+        </Row>
+
+        <List
+          size="small"
+          header={
+            <div>
+              <Typography
+                className="white-header text-shadow "
+                style={{ marginBottom: "10px", marginTop: "10px" }}
+              >
+                การจองของคุณ
+              </Typography>
+              <Card
+                style={{
+                  width: "100%",
+                  backgroundColor: "#303E57",
+                }}
+              >
+                <Row justify="space-between" align="middle">
+                  <Typography className="yellow-header">สถานะ</Typography>
+                  <Typography className="yellow-header">วันที่จอง</Typography>
+                  <Typography className="yellow-header">โต๊ะ</Typography>
+                </Row>
+              </Card>
+            </div>
+          }
+          footer
+          style={{ marginTop: "30px", backgroundColor: "#677185" }}
+          bordered
+          dataSource={allBooking}
+          renderItem={(data: any) => (
+            <List.Item>
+              <Button
+                size="large"
+                style={{ width: "100%", height: "60px" }}
+                onClick={() => onClickWithId(data.id)}
+              >
+                <Row justify="space-between" align="middle">
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "20px",
+                      height: "20px",
+                      backgroundColor: exportColorWithStatus(data.status),
+                    }}
+                  >
+                    {/* <Typography className="black-text">
+                      {data.status}
+                    </Typography> */}
+                  </div>
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "65%",
+                    }}
+                  >
+                    <Typography className="black-text">
+                      {convertTimeStampToDate(data.created_at)}
+                    </Typography>
+                  </div>
+                  <div
+                    style={{
+                      borderStyle: "groove",
+                      width: "10%",
+                    }}
+                  >
+                    <Typography className="black-text">
+                      {data.desk.label}
+                    </Typography>
+                  </div>
+                </Row>
+              </Button>
+            </List.Item>
+          )}
+        />
         <Typography className="white-header" style={{ marginTop: "44px" }}>
           ข้อมูลผู้จอง
         </Typography>
@@ -165,115 +276,7 @@ export default function ReplyInfoPage() {
             <Typography className="yellow-text">{data.email}</Typography>
           </Card>
         </div>
-        <Typography className="white-header" style={{ marginTop: "44px" }}>
-          รายละเอียดการจองโต๊ะ
-        </Typography>
-        <Row
-          justify="start"
-          align="middle"
-          style={{
-            marginTop: "30px",
-            marginBottom: "10px",
-            textAlign: "start",
-          }}
-        >
-          <Image preview={false} width={80} src={Giraffe} />
-          <div style={{ width: "70%" }}>
-            <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-              Giffe Kun
-            </Typography>
-            <Typography
-              className="yellow-text"
-              style={{ fontSize: "14px", marginTop: "10px" }}
-            >
-              (สถานะการชำระเงิน : ยังไม่ได้ชำระ)
-            </Typography>
-            <Typography
-              className="white-text"
-              style={{
-                fontSize: "14px",
-              }}
-            >
-              “ถ้าชำระเงินสำเร็จแล้ว รบกวนส่งรูปภาพ สลิปด้วยนะฮัฟ
-            </Typography>
 
-            <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-              สามารถส่งได้ที่หน้า Line OA ได้เลยฮัฟผม”
-            </Typography>
-          </div>
-        </Row>
-
-        <List
-          size="small"
-          header={
-            <div>
-              <Typography
-                className="white-header text-shadow "
-                style={{ marginBottom: "10px", marginTop: "10px" }}
-              >
-                การจองของคุณ
-              </Typography>
-              <Card
-                size="small"
-                style={{ width: "100%", backgroundColor: "#303E57" }}
-              >
-                <Row justify="space-between" align="middle">
-                  <Typography className="yellow-header">สถานะ</Typography>
-                  <Typography className="yellow-header">วันที่จอง</Typography>
-                  <Typography className="yellow-header">โต๊ะ</Typography>
-                </Row>
-              </Card>
-            </div>
-          }
-          footer
-          style={{ marginTop: "30px", backgroundColor: "#677185" }}
-          bordered
-          dataSource={allBooking}
-          renderItem={(data: any) => (
-            <List.Item>
-              <Button
-                size="large"
-                style={{ width: "100%" }}
-                onClick={() => onClickWithId(data.id)}
-              >
-                <Row justify="space-between" align="middle">
-                  <div
-                    style={{
-                      borderStyle: "groove",
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: exportColorWithStatus(data.status),
-                    }}
-                  >
-                    {/* <Typography className="black-text">
-                      {data.status}
-                    </Typography> */}
-                  </div>
-                  <div
-                    style={{
-                      borderStyle: "groove",
-                      width: "65%",
-                    }}
-                  >
-                    <Typography className="black-text">
-                      {convertTimeStampToDate(data.created_at)}
-                    </Typography>
-                  </div>
-                  <div
-                    style={{
-                      borderStyle: "groove",
-                      width: "10%",
-                    }}
-                  >
-                    <Typography className="black-text">
-                      {data.desk.label}
-                    </Typography>
-                  </div>
-                </Row>
-              </Button>
-            </List.Item>
-          )}
-        />
         <Link to="/">
           <Button
             shape="round"
