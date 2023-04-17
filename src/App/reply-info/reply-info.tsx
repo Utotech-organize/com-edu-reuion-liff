@@ -277,7 +277,7 @@ export default function ReplyInfoPage() {
           </Card>
         </div>
 
-        <Link to="/">
+        {/* <Link to="/">
           <Button
             shape="round"
             style={{
@@ -289,7 +289,22 @@ export default function ReplyInfoPage() {
           >
             <Typography className="black-text">ย้อนกลับ</Typography>
           </Button>
-        </Link>
+        </Link> */}
+
+        <Button
+          shape="round"
+          style={{
+            width: "60%",
+            height: "50px",
+            marginTop: "30px",
+            marginBottom: "50px",
+          }}
+          onClick={() => {
+            navigate("/reserve-table");
+          }}
+        >
+          <Typography className="black-text">ไปจองโต๊ะ</Typography>
+        </Button>
       </div>
     </div>
   );
