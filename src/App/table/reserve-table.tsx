@@ -213,7 +213,7 @@ export default function ReserveTablePage(props: any) {
             </Typography>
           </Row>
 
-          <Link to="/get-ticket">
+          <Link to="/reply-info">
             <Button
               shape="round"
               style={{

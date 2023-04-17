@@ -238,11 +238,12 @@ export default function SingleReplyInfoPage() {
           textAlign: "start",
         }}
       >
-        ( ผู้ที่ชำระเงินเรียบร้อย QR CODE จะเปลี่ยน เอาไว้ใช้สำหรับเข้างาน )
+        ( นี่คือ QR code สำหรับเข้าร่วมงาน ให้พี่นำ QR code
+        นี้ไปให้เพื่อนที่มากับพี่ด้วยนะฮัฟ )
       </Typography>
       <Image
         preview={false}
-        width={380}
+        width={360}
         src={
           booking.payment_status === "unpaid" ? QRCode : booking.qrcode_image
         }
@@ -262,7 +263,7 @@ export default function SingleReplyInfoPage() {
           <Typography className="yellow-text" style={{ fontSize: "14px" }}>
             Giraffe Kung
           </Typography>
-          <Typography
+          {/* <Typography
             className="white-text"
             style={{
               fontSize: "14px",
@@ -271,9 +272,9 @@ export default function SingleReplyInfoPage() {
             }}
           >
             เมื่อชำระเงินสำเร็จแล้ว รบกวนส่งรูปภาพสลิปด้วยนะฮัฟ
-          </Typography>
+          </Typography> */}
           <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-            สามารถส่งได้ที่หน้า Line OA ได้เลยฮัฟผม
+            แล้วพบกันในงานนะฮัฟ
           </Typography>
         </div>
       </Row>
@@ -282,7 +283,6 @@ export default function SingleReplyInfoPage() {
         style={{
           width: "60%",
           height: "50px",
-
           marginBottom: "30px",
         }}
         onClick={onCloseLiff}
