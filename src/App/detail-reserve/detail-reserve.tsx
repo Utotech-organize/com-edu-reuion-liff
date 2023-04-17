@@ -333,7 +333,7 @@ export default function DetailReservePage() {
         <Image preview={false} width={70} src={Giraffe}></Image>
         <div style={{}}>
           <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-            Giffe Kun
+            Giraffe Kung
           </Typography>
           <Typography
             className="white-text"

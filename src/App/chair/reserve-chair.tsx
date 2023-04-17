@@ -184,7 +184,7 @@ export default function ReserveChairPage() {
             <Image preview={false} width={80} src={Giraffe} />
             <div>
               <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-                Giffe Kun
+                Giraffe Kung
               </Typography>
               <Typography
                 className="white-text"

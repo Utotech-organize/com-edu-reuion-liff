@@ -73,7 +73,7 @@ export default function Homepage() {
               marginRight: "10px",
             }}
           />
-          <Typography className="yellow-text">Giffe Kun</Typography>
+          <Typography className="yellow-text">Giraffe Kung</Typography>
           <Card
             style={{
               width: "35%",
@@ -90,7 +90,7 @@ export default function Homepage() {
           เพื่อน ๆ สนใจเข้าร่วมงานกับเราไหม
         </Typography>
         <Typography className="white-text" style={{ marginBottom: "30px" }}>
-          รอข้าอยู่ไยกด ขอจองโต๊ะ เลยนะฮัฟ
+          รอช้าอยู่ไยกด ขอจองโต๊ะ เลยนะฮัฟ
         </Typography>
 
         <Button

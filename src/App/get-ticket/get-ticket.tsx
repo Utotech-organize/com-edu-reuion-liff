@@ -108,7 +108,7 @@ export default function GetTicketPage() {
             <Image preview={false} width={80} src={Giraffe} />
             <div style={{ marginLeft: "10px" }}>
               <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-                Giffe Kun
+                Giraffe Kung
               </Typography>
               <Typography
                 className="white-text"
