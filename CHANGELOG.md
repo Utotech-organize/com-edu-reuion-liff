@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.1.0...1.2.0) (2023-04-17)
+
+
+### Features
+
+* **(order-page):** add ui in order page and get api ([98cf67f](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/98cf67f7c74a2a3b627bfcb735de3c7d30ce61e3))
+
+
+### Bug Fixes
+
+* **(fixed-problm):** fixed function close liff ([ebd29e0](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/ebd29e0c17ae9eaac902bd0ba9abe3ae55fd5c17))
+* **(get-api):** get api in get ticket page ([331da42](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/331da42e1f9f14cdf749b2d753cf6e897df0daa7))
+* **(loading):** add loading state in all page and fixed bug ([b33bbaf](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/b33bbaff99cb88f0f2e86878f461b402bf89e2a9))
+
 ## [1.1.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/0.0.2...1.1.0) (2023-04-14)
 
 
