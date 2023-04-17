@@ -13,8 +13,6 @@ export default function LoadingPage() {
     />
   );
 
-  const CustomSpinner = () => <Spin indicator={antIcon} />;
-
   return (
     <div
       style={{
@@ -32,7 +30,7 @@ export default function LoadingPage() {
           alignItems: "center",
         }}
       >
-        {CustomSpinner()}
+        <Spin indicator={antIcon} />
         <Typography
           className="yellow-header text-shadow"
           style={{ fontSize: "30px" }}

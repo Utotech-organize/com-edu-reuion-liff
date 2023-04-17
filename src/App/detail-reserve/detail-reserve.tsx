@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 
 import * as API from "../API";
 import { getMe } from "../../config/liff";
+import numeral from "numeral";
 
 const available = "available";
 const seatAvailble = "pending";
@@ -73,7 +74,7 @@ export default function DetailReservePage() {
   const a = booking.desk.chairs.map((item: any) => item.id);
 
   const onCloseLiff = () => {
-    liff.closeWindow;
+    liff.closeWindow();
   };
 
   const onPreviousNavigate = () => {
@@ -185,7 +186,7 @@ export default function DetailReservePage() {
             textAlign: "start",
           }}
         >
-          {pricePerChair}
+          {numeral(pricePerChair).format("0,0.00")}
         </Typography>
         <Typography
           className="white-text"
@@ -214,7 +215,7 @@ export default function DetailReservePage() {
             textAlign: "start",
           }}
         >
-          {summary}
+          {numeral(summary).format("0,0.00")}
         </Typography>
         <Typography
           className="white-bold"
@@ -232,7 +233,8 @@ export default function DetailReservePage() {
           textAlign: "start",
         }}
       >
-        ( {amountChairs} ที่นั่ง x {pricePerChair} บาท )
+        ( {amountChairs} ที่นั่ง x {numeral(pricePerChair).format("0,0.00")} บาท
+        )
       </Typography>
       <Row justify="space-between" align="middle" style={{ marginTop: "27px" }}>
         <Typography className="yellow-text">ข้อมูลการชำระเงิน</Typography>
