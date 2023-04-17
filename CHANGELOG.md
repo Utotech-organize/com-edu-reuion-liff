@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.2.0...1.3.0) (2023-04-17)
+
+
+### Features
+
+* **reply-info:** change home router ([bbe7076](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/bbe70769005caf731c0f8884f0bc36d624c1b402))
+
+
+### Bug Fixes
+
+* **conflict:** fixed merge conflict ([2b88413](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/2b88413bfd8ff1c9fea86e3b65911bfef1693870))
+* **wording:** change wording and refactor ([8ca874f](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/8ca874fee3fbaa108009c6de9806ee73fb884a37))
+
 ## [1.2.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.1.0...1.2.0) (2023-04-17)
 
 
