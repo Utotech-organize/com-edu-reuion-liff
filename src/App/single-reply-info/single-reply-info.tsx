@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 
 import * as API from "../API";
 import { getMe } from "../../config/liff";
+import numeral from "numeral";
 
 const available = "available";
 const seatAvailble = "pending";
@@ -177,7 +178,7 @@ export default function SingleReplyInfoPage() {
             textAlign: "start",
           }}
         >
-          {pricePerChair}
+          {numeral(pricePerChair).format("0,0.00")}
         </Typography>
         <Typography
           className="white-text"
@@ -206,7 +207,7 @@ export default function SingleReplyInfoPage() {
             textAlign: "start",
           }}
         >
-          {summary}
+          {numeral(summary).format("0,0.00")}
         </Typography>
         <Typography
           className="white-bold"
@@ -226,21 +227,42 @@ export default function SingleReplyInfoPage() {
       >
         ( {amountChairs} ที่นั่ง x {pricePerChair} บาท )
       </Typography>
-      <Typography
-        className="white-header"
-        style={{ marginTop: "50px", marginBottom: "30px" }}
-      >
-        QR Code สำหรับเข้าร่วมงาน
-      </Typography>
-      <Typography
-        className="white-sm-text"
-        style={{
-          textAlign: "start",
-        }}
-      >
-        ( นี่คือ QR code สำหรับเข้าร่วมงาน ให้พี่นำ QR code
-        นี้ไปให้เพื่อนที่มากับพี่ด้วยนะฮัฟ )
-      </Typography>
+      {booking.payment_status === "unpaid" ? (
+        <Typography
+          className="white-header"
+          style={{ marginTop: "50px", marginBottom: "30px" }}
+        >
+          QR Code สำหรับชำระเงินฮัฟ
+        </Typography>
+      ) : (
+        <Typography
+          className="white-header"
+          style={{ marginTop: "50px", marginBottom: "30px" }}
+        >
+          QR Code สำหรับเข้าร่วมงาน
+        </Typography>
+      )}
+      {booking.payment_status === "unpaid" ? (
+        <Typography
+          className="white-sm-text"
+          style={{
+            textAlign: "center",
+          }}
+        >
+          ( รบกวนพี่ ชำระเงินก่อนนะฮัฟ ถ้าหากยังไม่ชำระเงิน
+          ขอให้ชำระเงินก่อนแล้วส่ง ใบเสร็จเข้ามาที่ Line OA นะฮัฟ )
+        </Typography>
+      ) : (
+        <Typography
+          className="white-sm-text"
+          style={{
+            textAlign: "center",
+          }}
+        >
+          ( นี่คือ QR code สำหรับเข้าร่วมงาน ให้พี่นำ QR code
+          นี้ไปให้เพื่อนที่มากับพี่ด้วยนะฮัฟ )
+        </Typography>
+      )}
       <Image
         preview={false}
         width={360}
@@ -263,7 +285,7 @@ export default function SingleReplyInfoPage() {
           <Typography className="yellow-text" style={{ fontSize: "14px" }}>
             Giraffe Kung
           </Typography>
-          {/* <Typography
+          <Typography
             className="white-text"
             style={{
               fontSize: "14px",
@@ -272,7 +294,7 @@ export default function SingleReplyInfoPage() {
             }}
           >
             เมื่อชำระเงินสำเร็จแล้ว รบกวนส่งรูปภาพสลิปด้วยนะฮัฟ
-          </Typography> */}
+          </Typography>
           <Typography className="yellow-text" style={{ fontSize: "14px" }}>
             แล้วพบกันในงานนะฮัฟ
           </Typography>
@@ -294,7 +316,6 @@ export default function SingleReplyInfoPage() {
         style={{
           width: "60%",
           height: "50px",
-
           marginBottom: "30px",
         }}
         onClick={onPreviousNavigate}
