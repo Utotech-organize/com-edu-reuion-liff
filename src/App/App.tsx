@@ -74,7 +74,7 @@ export default function App() {
         },
 
         {
-          path: "reply-info/:id",
+          path: "reply-info",
           loader: AllBookingLoader,
           element: <ReplyInfoPage />,
         },

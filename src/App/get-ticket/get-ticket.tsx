@@ -22,11 +22,26 @@ export async function GetTicketLoader({ request, params }: any) {
 export default function GetTicketPage() {
   const navigate = useNavigate();
   const { state } = useNavigation();
+  const { data } = useLoaderData() as any;
 
   //FIXME PHOOM
-  const onFinish = (v: any) => {
+  const onFinish = async (v: any) => {
+    const values = {
+      ticket: v.slug,
+      line_liff_id: data.line_liff_id,
+      line_display_name: data.line_display_name,
+      line_photo_url: data.line_photo_url,
+    };
+    console.log(values);
+
+    try {
+      const res = await API.getTicket(values);
+      console.log({ res });
+
+      navigate(`/reply-info/`);
+    } catch (error) {}
     console.log(v);
-    navigate(`/reply-info/${v.slug}`);
+
     console.log("in on finish");
   };
 

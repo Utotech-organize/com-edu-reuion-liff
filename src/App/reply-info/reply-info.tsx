@@ -21,8 +21,8 @@ const chairs = "A,B";
 
 export async function AllBookingLoader({ request, params }: any) {
   try {
-    const allBooking = await API.getAllBooking(params.id);
     const data = await getMe();
+    const allBooking = await API.getAllBooking(data?.user.data.line_liff_id);
 
     return {
       allBooking: allBooking.data.data,
