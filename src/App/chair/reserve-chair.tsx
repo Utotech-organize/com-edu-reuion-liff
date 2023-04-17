@@ -17,6 +17,7 @@ import Appbar from "../../components/appbar";
 import * as API from "../API";
 import { getMe } from "../../config/liff";
 import { createBooking } from "../API/booking";
+import Swal from "sweetalert2";
 
 const available = "available";
 const seatAvailble = "pending";
@@ -45,27 +46,57 @@ export default function ReserveChairPage() {
   const location = useLocation();
   const infomation = location.state;
 
-  const canSelectAll =
-    allChairs.filter((d: any) => d.status === "available").length === 10;
-
-  const onButtonClick = async (mode: string) => {
-    setIsLoading(true);
+  const SwalReCheck = (mode: string) => {
     if (mode === "all") {
-      setSelectedSeat(allChairs.map((d: any) => d.id));
+      setSelectedSeat(
+        allChairs
+          .filter((item: any) => item.status === "available")
+          .map((c: any) => c.id)
+      );
     }
-
     try {
-      const bookingPayload = {
-        customer_id: me.id,
-        desk_id: infomation.desk_data.id,
-        chairs_id:
-          mode == "all" ? allChairs.map((d: any) => d.id) : selectedSeat,
-        image_url: "",
-      };
+      Swal.fire({
+        title: "ต้องการที่จะจองโต๊ะ ให้กดยืนยัน",
+        backdrop: false,
+        width: "300px",
+        background: "#4D5667",
+        position: "center",
+        showCancelButton: true,
+        confirmButtonColor: "green",
+        cancelButtonColor: "red",
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "ยกเลิก",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          setIsLoading(true);
 
-      const res = await createBooking(bookingPayload);
+          Swal.fire({
+            position: "center",
+            backdrop: false,
+            width: "300px",
+            background: "#4D5667",
+            icon: "success",
+            title: "จองโต๊ะเรียบร้อยแล้ว",
+            showConfirmButton: false,
+            timer: 1800,
+          });
+          const bookingPayload = {
+            customer_id: me.id,
+            desk_id: infomation.desk_data.id,
+            chairs_id:
+              mode == "all"
+                ? allChairs
+                    .filter((item: any) => item.status === "available")
+                    .map((c: any) => c.id)
+                : selectedSeat,
+            image_url: "",
+          };
 
-      navigate(`/detail-reserve/${res.data.data.id}`);
+          const res = await createBooking(bookingPayload);
+
+          navigate(`/detail-reserve/${res.data.data.id}`);
+        }
+      });
     } catch (e: any) {
       setIsLoading(false);
       return {
@@ -275,7 +306,8 @@ export default function ReserveChairPage() {
           <Card size="small" style={{ marginTop: "30px" }}>
             <Row justify="space-around" align="middle">
               <Button
-                onClick={() => onButtonClick("selected")}
+                onClick={() => SwalReCheck("selected")}
+                // onButtonClick("selected")}
                 style={{
                   width: "150px",
                   height: "60px",
@@ -294,27 +326,21 @@ export default function ReserveChairPage() {
                 </Typography>
               </Button>
 
-              {infomation.desk_data.status === "available" ? (
-                <Button
-                  onClick={() => onButtonClick("all")}
-                  style={{
-                    width: "150px",
-                    height: "60px",
-                    backgroundColor: "#4D5667",
-                    borderRadius: "20px",
-                  }}
-                  disabled={
-                    !canSelectAll ||
-                    state == "loading" ||
-                    state == "submitting" ||
-                    loading
-                  }
-                >
-                  <Typography className="white-sm-text">จองทั้งโต๊ะ</Typography>
-                </Button>
-              ) : (
-                <></>
-              )}
+              <Button
+                onClick={() => SwalReCheck("all")}
+                // onButtonClick("all")}
+                style={{
+                  width: "150px",
+                  height: "60px",
+                  backgroundColor: "#4D5667",
+                  borderRadius: "20px",
+                }}
+                disabled={
+                  state == "loading" || state == "submitting" || loading
+                }
+              >
+                <Typography className="white-sm-text">จองทั้งโต๊ะ</Typography>
+              </Button>
             </Row>
           </Card>
           <Link to="/reserve-table">

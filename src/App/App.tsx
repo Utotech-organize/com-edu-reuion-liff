@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Children, useEffect } from "react";
 import Homepage from "./home/home";
 import ReserveTablePage, { DesksIndexLoader } from "./table/reserve-table";
 
@@ -19,12 +19,13 @@ import ErrorPage from "./error/error";
 
 import { initLIFF } from "../config/liff";
 import LoadingPage from "../components/loading";
-import OrderPage from "./order/order";
+import OrderPage, { ProductIndexLoader } from "./order/order";
 import SingleReplyInfoPage, {
   SingleReplyLoader,
 } from "./single-reply-info/single-reply-info";
 import GetTicketPage, { GetTicketLoader } from "./get-ticket/get-ticket";
 import { Spin } from "antd";
+import CartPage from "./order/cart";
 
 const AppLayout = () => {
   const { state } = useNavigation();
@@ -88,7 +89,8 @@ export default function App() {
           loader: GetTicketLoader,
           element: <GetTicketPage />,
         },
-        { path: "order", element: <OrderPage /> },
+        { path: "order", element: <OrderPage />, loader: ProductIndexLoader },
+        { path: "cart", element: <CartPage /> },
         { path: "loading", element: <LoadingPage /> },
         { path: "error", element: <ErrorPage /> },
       ],

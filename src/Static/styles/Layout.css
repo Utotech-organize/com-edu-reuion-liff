@@ -33,7 +33,7 @@ body {
   box-sizing: border-box;
   max-width: 100%;
   -webkit-box-align: center;
-  align-items: center;
+  /* align-items: center; */
   min-width: 0px;
   min-height: 0px;
   flex-direction: column;
@@ -271,6 +271,13 @@ body {
 .grid-item {
   padding: 4px;
   text-align: center;
+}
+
+.grid-container-order {
+  margin: 5px;
+  display: grid;
+  overflow: auto;
+  grid-template-columns: auto auto;
 }
 
 .swal2-popup {

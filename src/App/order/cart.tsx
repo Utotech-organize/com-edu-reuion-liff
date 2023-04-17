@@ -1,25 +1,7 @@
-import { Button, Card, Form, Image, Input, List, Row, Typography } from "antd";
+import { Button, Card, Image, List, Row, Typography } from "antd";
 import Appbar from "../../components/appbar";
-import Giraffe from "../../Static/images/Giraffe.png";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 
-import * as API from "../API";
-import { getMe } from "../../config/liff";
-import { useLoaderData } from "react-router-dom";
-
-export async function ProductIndexLoader({ request, params }: any) {
-  try {
-    const data = await getMe();
-    const products = await API.getProducts();
-
-    console.log({ data });
-    console.log({ products });
-
-    return { products: products.data.data, data: data?.user.data };
-  } catch (e: any) {
-    return { data: null };
-  }
-}
+import { AppstoreAddOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
 const mockData = [
   {
@@ -94,16 +76,15 @@ const mockData = [
   },
 ];
 
-export default function OrderPage() {
-  const { products, data } = useLoaderData() as any;
+export default function CartPage() {
   const lineName = "P2W";
-
   return (
     <div
       style={{
         width: "100%",
-        height: "100%",
         marginBottom: "50px",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Appbar />
@@ -122,7 +103,7 @@ export default function OrderPage() {
             }}
             onClick={() => {}}
           >
-            <ShoppingCartOutlined style={{ fontSize: "30px" }} />
+            <AppstoreAddOutlined style={{ fontSize: "30px" }} />
           </div>
 
           <Row align="middle">
@@ -140,28 +121,39 @@ export default function OrderPage() {
         </Row>
 
         <Typography className="white-header" style={{ marginBottom: "20px" }}>
-          สั่งของในงาน
+          ของที่เลือก
         </Typography>
-        <div className="grid-container-order">
-          {mockData.map((d: any) => (
-            <div
-              className="grid-item"
-              style={{
-                backgroundColor: "white",
-                borderRadius: "10px",
-                margin: "10px",
-              }}
-              onClick={() => {}}
-            >
-              <Image preview={false} key={d.id} src={d.image}></Image>
-
-              <Row justify="space-around">
-                <Typography className="black-sm-text">{d.label}</Typography>
-                <Typography className="black-sm-text">{d.price} บาท</Typography>
-              </Row>
-            </div>
-          ))}
-        </div>
+        <List
+          size="small"
+          style={{ marginTop: "30px" }}
+          dataSource={mockData}
+          renderItem={(data: any) => (
+            <List.Item>
+              <div style={{ width: "100%", backgroundColor: "white" }}>
+                <Row justify="space-between" align="middle">
+                  <div
+                    style={{
+                      width: "60%",
+                    }}
+                  >
+                    <Typography className="black-text">{data.label}</Typography>
+                  </div>
+                  <Typography className="black-text">1</Typography>
+                  <Button>
+                    <div>
+                      <Typography className="black-text">เพิ่ม</Typography>
+                    </div>
+                  </Button>
+                  <Button>
+                    <div>
+                      <Typography className="black-text">ลบ</Typography>
+                    </div>
+                  </Button>
+                </Row>
+              </div>
+            </List.Item>
+          )}
+        />
       </div>
     </div>
   );
