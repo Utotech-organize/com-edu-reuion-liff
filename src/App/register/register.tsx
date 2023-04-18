@@ -44,7 +44,7 @@ export default function RegisterPage() {
     try {
       const res = await API.createCustomers(values);
 
-      navigate("/get-ticket");
+      navigate("/reply-info");
     } catch (e: any) {
       console.log(e);
 
