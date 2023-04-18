@@ -25,8 +25,6 @@ export async function DesksIndexLoader({ request, params }: any) {
 
     return { desks: desks.data.data };
   } catch (e: any) {
-    localStorage.removeItem("token");
-
     return { data: null };
   }
 }
@@ -40,7 +38,7 @@ export default function ReserveTablePage(props: any) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = (await getMe()) as any;
+      const data = (await getMe(false)) as any;
       if (data.user) {
         window.scrollTo(0, 0);
         navigate("/reserve-table");
