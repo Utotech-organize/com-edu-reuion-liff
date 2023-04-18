@@ -39,10 +39,7 @@ export default function ReserveTablePage(props: any) {
   useEffect(() => {
     const fetchData = async () => {
       const data = (await getMe(false)) as any;
-      if (data.user) {
-        window.scrollTo(0, 0);
-        navigate("/reserve-table");
-      }
+      window.scrollTo(0, 0);
     };
 
     // call the function

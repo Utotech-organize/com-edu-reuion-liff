@@ -7,6 +7,7 @@ import {
   RouterProvider,
   Outlet,
   useNavigation,
+  useLocation,
 } from "react-router-dom";
 import ReserveChairPage, { ChairWithDeskLoader } from "./chair/reserve-chair";
 import RegisterPage from "./register/register";
@@ -28,9 +29,15 @@ import { Spin } from "antd";
 import CartPage from "./order/cart";
 
 const AppLayout = () => {
+  const location = useLocation();
   const { state } = useNavigation();
+
+  console.log(location);
+
   useEffect(() => {
-    initLIFF();
+    if (location.pathname !== "/reserve-table") {
+      initLIFF();
+    }
   }, []);
 
   return (
