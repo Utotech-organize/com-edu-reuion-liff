@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.4.0...1.4.1) (2023-04-18)
+
+
+### Bug Fixes
+
+* **router:** fixed router ([c03b5fa](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/c03b5fa770d09f333ce795a03303f3c73df530db))
+
 ## [1.4.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.3.6...1.4.0) (2023-04-18)
 
 
