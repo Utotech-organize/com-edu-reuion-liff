@@ -7,6 +7,7 @@ import {
   Link,
   useLoaderData,
   useLocation,
+  useNavigate,
   useNavigation,
 } from "react-router-dom";
 
@@ -35,11 +36,21 @@ export default function ReserveTablePage(props: any) {
   const { desks } = useLoaderData() as any;
   const [loading, setIsLoading] = useState(true);
   const { state } = useNavigation();
-
-  console.log(state);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const res = getMe();
+    const fetchData = async () => {
+      const data = (await getMe()) as any;
+      if (data.user) {
+        window.scrollTo(0, 0);
+        navigate("/reserve-table");
+      }
+    };
+
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
   }, []);
 
   const exportColorWithStatus = (status: any) => {

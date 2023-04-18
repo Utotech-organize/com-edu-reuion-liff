@@ -58,7 +58,7 @@ export default function SingleReplyInfoPage() {
   useEffect(() => {
     const fetchData = async () => {
       const data = (await getMe()) as any;
-
+      window.scrollTo(0, 0);
       setData(data);
     };
 

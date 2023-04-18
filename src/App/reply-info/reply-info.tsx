@@ -10,6 +10,7 @@ import { getMe } from "../../config/liff";
 import * as API from "../API";
 import convertTimeStampToDate from "../../components/date-time";
 import { exportColorWithStatus } from "../../components/common";
+import { useEffect } from "react";
 
 //ENUM IN THIS PAGE
 const amountChairs = 2;
@@ -40,6 +41,10 @@ export default function ReplyInfoPage() {
   const onClickWithId = (id: any) => {
     navigate(`/single-reply-info/${id}`);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div>
