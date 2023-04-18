@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.3.6...1.4.0) (2023-04-18)
+
+
+### Features
+
+* **reply-infop:** fixed reply info and etc ([9a4c97d](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/9a4c97dbeb55643bd898bea43a4616edbee90da4))
+
 ### [1.3.6](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.3.5...1.3.6) (2023-04-18)
 
 
