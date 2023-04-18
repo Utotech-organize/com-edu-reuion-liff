@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.6](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.3.5...1.3.6) (2023-04-18)
+
+
+### Bug Fixes
+
+* **ui:** in single reply ([8a77826](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/8a77826eebb36336347f9730586413ba254aafbd))
+
 ### [1.3.5](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.3.4...1.3.5) (2023-04-17)
 
 
