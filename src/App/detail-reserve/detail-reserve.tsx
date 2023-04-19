@@ -267,13 +267,8 @@ export default function DetailReservePage() {
         </Row>
         <Row justify={"space-between"}>
           <Typography className="yellow-text">ชื่อบัญชี</Typography>
-          <Typography className="yellow-text">
-            น.ส. ภัทรวาดี ชาตะ และ
-          </Typography>
+          <Typography className="yellow-text">น.ส. ภัทรวาดี ชาตะ</Typography>
         </Row>
-        <Typography className="yellow-text" style={{ textAlign: "end" }}>
-          นาย วัชพล เหลาทอง
-        </Typography>
         <Typography
           className="yellow-text"
           style={{ textAlign: "start", marginBottom: "10px" }}
@@ -320,7 +315,7 @@ export default function DetailReservePage() {
           </Row>
         </div>
       </Card>
-      <Image preview={false} width={380} src={QRCode}></Image>
+      <Image preview={false} width={350} src={QRCode}></Image>
       <Row
         justify="space-between"
         align="middle"
@@ -333,7 +328,7 @@ export default function DetailReservePage() {
         <Image preview={false} width={70} src={Giraffe}></Image>
         <div style={{}}>
           <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-            Giffe Kun
+            Giraffe Kung
           </Typography>
           <Typography
             className="white-text"

@@ -184,7 +184,7 @@ export default function ReserveChairPage() {
             <Image preview={false} width={80} src={Giraffe} />
             <div>
               <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-                Giffe Kun
+                Giraffe Kung
               </Typography>
               <Typography
                 className="white-text"
@@ -202,10 +202,10 @@ export default function ReserveChairPage() {
                   marginBottom: "10px",
                 }}
               >
-                เก้าอี้ละ 350 ฿ ถ้าเหมา 3,200 ฿ น๊ะ
+                เก้าอี้ละ 350 ฿ ถ้าเหมา 3,200 ฿ น๊ะฮัฟ
               </Typography>
               <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-                A, B หรือตัวอักษรอื่นๆ คือหมายเลข เก้าอี้นะฮัฟ
+                A, B หรือตัวอักษรอื่น ๆ คือหมายเลข เก้าอี้นะฮัฟ
               </Typography>
             </div>
           </Row>

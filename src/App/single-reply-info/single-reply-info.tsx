@@ -1,8 +1,9 @@
-import { Button, Image, Row, Typography } from "antd";
+import { Button, Card, Image, Row, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import liff from "@line/liff";
 import useCopyToClipboard from "../../components/copy-clipboard";
+import BualuangLogo from "../../Static/images/bualuang.jpg";
 
 import Giraffe from "../../Static/images/Giraffe.png";
 import QRCode from "../../Static/images/qrcode.png";
@@ -10,6 +11,8 @@ import Swal from "sweetalert2";
 
 import * as API from "../API";
 import { getMe } from "../../config/liff";
+import numeral from "numeral";
+import { FileOutlined } from "@ant-design/icons";
 
 const available = "available";
 const seatAvailble = "pending";
@@ -177,7 +180,7 @@ export default function SingleReplyInfoPage() {
             textAlign: "start",
           }}
         >
-          {pricePerChair}
+          {numeral(pricePerChair).format("0,0.00")}
         </Typography>
         <Typography
           className="white-text"
@@ -206,7 +209,7 @@ export default function SingleReplyInfoPage() {
             textAlign: "start",
           }}
         >
-          {summary}
+          {numeral(summary).format("0,0.00")}
         </Typography>
         <Typography
           className="white-bold"
@@ -226,23 +229,125 @@ export default function SingleReplyInfoPage() {
       >
         ( {amountChairs} ที่นั่ง x {pricePerChair} บาท )
       </Typography>
-      <Typography
-        className="white-header"
-        style={{ marginTop: "50px", marginBottom: "30px" }}
-      >
-        QR Code สำหรับเข้าร่วมงาน
-      </Typography>
-      <Typography
-        className="white-sm-text"
-        style={{
-          textAlign: "start",
-        }}
-      >
-        ( ผู้ที่ชำระเงินเรียบร้อย QR CODE จะเปลี่ยน เอาไว้ใช้สำหรับเข้างาน )
-      </Typography>
+      {booking.payment_status === "unpaid" ? (
+        <Typography
+          className="white-header"
+          style={{ marginTop: "50px", marginBottom: "30px" }}
+        >
+          QR Code สำหรับชำระเงินฮัฟ
+        </Typography>
+      ) : (
+        <Typography
+          className="white-header"
+          style={{ marginTop: "50px", marginBottom: "30px" }}
+        >
+          QR Code สำหรับเข้าร่วมงาน
+        </Typography>
+      )}
+      {booking.payment_status === "unpaid" ? (
+        <Typography
+          className="white-sm-text"
+          style={{
+            textAlign: "center",
+          }}
+        >
+          ( รบกวนพี่ ชำระเงินก่อนนะฮัฟ ถ้าหากยังไม่ชำระเงิน
+          ขอให้ชำระเงินก่อนแล้วส่ง ใบเสร็จเข้ามาที่ Line OA นะฮัฟ )
+        </Typography>
+      ) : (
+        <Typography
+          className="white-sm-text"
+          style={{
+            textAlign: "center",
+          }}
+        >
+          ( นี่คือ QR code สำหรับเข้าร่วมงาน ให้พี่นำ QR code
+          นี้ไปให้เพื่อนที่มากับพี่ด้วยนะฮัฟ )
+        </Typography>
+      )}
+
+      {booking.payment_status === "unpaid" && (
+        <Card
+          style={{
+            backgroundColor: "#303E57",
+            marginTop: "13px",
+            marginBottom: "27px",
+          }}
+          bordered={false}
+        >
+          <Row justify={"space-between"}>
+            <Typography className="yellow-text">ชื่อธนาคาร</Typography>
+            <Row>
+              <Image
+                preview={false}
+                width={30}
+                style={{ borderRadius: "50%" }}
+                src={BualuangLogo}
+              />
+
+              <Typography
+                className="yellow-text"
+                style={{ marginLeft: "10px" }}
+              >
+                ธนาคารกรุงเทพฯ
+              </Typography>
+            </Row>
+          </Row>
+          <Row justify={"space-between"}>
+            <Typography className="yellow-text">ชื่อบัญชี</Typography>
+            <Typography className="yellow-text">น.ส. ภัทรวาดี ชาตะ</Typography>
+          </Row>
+          <Typography
+            className="yellow-text"
+            style={{ textAlign: "start", marginBottom: "10px" }}
+          >
+            เลขที่บัญชี
+          </Typography>
+          <div
+            style={{
+              backgroundColor: "white",
+              borderRadius: "8px",
+              height: "40px",
+            }}
+          >
+            <Row justify="space-between">
+              <div></div>
+              <Typography
+                style={{
+                  fontStyle: "normal",
+                  fontWeight: "400",
+                  fontSize: "16px",
+                  color: "#9C9D9D",
+
+                  alignSelf: "center",
+                }}
+              >
+                8707120260
+              </Typography>
+              <Button
+                className="black-text"
+                style={{
+                  backgroundColor: "#677185",
+                  width: "50px",
+                  borderRadius: "8px",
+                  height: "40px",
+                }}
+                onClick={() => swalCopy()}
+              >
+                <FileOutlined
+                  style={{
+                    fontSize: "25px",
+                  }}
+                />
+              </Button>
+            </Row>
+          </div>
+        </Card>
+      )}
+
       <Image
         preview={false}
-        width={380}
+        width={350}
         src={
           booking.payment_status === "unpaid" ? QRCode : booking.qrcode_image
         }
@@ -260,20 +365,35 @@ export default function SingleReplyInfoPage() {
         <Image preview={false} width={70} src={Giraffe}></Image>
         <div style={{}}>
           <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-            Giffe Kun
+            Giraffe Kung
           </Typography>
-          <Typography
-            className="white-text"
-            style={{
-              fontSize: "14px",
-              marginTop: "10px",
-              marginBottom: "10px",
-            }}
-          >
-            เมื่อชำระเงินสำเร็จแล้ว รบกวนส่งรูปภาพสลิปด้วยนะฮัฟ
-          </Typography>
+
+          {booking.payment_status === "unpaid" ? (
+            <Typography
+              className="white-text"
+              style={{
+                fontSize: "14px",
+                marginTop: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              เมื่อชำระเงินสำเร็จแล้ว รบกวนส่งรูปภาพสลิปด้วยนะฮัฟ
+            </Typography>
+          ) : (
+            <Typography
+              className="white-text"
+              style={{
+                fontSize: "14px",
+                marginTop: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              ขอบคุณที่ชำระเงิน และจองโต๊ะเพื่อเข้าร่วมงานนะฮัฟ
+            </Typography>
+          )}
+
           <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-            สามารถส่งได้ที่หน้า Line OA ได้เลยฮัฟผม
+            แล้วพบกันในงานนะฮัฟ
           </Typography>
         </div>
       </Row>
@@ -282,7 +402,6 @@ export default function SingleReplyInfoPage() {
         style={{
           width: "60%",
           height: "50px",
-
           marginBottom: "30px",
         }}
         onClick={onCloseLiff}
@@ -294,7 +413,6 @@ export default function SingleReplyInfoPage() {
         style={{
           width: "60%",
           height: "50px",
-
           marginBottom: "30px",
         }}
         onClick={onPreviousNavigate}

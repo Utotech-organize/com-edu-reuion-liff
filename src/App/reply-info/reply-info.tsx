@@ -60,25 +60,16 @@ export default function ReplyInfoPage() {
           <Image preview={false} width={80} src={Giraffe} />
           <div style={{ width: "70%" }}>
             <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-              Giffe Kun
+              Giraffe Kung
             </Typography>
             <Typography
               className="yellow-text"
               style={{ fontSize: "14px", marginTop: "10px" }}
             >
-              (สถานะการชำระเงิน : ยังไม่ได้ชำระ)
-            </Typography>
-            <Typography
-              className="white-text"
-              style={{
-                fontSize: "14px",
-              }}
-            >
-              “ถ้าชำระเงินสำเร็จแล้ว รบกวนส่งรูปภาพ สลิปด้วยนะฮัฟ
-            </Typography>
-
-            <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-              สามารถส่งได้ที่หน้า Line OA ได้เลยฮัฟผม”
+              นี่คือรายการซื้อบัตรทั้งหมดของพี่ ๆ ครับ หากสถานะยังเป็นสีแดง
+              แสดงว่า "ต้องส่งสลิปโอนเงินใน Line OA ก่อน"
+              หากสถานะเป็นสีเขียวแล้ว แสดงว่า "พร้อมใช้ในวันงานแล้ว"
+              ส่วนสีขาวคือพี่ ๆ ได้ยกเลิกการจองครับ
             </Typography>
           </div>
         </Row>
@@ -277,7 +268,7 @@ export default function ReplyInfoPage() {
           </Card>
         </div>
 
-        <Link to="/">
+        {/* <Link to="/">
           <Button
             shape="round"
             style={{
@@ -289,7 +280,22 @@ export default function ReplyInfoPage() {
           >
             <Typography className="black-text">ย้อนกลับ</Typography>
           </Button>
-        </Link>
+        </Link> */}
+
+        <Button
+          shape="round"
+          style={{
+            width: "60%",
+            height: "50px",
+            marginTop: "30px",
+            marginBottom: "50px",
+          }}
+          onClick={() => {
+            navigate("/reserve-table");
+          }}
+        >
+          <Typography className="black-text">ไปจองโต๊ะ</Typography>
+        </Button>
       </div>
     </div>
   );

@@ -124,7 +124,7 @@ export default function ReserveTablePage(props: any) {
             <Image preview={false} width={80} src={Giraffe}></Image>
             <div style={{}}>
               <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-                Giffe Kun
+                Giraffe Kung
               </Typography>
               <Typography
                 className="white-text"
@@ -147,13 +147,13 @@ export default function ReserveTablePage(props: any) {
           <Row justify="start" align="middle" style={{ marginTop: "10px" }}>
             <Card
               style={{
-                width: "19%",
+                width: "90px",
                 marginRight: "10px",
                 backgroundColor: "#FFCA18",
               }}
             >
               <Typography className="black-text" style={{ fontSize: "14px" }}>
-                โต๊ะ Ax
+                โต๊ะAx
               </Typography>
             </Card>
             <Typography
@@ -172,13 +172,13 @@ export default function ReserveTablePage(props: any) {
           >
             <Card
               style={{
-                width: "19%",
+                width: "90px",
                 marginRight: "10px",
                 backgroundColor: "#8598BD",
               }}
             >
               <Typography className="black-text" style={{ fontSize: "14px" }}>
-                โต๊ะ Ax
+                โต๊ะAx
               </Typography>
             </Card>
             <Typography
@@ -193,14 +193,14 @@ export default function ReserveTablePage(props: any) {
           <Row justify="start" align="middle">
             <Card
               style={{
-                width: "19%",
+                width: "90px",
                 marginRight: "10px",
                 backgroundColor: "#FFCA18",
                 opacity: "40%",
               }}
             >
               <Typography className="black-text" style={{ fontSize: "14px" }}>
-                โต๊ะ Ax
+                โต๊ะAx
               </Typography>
             </Card>
             <Typography
@@ -213,7 +213,7 @@ export default function ReserveTablePage(props: any) {
             </Typography>
           </Row>
 
-          <Link to="/get-ticket">
+          <Link to="/reply-info">
             <Button
               shape="round"
               style={{

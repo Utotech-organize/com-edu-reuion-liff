@@ -103,12 +103,13 @@ export default function GetTicketPage() {
           </Form>
           <Row
             justify="space-between"
-            style={{ textAlign: "start", marginTop: "50px" }}
+            style={{ textAlign: "center", marginTop: "10px" }}
           >
-            <Image preview={false} width={80} src={Giraffe} />
-            <div style={{ marginLeft: "10px" }}>
+            <div>
+              <Image preview={false} width={100} src={Giraffe} />
+              <div style={{ padding: 5 }}></div>
               <Typography className="yellow-text" style={{ fontSize: "14px" }}>
-                Giffe Kun
+                Giraffe Kung
               </Typography>
               <Typography
                 className="white-text"
@@ -117,9 +118,14 @@ export default function GetTicketPage() {
                   marginTop: "10px",
                 }}
               >
-                พิมรหัส ที่ได้รับจากทีมงานเพื่อ รับบัตรเข้างาน
+                กรอกรหัสการจอง ที่ได้รับจากทีมงานขายบัตร
+                เพื่อที่จะรับบัตรเข้างานอิเล็กทรอนิกส์ (E-Ticket)
+                ไว้สำหรับเข้างาน หากยังไม่ได้จองโต๊ะ สามารถกดปุ่ม "จองโต๊ะ"
+                ได้เลยครับ สำหรับท่านที่ซื้อบัตรไปก่อนหน้าแล้ว หากมีปัญหา
+                โปรดติดต่อ Line OA เท่านั้นครับ
+                ขอขอบคุณและขออภัยในความไม่สะดวกที่เกิดขึ้นครับ
               </Typography>
-              <Typography
+              {/* <Typography
                 className="white-text"
                 style={{
                   fontSize: "14px",
@@ -151,7 +157,7 @@ export default function GetTicketPage() {
                 }}
               >
                 ปุ่ม “จองโต๊ะ” ด้านล่างนะค้าบ
-              </Typography>
+              </Typography> */}
             </div>
           </Row>
           <Button
