@@ -10,10 +10,8 @@ import { useLoaderData } from "react-router-dom";
 export async function ProductIndexLoader({ request, params }: any) {
   try {
     const data = await getMe();
-    const products = await API.getProducts();
-
-    console.log({ data });
-    console.log({ products });
+    const products = await API.getAllProduct();
+    // console.log({ data });
 
     return { products: products.data.data, data: data?.user.data };
   } catch (e: any) {
@@ -95,8 +93,12 @@ const mockData = [
 ];
 
 export default function OrderPage() {
-  const { products, data } = useLoaderData() as any;
+  const { data, products } = useLoaderData() as any;
   const lineName = "P2W";
+
+  // console.log("-----------");
+
+  console.log({ products });
 
   return (
     <div
@@ -143,7 +145,7 @@ export default function OrderPage() {
           สั่งของในงาน
         </Typography>
         <div className="grid-container-order">
-          {mockData.map((d: any) => (
+          {products.map((d: any) => (
             <div
               className="grid-item"
               style={{
@@ -158,6 +160,11 @@ export default function OrderPage() {
               <Row justify="space-around">
                 <Typography className="black-sm-text">{d.label}</Typography>
                 <Typography className="black-sm-text">{d.price} บาท</Typography>
+              </Row>
+              <Row justify="space-between" align="middle">
+                <Button>-</Button>
+                <Typography>0</Typography>
+                <Button>+</Button>
               </Row>
             </div>
           ))}

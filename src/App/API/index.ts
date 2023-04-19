@@ -4,4 +4,4 @@ export * from "./desk";
 export * from "./customers";
 export * from "./chair";
 export * from "./booking";
-export * from "./product";
+export * from "./products";
