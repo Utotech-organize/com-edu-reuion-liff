@@ -7,6 +7,7 @@ import {
   Link,
   useLoaderData,
   useLocation,
+  useNavigate,
   useNavigation,
 } from "react-router-dom";
 
@@ -24,8 +25,6 @@ export async function DesksIndexLoader({ request, params }: any) {
 
     return { desks: desks.data.data };
   } catch (e: any) {
-    localStorage.removeItem("token");
-
     return { data: null };
   }
 }
@@ -35,11 +34,18 @@ export default function ReserveTablePage(props: any) {
   const { desks } = useLoaderData() as any;
   const [loading, setIsLoading] = useState(true);
   const { state } = useNavigation();
-
-  console.log(state);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const res = getMe();
+    const fetchData = async () => {
+      const data = (await getMe(false)) as any;
+      window.scrollTo(0, 0);
+    };
+
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
   }, []);
 
   const exportColorWithStatus = (status: any) => {

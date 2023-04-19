@@ -17,7 +17,7 @@ export const initLIFF = async () => {
   }
 };
 
-export const getMe = async () => {
+export const getMe = async (register?: boolean) => {
   try {
     const lineProfile = localStorage.getItem("line_profile") as any;
     const profileData = JSON.parse(lineProfile);
@@ -28,7 +28,7 @@ export const getMe = async () => {
   } catch (error: any) {
     console.log({ error });
 
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && register) {
       // return redirect("/");
       window.location.href = "/";
     }
