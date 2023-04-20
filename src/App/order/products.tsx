@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, Button, Image, Row, Typography } from "antd";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 
 import Appbar from "../../components/appbar";
@@ -86,20 +86,23 @@ export default function ProductPage() {
         style={{ minHeight: "calc(100vh - 50px)", overflow: "auto" }}
       >
         <Row justify="space-between">
-          <div
-            style={{
-              width: "50px",
-              height: "50px",
-              backgroundColor: "grey",
-              borderRadius: "10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => {}}
-          >
-            <ShoppingCartOutlined style={{ fontSize: "30px" }} />
-          </div>
+          <Link to={currentCart.length ? "/cart" : ""}>
+            <div
+              style={{
+                width: "50px",
+                height: "50px",
+                backgroundColor: "grey",
+                borderRadius: "10px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <ShoppingCartOutlined
+                style={{ fontSize: "30px", color: "black" }}
+              />
+            </div>
+          </Link>
 
           <Row align="middle">
             <Typography className="black-text"> {lineName}</Typography>
@@ -126,7 +129,6 @@ export default function ProductPage() {
                 margin: "10px",
                 border: `3px solid  ${d.quantity > 0 ? "red" : "white"}`,
               }}
-              onClick={() => {}}
             >
               <Image preview={false} key={d.id} src={d.image}></Image>
 

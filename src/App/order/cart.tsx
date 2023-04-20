@@ -119,20 +119,23 @@ export default function CartPage() {
           disabled={loading}
         >
           <Row justify="space-between">
-            <div
-              style={{
-                width: "50px",
-                height: "50px",
-                backgroundColor: "grey",
-                borderRadius: "10px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() => {}}
-            >
-              <AppstoreAddOutlined style={{ fontSize: "30px" }} />
-            </div>
+            <Link to="/products">
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  backgroundColor: "grey",
+                  borderRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <AppstoreAddOutlined
+                  style={{ fontSize: "30px", color: "black" }}
+                />
+              </div>
+            </Link>
 
             <Row align="middle">
               <Typography className="black-text"> {lineName}</Typography>

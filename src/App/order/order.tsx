@@ -2,6 +2,7 @@ import { Button, Form, Input, List, Row, Typography } from "antd";
 import Appbar from "../../components/appbar";
 
 import { AppstoreAddOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 export default function OrdersPage() {
   const lineName = "P2W";
@@ -36,20 +37,21 @@ export default function OrdersPage() {
           autoComplete="off"
         >
           <Row justify="space-between">
-            <div
-              style={{
-                width: "50px",
-                height: "50px",
-                backgroundColor: "grey",
-                borderRadius: "10px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() => {}}
-            >
-              <AppstoreAddOutlined style={{ fontSize: "30px" }} />
-            </div>
+            <Link to="/products">
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  backgroundColor: "grey",
+                  borderRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <AppstoreAddOutlined style={{ fontSize: "30px" }} />
+              </div>
+            </Link>
 
             <Row align="middle">
               <Typography className="black-text"> {lineName}</Typography>
