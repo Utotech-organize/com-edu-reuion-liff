@@ -217,8 +217,12 @@ export default function CartPage() {
           </div>
 
           <div
-            className="footer-order"
-            style={{ display: "flex", flexDirection: "row", columnGap: 12 }}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              columnGap: 12,
+              padding: "12px",
+            }}
           >
             <Button shape="round" block>
               <Link to="/products">
