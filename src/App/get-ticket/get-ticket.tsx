@@ -32,17 +32,12 @@ export default function GetTicketPage() {
       line_display_name: data.line_display_name,
       line_photo_url: data.line_photo_url,
     };
-    console.log(values);
 
     try {
       const res = await API.getTicket(values);
-      console.log({ res });
 
       navigate(`/reply-info/`);
     } catch (error) {}
-    console.log(v);
-
-    console.log("in on finish");
   };
 
   const onFinishFailed = (errorInfo: any) => {

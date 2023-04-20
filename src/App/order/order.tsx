@@ -1,102 +1,147 @@
-import { Button, Card, Form, Image, Input, List, Row, Typography } from "antd";
+import { Button, Form, Input, List, Row, Typography } from "antd";
 import Appbar from "../../components/appbar";
-import Giraffe from "../../Static/images/Giraffe.png";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 
-import * as API from "../API";
-import { getMe } from "../../config/liff";
-import { useLoaderData } from "react-router-dom";
+import { AppstoreAddOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
-export async function ProductIndexLoader({ request, params }: any) {
-  try {
-    const data = await getMe();
-    const products = await API.getAllProduct();
-    // console.log({ data });
-
-    return { products: products.data.data, data: data?.user.data };
-  } catch (e: any) {
-    return { data: null };
-  }
-}
-
-
-export default function OrderPage() {
-  const { data, products } = useLoaderData() as any;
+export default function OrdersPage() {
   const lineName = "P2W";
 
-  // console.log("-----------");
+  const cart = localStorage.getItem("cart");
+  const currentCart = cart ? JSON.parse(cart) : [];
 
-  console.log({ products });
+  const onFinish = async (v: any) => {
+    try {
+    } catch (error) {}
+  };
 
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div
       style={{
         width: "100%",
         height: "100%",
-        marginBottom: "50px",
       }}
     >
       <Appbar />
 
       <div className="app-layout">
-        <Row justify="space-between">
-          <div
-            style={{
-              width: "50px",
-              height: "50px",
-              backgroundColor: "grey",
-              borderRadius: "10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => {}}
-          >
-            <ShoppingCartOutlined style={{ fontSize: "30px" }} />
-          </div>
-
-          <Row align="middle">
-            <Typography className="black-text"> {lineName}</Typography>
+        <Form
+          name="basic"
+          style={{ width: "100%", marginTop: "50px" }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Row justify="space-between">
             <div
               style={{
                 width: "50px",
                 height: "50px",
-                marginLeft: "10px",
                 backgroundColor: "grey",
-                borderRadius: "30px",
-              }}
-            ></div>
-          </Row>
-        </Row>
-
-        <Typography className="white-header" style={{ marginBottom: "20px" }}>
-          สั่งของในงาน
-        </Typography>
-        <div className="grid-container-order">
-          {products.map((d: any) => (
-            <div
-              className="grid-item"
-              style={{
-                backgroundColor: "white",
                 borderRadius: "10px",
-                margin: "10px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
               onClick={() => {}}
             >
-              <Image preview={false} key={d.id} src={d.image}></Image>
-
-              <Row justify="space-around">
-                <Typography className="black-sm-text">{d.label}</Typography>
-                <Typography className="black-sm-text">{d.price} บาท</Typography>
-              </Row>
-              <Row justify="space-between" align="middle">
-                <Button>-</Button>
-                <Typography>0</Typography>
-                <Button>+</Button>
-              </Row>
+              <AppstoreAddOutlined style={{ fontSize: "30px" }} />
             </div>
-          ))}
-        </div>
+
+            <Row align="middle">
+              <Typography className="black-text"> {lineName}</Typography>
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  marginLeft: "10px",
+                  backgroundColor: "grey",
+                  borderRadius: "30px",
+                }}
+              ></div>
+            </Row>
+          </Row>
+
+          <Typography className="white-header" style={{ marginBottom: "20px" }}>
+            ของที่เลือก
+          </Typography>
+          <div style={{ marginLeft: "10px", marginRight: "10px" }}>
+            <Typography
+              className="white-text"
+              style={{
+                marginTop: "27px",
+                marginBottom: "5px",
+                textAlign: "start",
+              }}
+            >
+              โต๊ะ
+            </Typography>
+            <Form.Item
+              name="slug"
+              rules={[{ required: false }]}
+              style={{
+                textAlign: "center",
+              }}
+            >
+              <Input size="large" placeholder="กรุณากรอก โต๊ะของคุณ !!" />
+            </Form.Item>
+          </div>
+          <List
+            size="small"
+            style={{ marginTop: "30px" }}
+            dataSource={currentCart}
+            renderItem={(data: any) => (
+              <List.Item>
+                <div style={{ width: "100%", backgroundColor: "white" }}>
+                  <Row justify="space-around" align="middle">
+                    <div style={{}}>
+                      <Typography className="black-text">
+                        {data.label}
+                      </Typography>
+                    </div>
+                    <Typography className="black-text">1</Typography>
+                  </Row>
+                </div>
+              </List.Item>
+            )}
+          />
+          <div style={{ marginLeft: "10px", marginRight: "10px" }}>
+            <Typography
+              className="white-text"
+              style={{
+                marginTop: "27px",
+                marginBottom: "5px",
+                textAlign: "start",
+              }}
+            >
+              Remark
+            </Typography>
+            <Form.Item
+              name="slug"
+              rules={[{ required: false }]}
+              style={{
+                textAlign: "center",
+              }}
+            >
+              <Input.TextArea size="large" placeholder="หมายเหตุ" />
+            </Form.Item>
+          </div>
+
+          <div>
+            <Form.Item>
+              <Button
+                shape="round"
+                htmlType="submit"
+                style={{ width: "60%", height: "50px" }}
+              >
+                <Typography className="black-text">ยืนยัน</Typography>
+              </Button>
+            </Form.Item>
+          </div>
+        </Form>
       </div>
     </div>
   );

@@ -1,115 +1,122 @@
-import { Button, Card, Form, Image, Input, List, Row, Typography } from "antd";
-import Appbar from "../../components/appbar";
-
+import {
+  Avatar,
+  Button,
+  Form,
+  Image,
+  Input,
+  List,
+  Row,
+  Typography,
+} from "antd";
+import Swal from "sweetalert2";
+import React, { useState } from "react";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { AppstoreAddOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
-const mockData = [
-  {
-    id: 1,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 2,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 3,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 4,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 5,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 6,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 7,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 8,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 9,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 10,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-];
+import Appbar from "../../components/appbar";
+import { getMe } from "../../config/liff";
+
+import * as API from "../API";
+
+export async function CartIndexLoader({ request, params }: any) {
+  try {
+    const data = await getMe();
+
+    return {
+      data: data?.user.data,
+    };
+  } catch (e: any) {
+    return { products: [], data: null };
+  }
+}
 
 export default function CartPage() {
-  const lineName = "P2W";
-  const table = "A3";
+  const { data } = useLoaderData() as any;
 
-  const onFinish = async (v: any) => {
+  const lineName = data.last_name;
+  const lineLiffId = data.line_liff_id;
+  const linePhoto = data.line_photo_url;
+
+  const cart = localStorage.getItem("cart");
+  const currentCart = cart ? JSON.parse(cart) : [];
+  const [loading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const onFinish = async (values: any) => {
     try {
-    } catch (error) {}
-    console.log(v);
+      Swal.fire({
+        title: "ต้องการที่จะสั่งอาหาร กรุณากดยืนยันเลยฮัฟ",
+        backdrop: false,
+        width: "300px",
+        background: "#4D5667",
+        position: "center",
+        showCancelButton: true,
+        confirmButtonColor: "green",
+        cancelButtonColor: "red",
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "ยกเลิก",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const payload = {
+            ...values,
+            line_liff_id: lineLiffId,
+            products: currentCart.map((d: any) => {
+              return { id: d.id, quantity: d.quantity };
+            }),
+          };
+          const { data } = await API.createOrder(payload);
 
-    console.log("in on finish");
+          Swal.fire({
+            position: "center",
+            backdrop: false,
+            width: "300px",
+            background: "#4D5667",
+            icon: "success",
+            title: "สั่งอาหารสำเร็จ กรุณารออาหารสักครู่นะฮัฟ",
+            showConfirmButton: false,
+            timer: 1800,
+          });
+
+          navigate(`/products`);
+          localStorage.removeItem("cart");
+        }
+      });
+    } catch (error) {
+      console.log({ error });
+      setIsLoading(false);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  React.useEffect(() => {
+    if (currentCart && !currentCart.length) {
+      navigate("/products");
+    }
+  }, []);
+
   return (
     <div
       style={{
         width: "100%",
-        marginBottom: "50px",
-        display: "flex",
-        flexDirection: "column",
+        height: "100%",
       }}
     >
       <Appbar />
 
-      <div className="app-layout">
+      <div
+        className="app-layout"
+        style={{ minHeight: "calc(100vh - 50px)", overflow: "auto" }}
+      >
         <Form
           name="basic"
-          style={{ width: "100%", marginTop: "50px" }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
+          disabled={loading}
         >
           <Row justify="space-between">
             <div
@@ -129,15 +136,7 @@ export default function CartPage() {
 
             <Row align="middle">
               <Typography className="black-text"> {lineName}</Typography>
-              <div
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  marginLeft: "10px",
-                  backgroundColor: "grey",
-                  borderRadius: "30px",
-                }}
-              ></div>
+              <Avatar src={linePhoto} size="large" />
             </Row>
           </Row>
 
@@ -156,8 +155,13 @@ export default function CartPage() {
               โต๊ะ
             </Typography>
             <Form.Item
-              name="slug"
-              rules={[{ required: false }]}
+              name="desk_label"
+              rules={[
+                {
+                  required: true,
+                  message: "กรุณากรอกหมายเลขโต๊ะของท่าน",
+                },
+              ]}
               style={{
                 textAlign: "center",
               }}
@@ -167,18 +171,21 @@ export default function CartPage() {
           </div>
           <List
             size="small"
-            style={{ marginTop: "30px" }}
-            dataSource={mockData}
+            style={{ marginTop: "30px", height: "40vh", overflow: "auto" }}
+            dataSource={currentCart}
             renderItem={(data: any) => (
               <List.Item>
                 <div style={{ width: "100%", backgroundColor: "white" }}>
-                  <Row justify="space-around" align="middle">
-                    <div style={{}}>
-                      <Typography className="black-text">
-                        {data.label}
-                      </Typography>
-                    </div>
-                    <Typography className="black-text">1</Typography>
+                  <Row
+                    justify="space-between"
+                    align="middle"
+                    style={{ padding: "10px" }}
+                  >
+                    <Image src={data.image} style={{ maxWidth: "80px" }} />
+                    <Typography className="black-text">{data.label}</Typography>
+                    <Typography className="black-text">
+                      {data.quantity}
+                    </Typography>
                   </Row>
                 </div>
               </List.Item>
@@ -196,7 +203,7 @@ export default function CartPage() {
               Remark
             </Typography>
             <Form.Item
-              name="slug"
+              name="remark"
               rules={[{ required: false }]}
               style={{
                 textAlign: "center",
@@ -206,16 +213,18 @@ export default function CartPage() {
             </Form.Item>
           </div>
 
-          <div>
-            <Form.Item>
-              <Button
-                shape="round"
-                htmlType="submit"
-                style={{ width: "60%", height: "50px" }}
-              >
-                <Typography className="black-text">ยืนยัน</Typography>
-              </Button>
-            </Form.Item>
+          <div
+            className="footer-order"
+            style={{ display: "flex", flexDirection: "row", columnGap: 12 }}
+          >
+            <Button shape="round" block>
+              <Link to="/products">
+                <Typography className="black-text">แก้ไข</Typography>
+              </Link>
+            </Button>
+            <Button block shape="round" htmlType="submit" loading={loading}>
+              <Typography className="black-text">ยืนยัน</Typography>
+            </Button>
           </div>
         </Form>
       </div>
