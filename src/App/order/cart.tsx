@@ -6,6 +6,7 @@ import {
   Input,
   List,
   Row,
+  Space,
   Typography,
 } from "antd";
 import Swal from "sweetalert2";
@@ -33,7 +34,7 @@ export async function CartIndexLoader({ request, params }: any) {
 export default function CartPage() {
   const { data } = useLoaderData() as any;
 
-  const lineName = data.last_name;
+  const lineName = data.line_display_name;
   const lineLiffId = data.line_liff_id;
   const linePhoto = data.line_photo_url;
 
@@ -138,8 +139,10 @@ export default function CartPage() {
             </Link>
 
             <Row align="middle">
-              <Typography className="black-text"> {lineName}</Typography>
-              <Avatar src={linePhoto} size="large" />
+              <Space size="middle">
+                <Typography className="black-text"> {lineName}</Typography>
+                <Avatar src={linePhoto} size="large" />
+              </Space>
             </Row>
           </Row>
 
