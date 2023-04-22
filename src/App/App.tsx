@@ -28,6 +28,8 @@ import GetTicketPage, { GetTicketLoader } from "./get-ticket/get-ticket";
 import { Spin } from "antd";
 import CartPage, { CartIndexLoader } from "./order/cart";
 import ProductPage from "./order/products";
+import { ScanCode } from "./scanCode";
+import { MapTableLoader, MyTable } from "./myTable";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -35,7 +37,11 @@ const AppLayout = () => {
 
   //Auth with line
   useEffect(() => {
-    if (location.pathname !== "/reserve-table") {
+    if (
+      location.pathname !== "/reserve-table" &&
+      location.pathname !== "/scan-code" &&
+      location.pathname !== "/my-table"
+    ) {
       initLIFF();
     }
   }, []);
@@ -114,6 +120,15 @@ export default function App() {
         },
         { path: "loading", element: <LoadingPage /> },
         { path: "error", element: <ErrorPage /> },
+        {
+          path: "/scan-code",
+          element: <ScanCode />,
+        },
+        {
+          path: "/my-table",
+          loader: MapTableLoader,
+          element: <MyTable />,
+        },
       ],
     },
   ]);
