@@ -192,7 +192,7 @@ export default function RegisterPage() {
             </Form.Item>
             <Row style={{ textAlign: "start", marginTop: "50px" }}>
               <Image preview={false} width={80} src={Giraffe} />
-              <div style={{ marginLeft: "10px" }}>
+              <div style={{ marginLeft: "10px", marginBottom: "30px" }}>
                 <Typography
                   className="yellow-text"
                   style={{ fontSize: "14px" }}

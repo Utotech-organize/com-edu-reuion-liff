@@ -292,3 +292,13 @@ body {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 4px;
 }
+
+.footer-order {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 20px;
+  z-index: 10;
+}

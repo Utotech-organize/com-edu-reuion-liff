@@ -20,20 +20,20 @@ import ErrorPage from "./error/error";
 
 import { initLIFF } from "../config/liff";
 import LoadingPage from "../components/loading";
-import OrderPage, { ProductIndexLoader } from "./order/order";
+import { ProductIndexLoader } from "./order/products";
 import SingleReplyInfoPage, {
   SingleReplyLoader,
 } from "./single-reply-info/single-reply-info";
 import GetTicketPage, { GetTicketLoader } from "./get-ticket/get-ticket";
 import { Spin } from "antd";
-import CartPage from "./order/cart";
+import CartPage, { CartIndexLoader } from "./order/cart";
+import ProductPage from "./order/products";
 
 const AppLayout = () => {
   const location = useLocation();
   const { state } = useNavigation();
 
-  console.log(location);
-
+  //Auth with line
   useEffect(() => {
     if (location.pathname !== "/reserve-table") {
       initLIFF();
@@ -96,8 +96,22 @@ export default function App() {
           loader: GetTicketLoader,
           element: <GetTicketPage />,
         },
-        { path: "order", element: <OrderPage />, loader: ProductIndexLoader },
-        { path: "cart", element: <CartPage /> },
+        {
+          path: "products",
+          element: <ProductPage />,
+          loader: ProductIndexLoader,
+        },
+
+        {
+          path: "cart",
+          element: <CartPage />,
+          loader: CartIndexLoader,
+        },
+        {
+          path: "orders",
+          element: <ProductPage />,
+          loader: ProductIndexLoader,
+        },
         { path: "loading", element: <LoadingPage /> },
         { path: "error", element: <ErrorPage /> },
       ],

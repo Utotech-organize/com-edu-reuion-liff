@@ -116,7 +116,6 @@ export default function ReserveChairPage() {
       setSelectedSeat(prev);
     }
   };
-  console.log({ state });
 
   const exportColorWithStatus = (status: any) => {
     let color = "";
