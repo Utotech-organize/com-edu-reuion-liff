@@ -1,167 +1,149 @@
-import { Button, Card, Form, Image, Input, List, Row, Typography } from "antd";
+import { Button, Form, Input, List, Row, Typography } from "antd";
 import Appbar from "../../components/appbar";
-import Giraffe from "../../Static/images/Giraffe.png";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 
-import * as API from "../API";
-import { getMe } from "../../config/liff";
-import { useLoaderData } from "react-router-dom";
+import { AppstoreAddOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
-export async function ProductIndexLoader({ request, params }: any) {
-  try {
-    const data = await getMe();
-    const products = await API.getProducts();
-
-    console.log({ data });
-    console.log({ products });
-
-    return { products: products.data.data, data: data?.user.data };
-  } catch (e: any) {
-    return { data: null };
-  }
-}
-
-const mockData = [
-  {
-    id: 1,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 2,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 3,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 4,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 5,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 6,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 7,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 8,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 9,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-  {
-    id: 10,
-    image:
-      "https://www.tipawanfood.com/wp-content/uploads/2015/09/202-%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B9%82%E0%B8%AA%E0%B8%A1.jpg",
-    label: "โซดา",
-    price: "20",
-  },
-];
-
-export default function OrderPage() {
-  const { products, data } = useLoaderData() as any;
+export default function OrdersPage() {
   const lineName = "P2W";
 
+  const cart = localStorage.getItem("cart");
+  const currentCart = cart ? JSON.parse(cart) : [];
+
+  const onFinish = async (v: any) => {
+    try {
+    } catch (error) {}
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div
       style={{
         width: "100%",
         height: "100%",
-        marginBottom: "50px",
       }}
     >
       <Appbar />
 
       <div className="app-layout">
-        <Row justify="space-between">
-          <div
-            style={{
-              width: "50px",
-              height: "50px",
-              backgroundColor: "grey",
-              borderRadius: "10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onClick={() => {}}
-          >
-            <ShoppingCartOutlined style={{ fontSize: "30px" }} />
+        <Form
+          name="basic"
+          style={{ width: "100%", marginTop: "50px" }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Row justify="space-between">
+            <Link to="/products">
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  backgroundColor: "grey",
+                  borderRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <AppstoreAddOutlined style={{ fontSize: "30px" }} />
+              </div>
+            </Link>
+
+            <Row align="middle">
+              <Typography className="black-text"> {lineName}</Typography>
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  marginLeft: "10px",
+                  backgroundColor: "grey",
+                  borderRadius: "30px",
+                }}
+              ></div>
+            </Row>
+          </Row>
+
+          <Typography className="white-header" style={{ marginBottom: "20px" }}>
+            ของที่เลือก
+          </Typography>
+          <div style={{ marginLeft: "10px", marginRight: "10px" }}>
+            <Typography
+              className="white-text"
+              style={{
+                marginTop: "27px",
+                marginBottom: "5px",
+                textAlign: "start",
+              }}
+            >
+              โต๊ะ
+            </Typography>
+            <Form.Item
+              name="slug"
+              rules={[{ required: false }]}
+              style={{
+                textAlign: "center",
+              }}
+            >
+              <Input size="large" placeholder="กรุณากรอก โต๊ะของคุณ !!" />
+            </Form.Item>
+          </div>
+          <List
+            size="small"
+            style={{ marginTop: "30px" }}
+            dataSource={currentCart}
+            renderItem={(data: any) => (
+              <List.Item>
+                <div style={{ width: "100%", backgroundColor: "white" }}>
+                  <Row justify="space-around" align="middle">
+                    <div style={{}}>
+                      <Typography className="black-text">
+                        {data.label}
+                      </Typography>
+                    </div>
+                    <Typography className="black-text">1</Typography>
+                  </Row>
+                </div>
+              </List.Item>
+            )}
+          />
+          <div style={{ marginLeft: "10px", marginRight: "10px" }}>
+            <Typography
+              className="white-text"
+              style={{
+                marginTop: "27px",
+                marginBottom: "5px",
+                textAlign: "start",
+              }}
+            >
+              Remark
+            </Typography>
+            <Form.Item
+              name="slug"
+              rules={[{ required: false }]}
+              style={{
+                textAlign: "center",
+              }}
+            >
+              <Input.TextArea size="large" placeholder="หมายเหตุ" />
+            </Form.Item>
           </div>
 
-          <Row align="middle">
-            <Typography className="black-text"> {lineName}</Typography>
-            <div
-              style={{
-                width: "50px",
-                height: "50px",
-                marginLeft: "10px",
-                backgroundColor: "grey",
-                borderRadius: "30px",
-              }}
-            ></div>
-          </Row>
-        </Row>
-
-        <Typography className="white-header" style={{ marginBottom: "20px" }}>
-          สั่งของในงาน
-        </Typography>
-        <div className="grid-container-order">
-          {mockData.map((d: any) => (
-            <div
-              className="grid-item"
-              style={{
-                backgroundColor: "white",
-                borderRadius: "10px",
-                margin: "10px",
-              }}
-              onClick={() => {}}
-            >
-              <Image preview={false} key={d.id} src={d.image}></Image>
-
-              <Row justify="space-around">
-                <Typography className="black-sm-text">{d.label}</Typography>
-                <Typography className="black-sm-text">{d.price} บาท</Typography>
-              </Row>
-            </div>
-          ))}
-        </div>
+          <div>
+            <Form.Item>
+              <Button
+                shape="round"
+                htmlType="submit"
+                style={{ width: "60%", height: "50px" }}
+              >
+                <Typography className="black-text">ยืนยัน</Typography>
+              </Button>
+            </Form.Item>
+          </div>
+        </Form>
       </div>
     </div>
   );
