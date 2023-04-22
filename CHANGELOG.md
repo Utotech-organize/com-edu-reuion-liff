@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.5.0...1.5.1) (2023-04-22)
+
+
+### Bug Fixes
+
+* **disabled btn when no products:** disabled btn when no products ([5d61f32](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/5d61f32ea5e5811d2756c44bfb9eb9ac360f87d0))
+
 ## [1.5.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.4.1...1.5.0) (2023-04-22)
 
 
