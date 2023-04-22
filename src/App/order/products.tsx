@@ -88,23 +88,37 @@ export default function ProductPage() {
         style={{ minHeight: "calc(100vh - 50px)", overflow: "auto" }}
       >
         <Row justify="space-between">
-          <Link to={currentCart.length ? "/cart" : ""}>
+          {currentCart?.length ? (
+            <Link to={currentCart.length ? "/cart" : ""}>
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  backgroundColor: "grey",
+                  borderRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ShoppingCartOutlined
+                  style={{ fontSize: "30px", color: "black" }}
+                />
+              </div>
+            </Link>
+          ) : (
             <div
               style={{
                 width: "50px",
                 height: "50px",
-                backgroundColor: "grey",
+                backgroundColor: "#475154",
                 borderRadius: "10px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
-            >
-              <ShoppingCartOutlined
-                style={{ fontSize: "30px", color: "black" }}
-              />
-            </div>
-          </Link>
+            ></div>
+          )}
 
           <Row align="middle">
             <Space size="middle">
@@ -159,7 +173,7 @@ export default function ProductPage() {
             htmlType="submit"
             style={{ width: "60%", height: "50px" }}
             onClick={onConfirm}
-            disabled={hasProduct && hasProduct.length > 0}
+            disabled={!hasProduct?.length}
           >
             <Typography className="black-text">ยืนยัน</Typography>
           </Button>
