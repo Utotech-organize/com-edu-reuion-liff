@@ -24,7 +24,7 @@ export async function ProductIndexLoader({ request, params }: any) {
 export default function ProductPage() {
   const { data, products } = useLoaderData() as any;
   const navigate = useNavigate();
-  const lineName = data.last_name;
+  const lineName = data.line_display_name;
   const linePhoto = data.line_photo_url;
 
   const cart = localStorage.getItem("cart");
@@ -71,6 +71,8 @@ export default function ProductPage() {
       return [...d];
     });
   };
+
+  const hasProduct = allProduct.filter((d: any) => d.quantity > 0);
 
   return (
     <div
@@ -155,6 +157,7 @@ export default function ProductPage() {
             htmlType="submit"
             style={{ width: "60%", height: "50px" }}
             onClick={onConfirm}
+            disabled={hasProduct && hasProduct.length > 0}
           >
             <Typography className="black-text">ยืนยัน</Typography>
           </Button>
