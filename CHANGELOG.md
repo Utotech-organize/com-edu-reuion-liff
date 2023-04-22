@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.4](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.5.3...1.5.4) (2023-04-22)
+
+
+### Bug Fixes
+
+* **check to confirm cart:** check to confirm cart ([f0d5c04](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/f0d5c048f394ff514c2c8c1b3a2d8e1629433dba))
+* **some fixed:** some fixed ([7300456](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/7300456d29928ef1edf1768e8dd43eca3c1a9c06))
+
 ### [1.5.3](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.5.2...1.5.3) (2023-04-22)
 
 
