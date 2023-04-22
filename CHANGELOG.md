@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.5](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.5.4...1.5.5) (2023-04-22)
+
 ### [1.5.4](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.5.3...1.5.4) (2023-04-22)
 
 
