@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button, Image, Row, Typography } from "antd";
+import { Avatar, Button, Image, Row, Space, Typography } from "antd";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 
@@ -107,8 +107,10 @@ export default function ProductPage() {
           </Link>
 
           <Row align="middle">
-            <Typography className="black-text"> {lineName}</Typography>
-            <Avatar src={linePhoto} size="large" />
+            <Space size="middle">
+              <Typography className="black-text"> {lineName}</Typography>
+              <Avatar src={linePhoto} size="large" />
+            </Space>
           </Row>
         </Row>
 
