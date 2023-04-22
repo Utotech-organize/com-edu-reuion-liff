@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.4.1...1.5.0) (2023-04-22)
+
+
+### Features
+
+* **order and cart:** adding products and cart pages ([f5ac9bf](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/f5ac9bf5abccc01e79569d65787e785a396ac9e2))
+
+
+### Bug Fixes
+
+* **adding back btn:** add btn link to product and cart pages ([ad90707](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/ad907078c131f4adfdaf9f4f9f16a16fc2d5842a))
+* **cart:** add text fleid in cart page ([b7d8654](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/b7d865430ca10e162948c74bd50aca06f9b320c1))
+* **clear-commit:** clear commit ([4bc1e38](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/4bc1e38bf8107c4df547cfc39945306f9b9acaf4))
+* **css order:** css order ([e7bf2ea](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/e7bf2eae8fa28bb29d763a5a5328b3f646a6570c))
+* **get-api:** get api all product in index product page ([35b7633](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/35b7633a3246631364af5cc11e85de0b790f3234))
+* **test:** test ([81f42bb](https://github.com/Tweed-tech/com-edu-reuion-liff/commit/81f42bb43f5939cdb7cf91f964cfb14c8c854168))
+
 ### [1.4.1](https://github.com/Tweed-tech/com-edu-reuion-liff/compare/1.4.0...1.4.1) (2023-04-18)
 
 
