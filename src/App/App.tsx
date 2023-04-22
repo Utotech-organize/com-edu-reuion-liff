@@ -35,9 +35,9 @@ const AppLayout = () => {
 
   //Auth with line
   useEffect(() => {
-    // if (location.pathname !== "/reserve-table") {
-    //   initLIFF();
-    // }
+    if (location.pathname !== "/reserve-table") {
+      initLIFF();
+    }
   }, []);
 
   return (
